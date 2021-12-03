@@ -9,6 +9,7 @@ const session = require('./src/middleware/createSession');
 const isUser = require('./src/middleware/isUser');
 
 const authRouter = require('./src/routes/auth');
+const StoreRoutes = require('./src/routes/profile')
 
 const app = express();
 
@@ -33,5 +34,6 @@ app.use(passport.session());
 app.use(isUser);
 
 app.use('/auth', authRouter);
+app.use('/profile', StoreRoutes);
 
 module.exports = app;
