@@ -10,7 +10,7 @@ export const Footer = () => {
               <div className="mt-8 sm:mt-0 sm:w-full sm:px-8 flex flex-col md:flex-row justify-between">
                   <div className="flex flex-col">
                       <span className="font-small text-white text-3xl font-bold">DeliFood</span>
-                      <span className=" text-gray-400 mb-2">Striving toward zero-waste step by step</span>
+                      <span className=" text-gray-400 mb-2">Striving towards zero-waste step by step</span>
                       <span className="my-2"><a href="#" className="text-gray-200 text-md hover:text-gray-500">Contact Us</a></span>
                   </div>
                   <div className="flex flex-col">

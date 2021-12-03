@@ -1,6 +1,5 @@
 import { LinkButton } from '../Buttons/LinkButton'
 import { Footer } from '../Footer'
-// import { motion } from 'framer-motion';
 import { Link } from "react-router-dom";
 
 export default function Home() {
@@ -68,24 +67,10 @@ export default function Home() {
 
           <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
             <div className="sm:text-center lg:text-left">
-            {/* <motion.div initial="hidden" animate="visible" variants={{
-              hidden: {
-                scale: .8,
-                opacity: 0
-              },
-              visible: {
-                scale: 1,
-                opacity: 1,
-                transition: {
-                  delay: .4
-                }
-              },
-              }}>
                 <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
                   <span className="block xl:inline">Let's battle </span>
                   <span className="block text-green-500 xl:inline"> food waste together</span>
                 </h1>
-              </motion.div> */}
               <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                 Get a mystery box through DeliFood and help us get our planet free of food-waste step by step. Just log in, browse and get amazing food from your local restaurants. Did we mention great savings?
               </p>

@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
 import { NavDropdownNoUser } from './no user/NavDropdownNoUser';
 import { NavLinksNoUser } from './no user/NavLinksNoUser';
 
 export const Nav = () => {
 
   const user = useSelector((store) => (store?.user));
+  const location = useLocation();
 
   return (
+    !/home/.test(location.pathname) &&
     <nav className="bg-green-800 pt-4">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
