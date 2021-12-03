@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 export const NavDropdownNoUser = () => {
-
   return (
       <div className="sm:hidden" id="mobile-menu">
         <div className="px-2 pt-2 pb-3 space-y-1">
@@ -16,8 +15,4 @@ export const NavDropdownNoUser = () => {
       </div>
   )
 }
-
-
-
-
 
