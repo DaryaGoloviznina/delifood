@@ -1,9 +1,9 @@
-import { ACTypes } from './types';
+import { ACTypes } from '../types';
 
 const initialState = {
   user: null
 }
-export const reducers = (state = initialState, action) => {
+export const auth = (state = initialState, action) => {
   switch (action.type) {
 
     case ACTypes.SET_AUTH:
