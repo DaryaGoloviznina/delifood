@@ -1,7 +1,4 @@
-import { Link } from "react-router-dom";
-
 export const Footer = () => {
-
   return (
     <footer className="footer bg-green-900 relative pt-1 border-b-2 border-gray-700">
       <div className="container mx-auto px-6">
@@ -40,8 +37,3 @@ export const Footer = () => {
     </footer>
   )
 }
-
-
-
-
-

@@ -1,14 +1,21 @@
+const passport = require('passport');
 const express = require('express');
 const logger = require('morgan');
-// const passport = require('passport');
+const path = require('path');
 const cors = require('cors');
+require('dotenv').config();
+
+const session = require('./src/middleware/createSession');
+const isUser = require('./src/middleware/isUser');
+
+const authRouter = require('./src/routes/auth');
 
 const app = express();
 
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.use(logger('dev'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(
   cors({
@@ -17,7 +24,14 @@ app.use(
   }),
 );
 
-// app.use(passport.initialize()); // этот мидлвер необходим для корректной работы passport
-// app.use(passport.session()); // этот мидлвер необходим для корректной работы passport
+app.use(session);
+
+//passport initialization
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(isUser);
+
+app.use('/auth', authRouter);
 
 module.exports = app;

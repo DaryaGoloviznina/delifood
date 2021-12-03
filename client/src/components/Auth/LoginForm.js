@@ -1,10 +1,19 @@
-import { Link } from "react-router-dom";
-import React, { useState } from 'react';
-import { useRoutes } from 'react-router';
-import { ActionButton } from '../Buttons/ActionButton'
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from "react-router-dom";
+import { authUserThunk } from '../../store/auth/actions.js'
 
 export const LoginForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const authUser = (event) => {
+    event.preventDefault();
+
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    dispatch(authUserThunk({email, password, navigate}));
+  }
   
   return (
     <div className="flex items-center min-h-screen bg-gray-50">
@@ -15,7 +24,9 @@ export const LoginForm = () => {
               alt="img" />
           </div>
           <div className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
-            <div className="w-full">
+            <form 
+            className="w-full"
+            onSubmit={authUser}>
               <div className="flex justify-center">
                 <img src="https://img.icons8.com/office/40/000000/broccoli.png"/>
               </div>
@@ -26,7 +37,9 @@ export const LoginForm = () => {
                 <label className="block text-sm">
                   Email
                 </label>
-                <input type="email"
+                <input 
+                  name="email"
+                  type="email"
                   className="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                   placeholder="Email Address" />
               </div>
@@ -35,12 +48,15 @@ export const LoginForm = () => {
                   Password
                 </label>
                 <input
+                  name="password"
                   className="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                  placeholder="Password" type="password" />
+                  placeholder="Password" 
+                  type="password" />
               </div>
               <button
+                type="submit"
                 className="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-green-500 border border-transparent rounded-lg active:bg-blue-600 hover:bg-green-700 focus:outline-none focus:shadow-outline-blue"
-                href="#">
+                >
                 Log In
               </button>
 
@@ -53,7 +69,7 @@ export const LoginForm = () => {
                   </Link>
                 </p>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
