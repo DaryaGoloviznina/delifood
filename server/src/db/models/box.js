@@ -18,8 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     descr: DataTypes.TEXT,
     count: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
-    range: DataTypes.STRING,
-    store_id: DataTypes.INTEGER
+    start_date: DataTypes.DATE,
+    end_date: DataTypes.DATE,
+    store_id: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Box',

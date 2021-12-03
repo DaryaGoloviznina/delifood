@@ -16,6 +16,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'Clients', key: 'id' },
       },
+      picked_up: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
