@@ -9,6 +9,7 @@ const isUser = require('./src/middleware/isUser');
 
 const authRouter = require('./src/routes/auth');
 const StoreRoutes = require('./src/routes/profile')
+const boxesRouter = require('./src/routes/boxes');
 
 const app = express();
 
@@ -29,5 +30,6 @@ app.use(isUser);
 
 app.use('/auth', authRouter);
 app.use('/profile', StoreRoutes);
+app.use('/boxes', boxesRouter);
 
 module.exports = app;

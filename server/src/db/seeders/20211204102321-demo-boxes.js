@@ -40,7 +40,8 @@ module.exports = {
         descr: 'Awesome box here< buy stuff!',
         count: 2,
         price: 5,
-        range: '18:00-20:00 p.m.',
+        start_date: new Date (2021, 11, 4, 17, 30),
+        end_date: new Date (2021, 11, 4, 21, 30),
         store_id: 1,
         createdAt: new Date()
       },
@@ -48,7 +49,8 @@ module.exports = {
         descr: 'Boooox!!!',
         count: 1,
         price: 7,
-        range: '17:00-21:00 p.m.',
+        start_date: new Date (2021, 11, 4, 17, 0),
+        end_date: new Date (2021, 11, 4, 21, 0),
         store_id: 2, 
         createdAt: new Date()
       },
@@ -56,7 +58,8 @@ module.exports = {
         descr: 'Buy our box',
         count: 6,
         price: 3,
-        range: '18:00-23:00 p.m.',
+        start_date: new Date (2021, 11, 4, 14, 30),
+        end_date: new Date (2021, 11, 4, 20, 0),
         store_id: 3, 
         createdAt: new Date()
       },
@@ -64,8 +67,81 @@ module.exports = {
         descr: 'Some stuf, box box',
         count: 1,
         price: 5,
-        range: 'untill 19:00 p.m.',
+        start_date: new Date (2021, 11, 4, 19, 0),
+        end_date: new Date (2021, 11, 4, 21, 0),
         store_id: 4, 
+        createdAt: new Date()
+      },
+    ], {});
+
+    await queryInterface.bulkInsert('Cuisines', 
+    [
+      { name: 'Any Cuisine',
+        createdAt: new Date()
+      },
+      { name: 'Italian',
+        createdAt: new Date()
+      },
+      { name: 'American',
+        createdAt: new Date()
+      },
+      { name: 'French',
+        createdAt: new Date()
+      },
+      { name: 'Japanese',
+        createdAt: new Date()
+      },
+      { name: 'Chinese',
+        createdAt: new Date()
+      },
+      { name: 'Vietnamese',
+        createdAt: new Date()
+      },
+      { name: 'German',
+        createdAt: new Date()
+      },
+      { name: 'Russian',
+        createdAt: new Date()
+      },
+      { name: 'Greek',
+        createdAt: new Date()
+      },
+      { name: 'Spanish',
+        createdAt: new Date()
+      },
+      { name: 'Taiwanese',
+        createdAt: new Date()
+      },
+      { name: 'Kazakh',
+        createdAt: new Date()
+      },
+      { name: 'Georgian',
+        createdAt: new Date()
+      },
+      { name: 'Mexican',
+        createdAt: new Date()
+      },
+      { name: 'Middle Eastern',
+        createdAt: new Date()
+      },
+    ], {});
+
+    await queryInterface.bulkInsert('Stores_Cuisines', 
+    [
+      { store_id: 1,
+        cuisine_id: 2,
+        createdAt: new Date()
+      },
+      { store_id: 2,
+        cuisine_id: 3,
+        createdAt: new Date()
+      },
+      { store_id: 3,
+        cuisine_id: 5,
+        createdAt: new Date()
+      },
+      { store_id: 4,
+        cuisine_id: 4,
         createdAt: new Date()
       },
     ], {});
