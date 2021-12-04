@@ -65,7 +65,7 @@ export const signOutThunk = (navigate) => async (dispatch) => {
 }
 
 //--------------checking if the user is logged in
-export const checkUserThunk = (arg) => async (dispatch) => {
+export const checkUserThunk = () => async (dispatch) => {
   const request = await fetch('/auth/checkUser');
   const { id, name, email, address } = await request.json();
 
@@ -77,4 +77,19 @@ export const checkUserThunk = (arg) => async (dispatch) => {
   if (!id) {
     dispatch(noUser());
   }
+}
+
+export const updateProfile = (profileData) => ({type: ACTypes.UPDATE_PROFILE, payload: profileData})
+
+export const updateProfileThunk = (profileData) => async (dispatch) => {
+  const request = await fetch(`/profile/update`, {
+    method: 'PATCH',
+    body: profileData,
+  });
+
+  if (request.status === 200) {
+    const newProfileData = await request.json();
+    dispatch(updateProfile(newProfileData));
+  }
+  else alert('Some troubles with Server!')
 }

@@ -1,16 +1,21 @@
-require('dotenv').config();
-
 const session = require('express-session');
-const FileStore = require('session-file-store')(session); 
+const PgSessionStore = require('connect-pg-simple')(session);
+require('dotenv').config();
 
 module.exports = session({
   name: 'sid',
-  store: new FileStore({}),
+  store: new PgSessionStore({
+    conString:
+      process.env.NODE_ENV === 'production'
+        ? process.env.DB_URL_PROD
+        : process.env.DB_URL_DEV,
+  }),
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: false,
+    secure: process.env.NODE_ENV === 'production',
     maxAge: 1000 * 60 * 60 * 24 * 10,
   },
-})
+});
+

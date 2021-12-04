@@ -2,7 +2,7 @@ import { ACTypes } from '../types';
 
 const initialState = {
   user: null,
-  business: null
+  business: null,
 }
 export const auth = (state = initialState, action) => {
   switch (action.type) {
@@ -22,6 +22,17 @@ export const auth = (state = initialState, action) => {
         user: null,
         business: null
       }
+
+    case ACTypes.UPDATE_PROFILE:
+      return action.payload.address 
+      ? 
+        {...state, 
+          business: {...state.business, ...action.payload}
+        }
+      : 
+        {...state, 
+          user: {...state.user, ...action.payload}
+        }
 
     default:
       return state;

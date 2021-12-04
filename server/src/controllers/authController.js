@@ -35,10 +35,10 @@ passport.deserializeUser(async (id, done) => {
     const store = await Store.findOne({where: { id: id }});
     
     if (client) {
-      done(null, { id: client.id, name: client.name });
+      done(null, client.toJSON());
     }
     if (store) {
-      done(null, { id: store.id, name: store.name });
+      done(null, store.toJSON());
     }
   } catch (error) {
     done(error);
