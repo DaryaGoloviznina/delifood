@@ -3,11 +3,7 @@ const { Client, Store } = require('../db/models');
 require('dotenv').config();
 
 function serializeUser(user) {
-  return {
-    id: user.id,
-    name: user.name,
-    
-  };
+  return user;
 }
 
 exports.isUser = (req, res) => {
@@ -21,7 +17,7 @@ exports.isUser = (req, res) => {
 };
 
 exports.createUserAndSession = async (req, res) => {
-  const { name, password, email, address } = req.body;
+  const { email, password, address, name } = req.body;
   
   try {
     const client = await Client.findOne({where: { email: email }});
@@ -34,12 +30,7 @@ exports.createUserAndSession = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     
     if (address) {
-      const newStore = await Store.create({
-        name,
-        email,
-        password: hashedPassword,
-        address
-      })
+      const newStore = await Store.create(req.body)
 
       req.session.user = serializeUser(newStore); 
       res.json(newStore);
