@@ -11,7 +11,6 @@ function serializeUser(user) {
 }
 
 exports.isUser = (req, res) => {
-  console.log('userrrrr=>', req.session.user)
   try {
     res.json(
       req.session.user ? req.session.user : false
@@ -41,6 +40,7 @@ exports.createUserAndSession = async (req, res) => {
         password: hashedPassword,
         address
       })
+
       req.session.user = serializeUser(newStore); 
       res.json(newStore);
     } else {
@@ -49,6 +49,7 @@ exports.createUserAndSession = async (req, res) => {
         email,
         password: hashedPassword,
       });
+
       req.session.user = serializeUser(newUser); 
       res.json(newUser);
     }
@@ -77,7 +78,6 @@ exports.checkUserAndCreateSession = async (req, res, next) => {
       res.json(store).end();
     }
     res.status(401).end();
-    
   } catch (err) {
     console.log(err);
   }
