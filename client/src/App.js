@@ -9,6 +9,7 @@ import Home from './components/Home/Home';
 import { RestMap } from './components/Map/Map';
 import { Nav } from './components/NavBar/Nav';
 import { checkUserThunk } from './store/auth/actions'
+import { BoxesPage } from './components/Boxes/BoxesPage';
 
 const routes = [
   {
@@ -30,6 +31,10 @@ const routes = [
   {
     path: '/map',
     element: <RestMap />
+  },
+  {
+    path: '/boxes',
+    element: <BoxesPage />
   },
 ]
 
