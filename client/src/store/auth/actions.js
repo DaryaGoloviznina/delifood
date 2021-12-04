@@ -23,10 +23,10 @@ export const registerUserThunk = (data) => async (dispatch) => {
 
   if (!address) {
     dispatch(setAuthUser(id, name, email));
-    data.navigate('/')
+    data.navigate('/boxes');
   } else {
     dispatch(setAuthBusiness(id, name, email, address ));
-    data.navigate('/')
+    data.navigate('/');
   }
 }
 
