@@ -1,111 +1,91 @@
-const passport = require('passport');
 const bcrypt = require('bcryptjs');
-const passportLocal = require('passport-local');
-const LocalStrategy = passportLocal.Strategy;
 const { Client, Store } = require('../db/models');
 require('dotenv').config();
 
+function serializeUser(user) {
+  return {
+    id: user.id,
+    name: user.name,
+    
+  };
+}
+
 exports.isUser = (req, res) => {
-  console.log('userrrrr=>', req.user)
   try {
     res.json(
-      req.user ? req.user : false
+      req.session.user ? req.session.user : false
     );
   } catch(error) {
     console.log(error);
   }
 };
 
-exports.signOut = (req, res) => {
-  req.session.destroy((err) => {
-    if (err) return res.status(400).end();
-    res.clearCookie('sid');
-    return res.status(200).end();
-  }) 
+exports.createUserAndSession = async (req, res) => {
+  const { name, password, email, address } = req.body;
+  
+  try {
+    const client = await Client.findOne({where: { email: email }});
+    const store = await Store.findOne({where: { email: email }});
+    
+    if (client || store) {
+      res.status(401).end();
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    
+    if (address) {
+      const newStore = await Store.create({
+        name,
+        email,
+        password: hashedPassword,
+        address
+      })
+
+      req.session.user = serializeUser(newStore); 
+      res.json(newStore);
+    } else {
+      const newUser = await Client.create({
+        name,
+        email,
+        password: hashedPassword,
+      });
+
+      req.session.user = serializeUser(newUser); 
+      res.json(newUser);
+    }
+  } catch (err) {
+    console.log(err)
+  }
+  res.end();
 };
 
-passport.serializeUser(async (user, done) => {
-  console.log('serializeUser', user.id);
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
+exports.checkUserAndCreateSession = async (req, res, next) => {
+  const { email, password } = req.body;
+  
   try {
-    const client = await Client.findOne({where: { id: id }});
-    const store = await Store.findOne({where: { id: id }});
+    const client = await Client.findOne({where: { email: email }});
+    const store = await Store.findOne({where: { email: email }});
     
     if (client) {
-      done(null, client.toJSON());
+      await bcrypt.compare(password, client.password);
+      req.session.user = serializeUser(client);
+      res.json(client).end();
     }
+    
     if (store) {
-      done(null, store.toJSON());
+      await bcrypt.compare(password, store.password);
+      req.session.user = serializeUser(store);
+      res.json(store).end();
     }
-  } catch (error) {
-    done(error);
+    res.status(401).end();
+  } catch (err) {
+    console.log(err);
   }
-});
-
-const UserAuth = async (req, email, pass, done) => {
-  const { name, address } = req.body;
-
-  try {
-    //--------------login logic
-    if (/login/.test(req.path)) {
-      const client = await Client.findOne({where: { email: email }});
-      const store = await Store.findOne({where: { email: email }});
-
-      if (!client || !store) return done(null, false);
-      
-      if (client) {
-        if (await bcrypt.compare(pass, client.password)) return done(null, client);
-      }
-      if (store) {
-        if (await bcrypt.compare(pass, store.password)) return done(null, store);
-      }
-      return done(null, false, { message: 'incorrect password' });
-    }
-
-    //------------sign up logic
-    if (/signup/.test(req.path) && name && pass && email) {
-      const client = await Client.findOne({where: { email: email }});
-      const store = await Store.findOne({where: { email: email }});
-      
-      if (client || store) {
-        return done(null, false);
-      } 
-
-      const hashPass = await bcrypt.hash(pass, 10);
-      if (address) {
-        const newStore = await Store.create({
-          name,
-          email,
-          password: hashPass,
-          address
-        })
-        done(null, newStore);
-      } else {
-        const newUser = await Client.create({
-          name,
-          email,
-          password: hashPass,
-        });
-        done(null, newUser);
-      }
-    } else {
-      return done(null, false);
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-passport.use(
-  new LocalStrategy(
-    {
-      usernameField: 'email',
-      passwordField: 'password',
-      passReqToCallback: true,
-    },
-    UserAuth,
-  ),
-);
+}
+exports.destroySession = async (req, res, next) => {
+  req.session.destroy((err) => {
+    if (err) return next(err);
+    res.clearCookie('sid');
+    return res.status(200).end();
+  });
+}

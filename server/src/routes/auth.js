@@ -1,23 +1,24 @@
-const passport = require('passport');
-const { isUser, signOut } = require('../controllers/authController');
 const router = require('express').Router();
+const {   
+  createUserAndSession, 
+  checkUserAndCreateSession,
+  destroySession,
+  isUser } = require('../controllers/authController');
 
-// router.get('/isUser', isUser);
 router
   .route('/checkUser')
   .get(isUser);
 
 router
   .route('/signup')
-  .post(passport.authenticate('local'), isUser);
+  .post(createUserAndSession);
 
 router
   .route('/login')
-  .post(passport.authenticate('local'), isUser);
+  .post(checkUserAndCreateSession);
 
 router
   .route('/signout')
-  .get(signOut);
-
+  .get(destroySession);
 
 module.exports = router;

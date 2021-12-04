@@ -23,15 +23,16 @@ export const registerUserThunk = (data) => async (dispatch) => {
 
   if (!address) {
     dispatch(setAuthUser(id, name, email));
-    data.navigate('/')
+    data.navigate('/boxes');
   } else {
     dispatch(setAuthBusiness(id, name, email, address ));
-    data.navigate('/')
+    data.navigate('/');
   }
 }
 
 //------------fetching server to authenticate the user
 export const authUserThunk = (data) => async (dispatch) => {
+  console.log(data.email, data.password);
   const request = await fetch(`/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
