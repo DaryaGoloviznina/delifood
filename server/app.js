@@ -1,4 +1,3 @@
-const passport = require('passport');
 const express = require('express');
 const logger = require('morgan');
 const path = require('path');
@@ -25,11 +24,6 @@ app.use(
 );
 
 app.use(session);
-
-//passport initialization
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.use(isUser);
 
 app.use('/auth', authRouter);
