@@ -1,4 +1,6 @@
 'use strict';
+const randStr = require('randomstring');
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Stores_Cuisines', {
@@ -16,12 +18,16 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'Cuisines', key: 'id' },
       },
+      order_code: {
+        type: Sequelize.STRING,
+        defaultValue: randStr.generate(6),
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       }
     });

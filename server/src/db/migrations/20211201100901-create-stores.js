@@ -23,20 +23,27 @@ module.exports = {
       address: {
         type: Sequelize.STRING
       },
+      lon: {
+        type: Sequelize.FLOAT,
+      },
+      lat: {
+        type: Sequelize.FLOAT,
+      },
       store_img: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       }
     });
   },
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable('Stores');
   }
 };

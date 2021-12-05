@@ -1,52 +1,78 @@
-import { Link } from "react-router-dom";
-import React, { useState } from 'react';
-import { useRoutes } from 'react-router';
-import { ActionButton } from '../Buttons/ActionButton'
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from "react-router-dom";
+import { authUserThunk } from '../../store/auth/actions.js'
 
 export const LoginForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const authUser = (event) => {
+    event.preventDefault();
+
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    dispatch(authUserThunk({email, password, navigate}));
+  }
   
   return (
-    <>
-    <div className="pt-0 mt-10 mb-9 flex flex-col">
-      <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-        <form className="bg-gray-100 px-6 py-8 rounded shadow-md text-black w-full">
-            <h1 className="mb-8 text-3xl text-center">Log In</h1>
-            <input 
-              type="text"
-              className="block border border-grey-light w-full p-3 rounded mb-4"
-              name="email"
-              placeholder="Email" />
-            <input 
-              type="password"
-              className="block border border-grey-light w-full p-3 rounded mb-4"
-              name="password"
-              placeholder="Password" 
-            />
-            <button
-              type="submit"
-              className="w-full text-center py-3 rounded bg-green-500 text-white hover:bg-green-dark focus:outline-none my-1"
-            >Create Account</button>
+    <div className="flex items-center min-h-screen bg-gray-50">
+      <div className="flex-1 h-full max-w-4xl mx-auto bg-white rounded-lg shadow-xl">
+        <div className="flex flex-col md:flex-row">
+          <div className="h-32 md:h-auto md:w-1/2">
+            <img className="object-cover w-full h-full" src="https://source.unsplash.com/user/erondu/1600x900"
+              alt="img" />
+          </div>
+          <div className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
+            <form 
+            className="w-full"
+            onSubmit={authUser}>
+              <div className="flex justify-center">
+                <img src="https://img.icons8.com/office/40/000000/broccoli.png"/>
+              </div>
+              <h1 className="mb-4 text-2xl font-bold text-center text-gray-700">
+                Log In
+              </h1>
+              <div className="mt-4">
+                <label className="block text-sm">
+                  Email
+                </label>
+                <input 
+                  name="email"
+                  type="email"
+                  className="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                  placeholder="Email Address" />
+              </div>
+              <div>
+                <label className="block mt-4 text-sm">
+                  Password
+                </label>
+                <input
+                  name="password"
+                  className="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                  placeholder="Password" 
+                  type="password" />
+              </div>
+              <button
+                type="submit"
+                className="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-green-500 border border-transparent rounded-lg active:bg-blue-600 hover:bg-green-700 focus:outline-none focus:shadow-outline-blue"
+                >
+                Log In
+              </button>
 
-            {/* <div className="text-center text-sm text-grey-dark mt-4">
-                By loging up, you agree to the 
-                <a className="ml-1 no-underline border-b border-grey-dark text-grey-dark" href="#">
-                    Terms of Service
-                </a> and 
-                <a className="ml-1 no-underline border-b border-grey-dark text-grey-dark" href="#">
-                    Privacy Policy
-                </a>
-            </div> */}
-        </form>
-
-        <div className="text-grey-dark mt-6">
-            Don't have an account?  
-            <Link to="auth/signup" className="ml-1 no-underline border-b border-blue text-blue">
-                Sign up
-            </Link>
+              <div className="mt-4 text-center">
+                <p className="text-sm">Don't have an account yet?
+                  <Link to="/auth/signup">
+                    <a className="ml-1 text-green-600 hover:underline"> 
+                      Sign up.
+                    </a>
+                  </Link>
+                </p>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-    </>
   )
 }

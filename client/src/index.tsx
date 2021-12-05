@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './App.js';
 import { Provider } from 'react-redux';
-import { store } from '../src/store';
+import { store } from '../src/store/index.js';
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(

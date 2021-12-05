@@ -20,8 +20,11 @@ module.exports = {
       price: {
         type: Sequelize.INTEGER
       },
-      range: {
-        type: Sequelize.STRING
+      start_date: {
+        type: Sequelize.DATE
+      },
+      end_date: {
+        type: Sequelize.DATE
       },
       store_id: {
         type: Sequelize.INTEGER,
@@ -32,7 +35,7 @@ module.exports = {
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       }
     });
