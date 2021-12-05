@@ -1,5 +1,7 @@
 const bcrypt = require('bcryptjs');
 const { Client, Store } = require('../db/models');
+const { formatSendData } = require('../lib/formatDBData');
+const { getUser } = require('../lib/getUser');
 require('dotenv').config();
 
 function serializeUser(user) {
@@ -17,62 +19,57 @@ exports.isUser = (req, res) => {
 };
 
 exports.createUserAndSession = async (req, res) => {
-  const { email, password, address, name } = req.body;
-  
+  const { email, password, address } = req.body;
+  let newUser;
+
   try {
-    const client = await Client.findOne({where: { email: email }});
-    const store = await Store.findOne({where: { email: email }});
+    const oldUser = await getUser(email);
     
-    if (client || store) {
+    if (oldUser) {
       res.status(401).end();
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
     
-    if (address) {
-      const newStore = await Store.create(req.body)
-
-      req.session.user = serializeUser(newStore); 
-      res.json(newStore);
-    } else {
-      const newUser = await Client.create({
-        name,
-        email,
+    if (address) newUser = await Store.create(
+      {...req.body,
         password: hashedPassword,
       });
+    else newUser = await Client.create(
+      {...req.body,
+        password: hashedPassword,
+      });
+    
+    const formatedUser = formatSendData(newUser.toJSON())
 
-      req.session.user = serializeUser(newUser); 
-      res.json(newUser);
-    }
+    req.session.user = serializeUser(formatedUser); 
+    res.json(formatSendData(formatedUser));
+
   } catch (err) {
-    console.log(err)
-  }
-  res.end();
+    console.log(err);
+    res.status(401).end();
+  }  
 };
 
 exports.checkUserAndCreateSession = async (req, res, next) => {
   const { email, password } = req.body;
-  
   try {
-    const client = await Client.findOne({where: { email: email }});
-    const store = await Store.findOne({where: { email: email }});
+    const user = await getUser(email);
+    if (user) {
+      console.log(user.password);
+      await bcrypt.compare(password, user.password);
+      const formatedUser = formatSendData(user.toJSON())
     
-    if (client) {
-      await bcrypt.compare(password, client.password);
-      req.session.user = serializeUser(client);
-      res.json(client).end();
+    req.session.user = serializeUser(formatedUser); 
+    res.json(formatSendData(formatedUser));
     }
+    else res.status(401).end();
     
-    if (store) {
-      await bcrypt.compare(password, store.password);
-      req.session.user = serializeUser(store);
-      res.json(store).end();
-    }
-    res.status(401).end();
   } catch (err) {
     console.log(err);
   }
 }
+
 exports.destroySession = async (req, res, next) => {
   req.session.destroy((err) => {
     if (err) return next(err);

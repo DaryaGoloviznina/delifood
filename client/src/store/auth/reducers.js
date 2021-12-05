@@ -2,7 +2,6 @@ import { ACTypes } from '../types';
 
 const initialState = {
   user: null,
-  business: null,
 }
 export const auth = (state = initialState, action) => {
   switch (action.type) {

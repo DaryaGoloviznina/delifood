@@ -1,4 +1,5 @@
 const { Store, Client } = require('../db/models');
+const { getUser } = require('../lib/getUser');
 const path = require('path');
 
 const multer = require('multer');
@@ -14,37 +15,27 @@ const storage = multer.diskStorage({
 
 exports.upload = multer({ storage });
 
-const getItem = async (email) => {
-  let item = await Store.findOne({
-    where: {email}, 
-    attributes: { exclude: ['updatedAt', 'createdAt', 'password'] }
-    })
-
-  if (!item) item = await Client.findOne({
-    where: {email}, 
-    attributes: { exclude: ['updatedAt', 'createdAt', 'password'] }
-  });
-  return item;
-}
-
 exports.updateProfile = async (req, res) => {
-  let newItem = await getItem(req.body.email);
+  let newItem = await getUser(req.body.email);
+
   if (newItem instanceof Store) {
     try {
       newItem.set(
-        req.store_img ?
+        req.file ?
         {...req.body,
           store_img: `/rests/images/${req.file.filename}`,
         }
         : req.body
         );
+
       await newItem.save();
-      
+      req.file = null;
+
     } catch (error) {
       console.log('Не удалось добавить запись в базу данных.', error);
     }
   }
-  
+
   if (newItem instanceof Client) {
     try {
       newItem.set(req.body);

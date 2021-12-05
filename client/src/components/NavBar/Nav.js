@@ -11,7 +11,6 @@ export const Nav = () => {
   const location = useLocation();
 
   const user = useSelector((store) => (store.auth?.user));
-  const business = useSelector((store) => (store.auth?.business));
 
   return (
     !/home/.test(location.pathname) &&
@@ -27,23 +26,23 @@ export const Nav = () => {
               </span>
             </div>
           </div>
-          {!user && !business &&
+          {!user &&
             <NavLinksNoUser />
           }
-          { user &&
+          { user && !user?.address &&
             <NavLinksUser />
           }
-          { business &&
+          { user?.address &&
             <NavLinksBusiness />
           }
         </div>
-        {!user && !business &&
+        {!user &&
           <NavDropdownNoUser />
         }
-        { user &&
+        { user && !user?.address &&
           <NavDropdownUser />
         }
-        { business &&
+        { user?.address &&
           <NavDropdownBusiness />
         }
       </div>
