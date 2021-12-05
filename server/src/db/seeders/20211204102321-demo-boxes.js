@@ -8,6 +8,7 @@ module.exports = {
         email: 'campechano@gmail.com',
         password: '123123',
         address: '181 Bathurst St, Toronto, ON, Canada',
+        phone: '89316541232',
         store_img: 'https://cdn2.tropicalsky.co.uk/images/800x600/george-restaurant-moss-park-toronto.jpg',
         createdAt: new Date()
       },
@@ -15,6 +16,7 @@ module.exports = {
         email: 'yasu@gmail.com',
         password: '123123',
         address: '81 Harbord Street, Toronto, ON, Canada',
+        phone: '89314455599',
         store_img: 'https://cdn3.tropicalsky.co.uk/images/800x600/auberge-du-pommier-toronto.jpg',
         createdAt: new Date()
       },
@@ -22,6 +24,7 @@ module.exports = {
         email: 'bar@gmail.com',
         password: '123123',
         address: '1454 Dundas Street West, Toronto, ON, Canada',
+        phone: '89317459632',
         store_img: 'https://cdn1.tropicalsky.co.uk/images/800x600/yasu-sushi-restaurant-toronto.jpg',
         createdAt: new Date()
       },
@@ -29,6 +32,7 @@ module.exports = {
         email: 'barrr@gmail.com',
         password: '123123',
         address: '11 Duncan Street, Toronto, ON, Canada',
+        phone: '89316667788',
         store_img: 'https://cdn4.tropicalsky.co.uk/images/800x600/antler-kitchen-bar-toronto.jpg',
         createdAt: new Date()
       },
