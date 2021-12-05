@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.Stores, {foreignKey: 'store_id'});
+      this.belongsTo(models.Store, {foreignKey: 'store_id'});
     }
   };
   Box.init({
@@ -18,8 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     descr: DataTypes.TEXT,
     count: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
-    range: DataTypes.STRING,
-    store_id: DataTypes.INTEGER
+    start_date: DataTypes.DATE,
+    end_date: DataTypes.DATE,
+    store_id: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Box',
