@@ -4,10 +4,10 @@ require('dotenv').config();
 exports.getAllBoxes = async (req, res) => {
   try {
     const allBoxes = await Box.findAll({
-      attributes: ['name', 'descr', 'count', 'price', 'start_date', 'end_date'],
+      attributes: ['id', 'name', 'descr', 'count', 'price', 'start_date', 'end_date'],
       include: [{
         model: Store,
-        attributes: ['name', 'store_img']
+        attributes: ['name', 'store_img', ]
       }]
     });
     res.json(allBoxes);

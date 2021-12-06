@@ -10,7 +10,7 @@ import { RestMap } from './components/Map/Map';
 import { Nav } from './components/NavBar/Nav';
 import { checkUserThunk } from './store/auth/actions'
 import { Profile } from './components/profile/Profile';
-import { BoxesPage } from './components/Boxes/BoxesPage';
+import { BoxesPage } from './components/BoxesPage/BoxesPage';
 
 const routes = [
   {
