@@ -1,4 +1,4 @@
-const { Store, Box, Cuisine } = require('../db/models');
+const { Store, Box, Cuisine, Stores_Cuisine } = require('../db/models');
 require('dotenv').config();
 
 exports.getAllBoxes = async (req, res) => {
@@ -20,9 +20,34 @@ exports.getAllBoxes = async (req, res) => {
 exports.getAllCuisines = async (req, res) => {
   try {
     const allCuisines = await Cuisine.findAll({
-      attributes: ['name']
+      attributes: ['name', 'id']
     });
     res.json(allCuisines);
+  } catch (err) {
+    console.log(err)
+  }
+  res.end();
+};
+
+exports.getBoxesByCuisine = async (req, res) => {
+  const { type } = req.body;
+  console.log('valuue=>', type);
+  try {
+    const cuisine = await Cuisine.findOne({where: {name: type}});
+
+    const storesByCuisine = await Store.findAll({
+      attributes: ['id'],
+      include: {
+        model: Stores_Cuisine,
+        attributes: ['store_id', 'cuisine_id'],
+      }, 
+      where: {
+        cuisine_id: cuisine.id 
+      }
+    });
+
+    console.log('boxes=>>>', storesByCuisine);
+    // res.json(boxesByCuisine);
   } catch (err) {
     console.log(err)
   }

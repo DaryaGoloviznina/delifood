@@ -16,15 +16,17 @@ export const FilterNav = () => {
 
   const onChangeHandler = (event) => {
     event.preventDefault();
+    console.log(event);
     const option = event.target.name;
     const value = event.target.value;
+    console.log(option, value)
     
     dispatch(getFilteredBoxesThunk({option, value}));
   }
 
   return (
     <div className="w-screen  shadow p-5 rounded-lg bg-white">
-      <form>
+      {/* <form> */}
       <div className="relative">
         <input 
         type="text" 
@@ -49,6 +51,7 @@ export const FilterNav = () => {
       </div>
 
       <div>
+        {/* <form onChange={onChangeHandler}> */}
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
           <select 
           onChange={onChangeHandler}
@@ -57,10 +60,12 @@ export const FilterNav = () => {
             {cuisines.map((el) => {
               return (
                 <CuisineOption 
+                id={el.id}
                 cuisine={el.name} />
               )
             })}
           </select>
+            {/* </form> */}
 
           <select 
           onChange={onChangeHandler}
@@ -79,7 +84,7 @@ export const FilterNav = () => {
           </select>
         </div>
       </div>
-      </form>
+      {/* </form> */}
     </div>
   )
 }

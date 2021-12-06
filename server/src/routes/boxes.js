@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const {   
   getAllBoxes,
-  getAllCuisines
+  getAllCuisines,
+  getBoxesByCuisine
   } = require('../controllers/boxController');
 
 router
@@ -11,5 +12,9 @@ router
 router
   .route('/allCuisines')
   .get(getAllCuisines);
+
+router
+  .route('/byCuisine')
+  .post(getBoxesByCuisine);
 
 module.exports = router;

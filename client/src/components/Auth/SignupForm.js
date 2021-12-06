@@ -26,7 +26,6 @@ export const SignupForm = () => {
     const confirm_password = event.target.confirm_password.value;
     // const phone = event.target.number.value;
     if (password === confirm_password){
-      console.log(123123)
       dispatch(registerUserThunk({name, address, email, password, navigate}));
     } else {
       alert('passwords do not match');

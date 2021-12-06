@@ -24,6 +24,7 @@ export const BoxesPage = () => {
             {boxes.map((el) => {
               return (
                 <Box
+                key={el.id}
                 img={el.Store.store_img}
                 restName={el.Store.name}
                 boxName={el.name}

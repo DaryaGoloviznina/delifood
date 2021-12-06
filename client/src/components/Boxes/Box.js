@@ -1,4 +1,5 @@
 export const Box = ({
+  id, 
   img,
   restName,
   boxName,
@@ -21,7 +22,9 @@ export const Box = ({
 
   // const location = useLocation();
   return (
-    <body className="antialiased bg-gray-100 text-gray-900 font-sans p-6">
+    <div
+    key={id}
+    className="antialiased bg-gray-100 text-gray-900 font-sans p-6">
     <div className="container mx-auto">
       <div className="flex flex-wrap">
         <div className="w-80">
@@ -53,6 +56,6 @@ export const Box = ({
         </div>
       </div>
     </div>
-  </body>
+  </div>
   )
 }
