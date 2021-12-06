@@ -1,8 +1,8 @@
-import { Box } from "./Box"
+import { Box } from "./SingleBox"
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBoxesThunk } from '../../store/boxes/actions'
-import { FilterNav } from "./filter bar/FilterNav";
+import { FilterNav } from "./filterBar/FilterNav";
 
 export const BoxesPage = () => {
   const dispatch = useDispatch();

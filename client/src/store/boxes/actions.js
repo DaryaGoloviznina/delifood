@@ -18,31 +18,45 @@ export const getAllCuisinesThunk = (arg) => async (dispatch) => {
 }
 
 //---------------fetching filtered boxes based on user's choice
-export const getFilteredBoxesThunk = ({option, value}) => async (dispatch) => {
-  switch (option) {
-    case 'cuisine':
-      if (value === 'Any Cuisine') {
-        dispatch(getAllBoxesThunk(42));
-      }
-
-      let request = await fetch(`/boxes/byCuisine`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: value,
-        }),
-      })
-      const boxesByCuisine = await request.json();
-      
-      dispatch(setAllBoxes(boxesByCuisine));
-      break;
-    
-    case 'price':
-      break;
-    
-    case 'time':
-      break;
+export const getFilteredBoxesThunk = (data) => async (dispatch) => {
+  console.log('dataaa=>', data);
+  // const data2 = {cuisine: 'Any Cuisine', price: 'anyPrice', time: 'anyTime'}
+  if (
+    data.cuisine === 'Any Cuisine' && 
+    data.price === 'anyPrice' && 
+    data.time === 'anyTime') {
+    console.log('yessssss', 11111);
+    dispatch(getAllBoxesThunk(42));
   }
+
+  // switch (data) {
+  //   case {
+  //     cuisine: 'Any Cuisine', 
+  //     price: 'anyPrice', 
+  //     time: 'anyTime'}:
+
+  //     console.log('yessssss', 11111);
+  //     dispatch(getAllBoxesThunk(42));
+  //     break;
+    
+    //   let request = await fetch(`/boxes/byCuisine`, {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({
+    //       type: value,
+    //     }),
+    //   })
+    //   const boxesByCuisine = await request.json();
+      
+    //   dispatch(setAllBoxes(boxesByCuisine));
+    //   break;
+    
+    // case 'price':
+    //   break;
+    
+    // case 'time':
+    //   break;
+  // }
 }
 
 

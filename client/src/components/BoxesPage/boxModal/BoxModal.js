@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Map, SearchControl, YMaps } from 'react-yandex-maps';
+import { useSelector } from 'react-redux';
+import { NoUserLinks } from "./modalLinks/noUserLinks";
+import { UserLinks } from "./modalLinks/UserLinks";
 
 export default function BoxModal({setShowModal, boxData}) {
+
+  const user = useSelector((store) => (store.auth?.user));
+
   const [lon, SetLon] = useState(0);
   const [lat, SetLat] = useState(0);
   const [address, SetAddress] = useState(null);
 
   const modalImg = {
-    height: '37rem'
+    height: '38rem'
   };
 
   return (
@@ -17,12 +23,14 @@ export default function BoxModal({setShowModal, boxData}) {
     >
       <div className="relative w-auto my-6 mx-auto max-w-3xl">
         <div className="border-0 rounded-lg shadow-2xl relative flex w-full bg-white outline-none focus:outline-none flex items-start justify-between  border-b border-solid border-blueGray-200 rounded-lg">
+
           <div className="h-full max-w-xs rounded-lg object-cover">
             <img 
             style={modalImg}
             className="object-cover rounded-lg"
             src={boxData.img}/>
           </div> 
+
           <div className="overflow-y-auto h-full w-2/3 p-4">
             <div className="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-black text-sm z-50">
               <img src="https://img.icons8.com/ios/30/000000/delete-sign--v1.png"
@@ -33,6 +41,7 @@ export default function BoxModal({setShowModal, boxData}) {
               <h1 className="text-gray-700 font-bold text-2xl">
                 {boxData.boxName}
               </h1>
+
               <p className="text-m">
                 By <span className="px-2 py-1 leading-none bg-yellow-200 text-yellow-800 rounded-full font-semibold uppercase tracking-wide text-xs">{boxData.restName}</span>
               </p>
@@ -43,6 +52,7 @@ export default function BoxModal({setShowModal, boxData}) {
                   Today {boxData.startTime} - {boxData.endTime}
                 </p>
               </div>
+
               <p className="mt-2 text-gray-600 text-sm">
                 {boxData.descr}
               </p>
@@ -87,19 +97,16 @@ export default function BoxModal({setShowModal, boxData}) {
             </div>
             
             <div className="flex item-center justify-between mt-3">
-              <h1 className="px-4 py-3 bg-green-800 text-white font-bold uppercase rounded">
+              <h1 className="h-full mt-2 px-4 py-3 bg-green-800 text-white font-bold uppercase rounded">
                 ${boxData.price}
               </h1>
-              <form className="flex">
-                <input 
-                className="mr-2 px-3 py-2 rounded text-gray-600 focus:outline-none outline-none"
-                type="number" 
-                name="quantity" 
-                min="1" 
-                placeholder={boxData.count}
-                max={boxData.count}/>
-                <button className="px-4 py-3 bg-green-800 text-white text-xs font-bold uppercase rounded hover:bg-green-900">Reserve Box</button>
-              </form>
+              {/* { !user && 
+                <NoUserLinks />
+              } */}
+              {/* { user && !user?.address && */}
+                <UserLinks 
+                boxData={boxData}/>
+              {/* } */}
             </div>
           </div>
         </div>

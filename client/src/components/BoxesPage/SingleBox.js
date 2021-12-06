@@ -1,6 +1,6 @@
 // import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import BoxModal from "./BoxModal";
+import BoxModal from "./boxModal/BoxModal";
 
 export const Box = ({
   id, 
@@ -12,8 +12,6 @@ export const Box = ({
   price,
   start_date,
   end_date}) => {
-    console.log('iddd=>', id)
-
     const [showModal, setShowModal] = useState(false);
     const [boxData, setBoxdata] = useState({});
 
