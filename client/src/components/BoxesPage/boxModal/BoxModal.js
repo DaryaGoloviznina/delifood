@@ -19,10 +19,9 @@ export default function BoxModal({setShowModal, boxData}) {
   return (
     <>
     <div
-      className="flex justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-    >
+      className="flex justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
       <div className="relative w-auto my-6 mx-auto max-w-3xl">
-        <div className="border-0 rounded-lg shadow-2xl relative flex w-full bg-white outline-none focus:outline-none flex items-start justify-between  border-b border-solid border-blueGray-200 rounded-lg">
+        <div className="border-0 rounded-lg shadow-2xl relative flex w-full bg-white outline-none focus:outline-none flex items-start justify-between  border-b border-solid rounded-lg">
 
           <div className="h-full max-w-xs rounded-lg object-cover">
             <img 
@@ -112,7 +111,7 @@ export default function BoxModal({setShowModal, boxData}) {
         </div>
       </div>
     </div>
-    <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+    <div className="opacity-40 fixed inset-0 z-40 bg-black"></div>
     </>
   );
 }

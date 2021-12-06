@@ -1,4 +1,3 @@
-// import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import BoxModal from "./boxModal/BoxModal";
 
@@ -51,10 +50,11 @@ export const Box = ({
     className="antialiased bg-gray-100 text-gray-900 font-sans p-6">
     <div className="container mx-auto">
       <div className="flex flex-wrap">
-        <div className="w-80">
+        <div className="w-96">
           <div 
           className="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden cursor-pointer"
-          onClick={modalHandler}>
+          onClick={modalHandler}
+          >
             <div className="relative pb-48 overflow-hidden">
               <img className="absolute inset-0 h-full w-full object-cover" src={img} alt="restaurant image"/>
             </div>
