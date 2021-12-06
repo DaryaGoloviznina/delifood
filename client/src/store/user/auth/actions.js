@@ -1,4 +1,4 @@
-import { ACTypes } from "../types";
+import { ACTypes } from "../../types";
 
 export const setAuthUser = (profileData) => ({type: ACTypes.SET_AUTH_USER, payload: profileData});
 export const noUser = () => ({type: ACTypes.SIGNOUT});
@@ -69,19 +69,4 @@ export const checkUserThunk = () => async (dispatch) => {
   dispatch(setAuthUser(profileData));
 
   if (!profileData.id) dispatch(noUser());
-}
-
-export const updateProfile = (profileData) => ({type: ACTypes.UPDATE_PROFILE, payload: profileData})
-
-export const updateProfileThunk = (profileData) => async (dispatch) => {
-  const request = await fetch(`/profile/update`, {
-    method: 'PATCH',
-    body: profileData,
-  });
-
-  if (request.status === 200) {
-    const newProfileData = await request.json();
-    dispatch(updateProfile(newProfileData));
-  }
-  else alert('Some troubles with Server!')
 }

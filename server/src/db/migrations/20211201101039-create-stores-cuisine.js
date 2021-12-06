@@ -11,7 +11,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       store_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         references: { model: 'Stores', key: 'id' },
       },
       cuisine_id: {

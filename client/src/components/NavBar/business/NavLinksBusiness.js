@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
-import { signOutThunk } from "../../../store/auth/actions";
+import { signOutThunk } from "../../../store/user/auth/actions";
 
 export const NavLinksBusiness = () => {
   const dispatch = useDispatch();

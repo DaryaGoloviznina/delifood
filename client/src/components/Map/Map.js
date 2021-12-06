@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import {UserPlacemark} from './PlaceMark'
 
 export const RestMap = () => {
+  
   const navigate = useNavigate();
 
   function buttonHandler () {

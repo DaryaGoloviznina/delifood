@@ -8,7 +8,7 @@ import { Footer } from './components/Footer';
 import Home from './components/Home/Home';
 import { RestMap } from './components/Map/Map';
 import { Nav } from './components/NavBar/Nav';
-import { checkUserThunk } from './store/auth/actions'
+import { checkUserThunk } from './store/user/auth/actions'
 import { Profile } from './components/profile/Profile';
 import { BoxesPage } from './components/Boxes/BoxesPage';
 
