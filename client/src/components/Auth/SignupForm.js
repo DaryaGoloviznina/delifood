@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link , useNavigate} from "react-router-dom";
 import { ActionButton } from '../Buttons/ActionButton'
-import { registerUserThunk } from '../../store/auth/actions.js'
+import { registerUserThunk } from '../../store/user/auth/actions.js'
 import { Map, SearchControl, YMaps } from 'react-yandex-maps';
 
 export const SignupForm = () => {

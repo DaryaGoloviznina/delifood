@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.INTEGER,
     start_date: DataTypes.DATE,
     end_date: DataTypes.DATE,
-    store_id: DataTypes.INTEGER,
+    store_id: DataTypes.UUID,
   }, {
     sequelize,
     modelName: 'Box',

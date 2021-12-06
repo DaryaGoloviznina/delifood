@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { updateProfileThunk } from "../../store/auth/actions";
+import { updateProfileThunk } from "../../store/user/profile/actions";
 import { ActionButton } from "../Buttons/ActionButton";
 import { YMaps, Map, SearchControl, GeolocationControl } from 'react-yandex-maps';
 

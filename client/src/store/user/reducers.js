@@ -3,6 +3,7 @@ import { ACTypes } from '../types';
 const initialState = {
   user: null,
 }
+
 export const auth = (state = initialState, action) => {
   switch (action.type) {
 
@@ -19,18 +20,18 @@ export const auth = (state = initialState, action) => {
     case ACTypes.SIGNOUT:
       return {...state,  
         user: null,
-        business: null
       }
 
     case ACTypes.UPDATE_PROFILE:
-      return action.payload.address 
-      ? 
-        {...state, 
-          business: {...state.business, ...action.payload}
-        }
-      : 
-        {...state, 
+      return {...state, 
           user: {...state.user, ...action.payload}
+        }
+      
+      case ACTypes.SET_USER_LOCATION:
+        return {...state,
+          user: {...state.user,
+            location: action.payload
+          }
         }
 
     default:

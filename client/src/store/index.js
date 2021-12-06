@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { auth } from "./auth/reducers";
+import { auth } from "./user/reducers";
 import { boxes } from "./boxes/reducers"
 import thunk from "redux-thunk"
 
