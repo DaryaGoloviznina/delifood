@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CuisineOption } from './filterOptions/Cuisine';
 import { PickUpTimes } from './filterOptions/PickUpTimes';
@@ -15,27 +15,29 @@ export const FilterNav = () => {
     price: 'anyPrice',
     time: 'anyTime',
   });
-  const [cuisines2, setCuisines] = useState('')
+
+  useLayoutEffect(() => {
+    dispatch(getAllCuisinesThunk(42));
+  }, [])
 
   useEffect(() => {
-    dispatch(getAllCuisinesThunk(42));
-  }, []);
+    dispatch(getFilteredBoxesThunk(pickedOptions));
+  }, [pickedOptions]);
   
-  const onChangeHandler = async (event) => {
+  const onChangeHandler = (event) => {    
     const option = event.target.name;
     const value = event.target.value;
 
     setOptions({...pickedOptions,
       [option]: value
     });
-    // setCuisines(value);
     
-    console.log(option, value)
-    console.log('optionsssss=>', pickedOptions)
+    // console.log(option, value)
+    // console.log('optionsssss=>', pickedOptions)
     // console.log('cuisines=>>>', cuisines2)
+    // dispatch(getFilteredBoxesThunk(pickedOptions));
   }
   
-  // dispatch(getFilteredBoxesThunk(pickedOptions));
   
   const onClickHandler = () => {
     console.log('ONCLICKKKKK')

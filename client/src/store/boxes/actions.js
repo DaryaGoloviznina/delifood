@@ -20,14 +20,14 @@ export const getAllCuisinesThunk = (arg) => async (dispatch) => {
 //---------------fetching filtered boxes based on user's choice
 export const getFilteredBoxesThunk = (data) => async (dispatch) => {
   console.log('dataaa=>', data);
-  // const data2 = {cuisine: 'Any Cuisine', price: 'anyPrice', time: 'anyTime'}
-  if (
-    data.cuisine === 'Any Cuisine' && 
-    data.price === 'anyPrice' && 
-    data.time === 'anyTime') {
-    console.log('yessssss', 11111);
-    dispatch(getAllBoxesThunk(42));
-  }
+
+  // if (
+  //   data.cuisine === 'Any Cuisine' && 
+  //   data.price === 'anyPrice' && 
+  //   data.time === 'anyTime') {
+  //   console.log('yessssss', 11111);
+  //   dispatch(getAllBoxesThunk(42));
+  // }
 
   // switch (data) {
   //   case {
