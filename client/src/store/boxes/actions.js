@@ -21,6 +21,7 @@ export const getAllCuisinesThunk = (arg) => async (dispatch) => {
 export const getFilteredBoxesThunk = ({option, value}) => async (dispatch) => {
   switch (option) {
     case 'cuisine':
+      console.log('helooo');
       let request = await fetch(`/boxes/byCuisine`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -30,6 +31,7 @@ export const getFilteredBoxesThunk = ({option, value}) => async (dispatch) => {
       })
       const boxesByCuisine = await request.json();
       console.log('cuisine box=>>', boxesByCuisine);
+      dispatch(setAllBoxes(boxesByCuisine));
       break;
     
     case 'price':

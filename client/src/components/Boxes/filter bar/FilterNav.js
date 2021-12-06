@@ -16,7 +16,7 @@ export const FilterNav = () => {
 
   const onChangeHandler = (event) => {
     event.preventDefault();
-    console.log(event);
+    
     const option = event.target.name;
     const value = event.target.value;
     console.log(option, value)

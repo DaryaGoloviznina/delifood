@@ -1,7 +1,6 @@
 import { ACTypes } from "../types";
 
-export const setAuthUser = (id, name, email) => ({type: ACTypes.SET_AUTH_USER, payload: {id, name, email}});
-export const setAuthBusiness = (id, name, email, address) => ({type: ACTypes.SET_AUTH_BUSINESS, payload: {id, name, email, address}});
+export const setAuthUser = (profileData) => ({type: ACTypes.SET_AUTH_USER, payload: profileData});
 export const noUser = () => ({type: ACTypes.SIGNOUT});
 
 //------------fetching server to register the user
@@ -11,23 +10,23 @@ export const registerUserThunk = (data) => async (dispatch) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       name: data.name,
-      address: data?.address,
       email: data.email,
       password: data.password,
+      phone: data?.phone,
+      address: data?.address,
+      lon: data?.lon,
+      lat: data?.lat,
     }),
   });
   
   if (request.status === 401) alert('Email already registered');
 
-  const { id, name, email, address } = await request.json();
+  const profileData = await request.json();
+  dispatch(setAuthUser(profileData));
 
-  if (!address) {
-    dispatch(setAuthUser(id, name, email));
-    data.navigate('/boxes');
-  } else {
-    dispatch(setAuthBusiness(id, name, email, address ));
-    data.navigate('/');
-  }
+  !profileData.address 
+    ? data.navigate('/boxes') 
+    : data.navigate('/');
 }
 
 //------------fetching server to authenticate the user
@@ -44,15 +43,12 @@ export const authUserThunk = (data) => async (dispatch) => {
 
   if (request.status === 401) alert('user not found, please try again');
 
-  const { id, name, email, address } = await request.json();
-  
-  if (!address) {
-    dispatch(setAuthUser(id, name, email));
-    data.navigate('/')
-  } else {
-    dispatch(setAuthBusiness(id, name, email, address ));
-    data.navigate('/')
-  }
+  const profileData = await request.json();
+  dispatch(setAuthUser(profileData));
+
+  !profileData.address 
+    ? data.navigate('/boxes') 
+    : data.navigate('/');
 }
 
 //------------fetching server to signout the user
@@ -66,16 +62,26 @@ export const signOutThunk = (navigate) => async (dispatch) => {
 }
 
 //--------------checking if the user is logged in
-export const checkUserThunk = (arg) => async (dispatch) => {
+export const checkUserThunk = () => async (dispatch) => {
   const request = await fetch('/auth/checkUser');
-  const { id, name, email, address } = await request.json();
+  const profileData = await request.json();
 
-  if (!address) {
-    dispatch(setAuthUser(id, name, email));
-  } else {
-    dispatch(setAuthBusiness(id, name, email, address ));
-  } 
-  if (!id) {
-    dispatch(noUser());
+  dispatch(setAuthUser(profileData));
+
+  if (!profileData.id) dispatch(noUser());
+}
+
+export const updateProfile = (profileData) => ({type: ACTypes.UPDATE_PROFILE, payload: profileData})
+
+export const updateProfileThunk = (profileData) => async (dispatch) => {
+  const request = await fetch(`/profile/update`, {
+    method: 'PATCH',
+    body: profileData,
+  });
+
+  if (request.status === 200) {
+    const newProfileData = await request.json();
+    dispatch(updateProfile(newProfileData));
   }
+  else alert('Some troubles with Server!')
 }

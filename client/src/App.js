@@ -9,6 +9,7 @@ import Home from './components/Home/Home';
 import { RestMap } from './components/Map/Map';
 import { Nav } from './components/NavBar/Nav';
 import { checkUserThunk } from './store/auth/actions'
+import { Profile } from './components/profile/Profile';
 import { BoxesPage } from './components/Boxes/BoxesPage';
 
 const routes = [
@@ -33,6 +34,11 @@ const routes = [
     element: <RestMap />
   },
   {
+    path: '/profile',
+    element: <Profile />
+
+  },
+  {
     path: '/boxes',
     element: <BoxesPage />
   },
@@ -43,7 +49,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(checkUserThunk(42));
+    dispatch(checkUserThunk());
   }, [])
 
   return (

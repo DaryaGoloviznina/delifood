@@ -31,23 +31,27 @@ exports.getAllCuisines = async (req, res) => {
 
 exports.getBoxesByCuisine = async (req, res) => {
   const { type } = req.body;
-  console.log('valuue=>', type);
+  
   try {
     const cuisine = await Cuisine.findOne({where: {name: type}});
 
-    const storesByCuisine = await Store.findAll({
-      attributes: ['id'],
-      include: {
-        model: Stores_Cuisine,
-        attributes: ['store_id', 'cuisine_id'],
-      }, 
-      where: {
-        cuisine_id: cuisine.id 
-      }
+    const filteredBoxes = await Box.findAll({
+      include: [{
+        model: Store,
+        attributes: ['name', 'store_img'],
+        required: true,
+        include: [{
+          model: Cuisine,
+          attributes: [],
+          required: true,
+          where: {
+            id: cuisine.id
+          },
+        }],
+      }]
     });
 
-    console.log('boxes=>>>', storesByCuisine);
-    // res.json(boxesByCuisine);
+    res.json(filteredBoxes);
   } catch (err) {
     console.log(err)
   }

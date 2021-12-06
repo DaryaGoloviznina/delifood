@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link , useNavigate} from "react-router-dom";
 import { ActionButton } from '../Buttons/ActionButton'
 import { registerUserThunk } from '../../store/auth/actions.js'
+import { Map, SearchControl, YMaps } from 'react-yandex-maps';
 
 export const SignupForm = () => {
   const dispatch = useDispatch();
@@ -10,6 +11,10 @@ export const SignupForm = () => {
 
   const [userButton, setUser] = useState(true);
   const [businessButton, setBusiness] = useState(false);
+
+  const [lon, SetLon] = useState(0);
+  const [lat, SetLat] = useState(0);
+  const [address, SetAddress] = useState(null);
 
   const changeForm = () => {
     setUser(!userButton);
@@ -20,17 +25,24 @@ export const SignupForm = () => {
     event.preventDefault();
 
     const name = event.target.name.value;
-    const address = event.target.address?.value;
     const email = event.target.email.value;
+    const phone = event.target.phone.value;
     const password = event.target.password.value;
     const confirm_password = event.target.confirm_password.value;
-    // const phone = event.target.number.value;
     if (password === confirm_password){
-      dispatch(registerUserThunk({name, address, email, password, navigate}));
+      dispatch(registerUserThunk({name, address, email, password, address, lon, lat, phone, navigate}));
     } else {
       alert('passwords do not match');
     }
   }
+
+  useEffect(async () => {
+    navigator.geolocation.getCurrentPosition(position => {
+      const { latitude, longitude } = position.coords;
+      SetLon(longitude);
+      SetLat(latitude);
+    });
+  })
   
   return (
     <>
@@ -92,23 +104,29 @@ export const SignupForm = () => {
                     placeholder="Business Name" />
                 </div>
                 <div className="mt-4">
-                  <label className="block text-sm">
-                    Address
-                  </label>
-                  <input type="text"
-                    name="address"
-                    className="w-full px-4 py-2 text-sm border rounded-md focus:border-green-200 focus:outline-none focus:ring-1 focus:ring-green-200"
-                    placeholder="Address" />
+                <label className="block text-sm">Address</label>
+                  <YMaps query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357'}}>
+                    <Map 
+                      state={{ center: [lat, lon], zoom: 9 }} 
+                      width={'300px'} height={'250px'} 
+                      options={{autoFitToViewport: 'always'}} 
+                      modules={["geolocation", "geocode"]}
+                    >
+                      <SearchControl 
+                        options={{ float: 'right' }} 
+                        onResultSelect={async (e) => {
+                          const index = e.get('index');
+                          const res = await e.originalEvent.target.getResult(index);
+                          
+                          SetAddress(res.getAddressLine());
+                          const coord = res.geometry.getCoordinates();
+                          SetLat(coord[0]);
+                          SetLon(coord[1]);    
+                        }}
+                      />
+                    </Map>
+                  </YMaps>
                 </div>
-                {/* <div className="mt-4">
-                  <label className="block text-sm">
-                    Contact Number
-                  </label>
-                  <input type="text"
-                    name="number"
-                    className="w-full px-4 py-2 text-sm border rounded-md focus:border-green-200 focus:outline-none focus:ring-1 focus:ring-green-200"
-                    placeholder="Contact Number" />
-                </div> */}
                 </>
                 }
               <div className="mt-4">
@@ -121,6 +139,15 @@ export const SignupForm = () => {
                   className="w-full px-4 py-2 text-sm border rounded-md focus:border-green-200 focus:outline-none focus:ring-1 focus:ring-green-200"
                   placeholder="Email Address" />
               </div>
+              <div className="mt-4">
+                  <label className="block text-sm">
+                    Phone
+                  </label>
+                  <input type="tel"
+                    name="phone"
+                    className="w-full px-4 py-2 text-sm border rounded-md focus:border-green-200 focus:outline-none focus:ring-1 focus:ring-green-200"
+                    placeholder="Your phone number" />
+                </div>
               <div>
                 <label className="block mt-4 text-sm">
                   Password
