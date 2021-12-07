@@ -54,8 +54,8 @@ module.exports = {
           descr: 'Awesome box here< buy stuff!',
           count: 2,
           price: 5,
-          start_date: new Date (2021, 11, 4, 17, 30),
-          end_date: new Date (2021, 11, 4, 21, 30),
+          start_date: new Date (2021, 11, 10, 17, 30),
+          end_date: new Date (2021, 11, 10, 21, 30),
           store_id: Stores.find((el) => el.email === 'campechano@gmail.com').id,
           createdAt: new Date()
         },
@@ -63,8 +63,8 @@ module.exports = {
           descr: 'Boooox!!!',
           count: 1,
           price: 7,
-          start_date: new Date (2021, 11, 4, 17, 0),
-          end_date: new Date (2021, 11, 4, 21, 0),
+          start_date: new Date (2021, 11, 10, 17, 0),
+          end_date: new Date (2021, 11, 10, 21, 0),
           store_id: Stores.find((el) => el.email === 'yasu@gmail.com').id,
           createdAt: new Date()
         },
@@ -72,8 +72,8 @@ module.exports = {
           descr: 'Buy our box',
           count: 6,
           price: 3,
-          start_date: new Date (2021, 11, 4, 14, 30),
-          end_date: new Date (2021, 11, 4, 20, 0),
+          start_date: new Date (2021, 11, 10, 14, 30),
+          end_date: new Date (2021, 11, 10, 20, 0),
           store_id: Stores.find((el) => el.email === 'bar@gmail.com').id,
           createdAt: new Date()
         },
@@ -81,8 +81,8 @@ module.exports = {
           descr: 'Some stuf, box box',
           count: 1,
           price: 5,
-          start_date: new Date (2021, 11, 4, 19, 0),
-          end_date: new Date (2021, 11, 4, 21, 0),
+          start_date: new Date (2021, 11, 10, 19, 0),
+          end_date: new Date (2021, 11, 10, 21, 0),
           store_id: Stores.find((el) => el.email === 'barrr@gmail.com').id,
           createdAt: new Date()
         },

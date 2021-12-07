@@ -1,3 +1,4 @@
+import { formateDate } from "../../lib/formateTimeFunctions";
 import { ACTypes } from "../types";
 
 export const setAllBoxes = (boxes) => ({type: ACTypes.SET_ALL_BOXES, payload: {boxes}});
@@ -5,7 +6,6 @@ export const setAllCuisines = (cuisines) => ({type: ACTypes.SET_ALL_CUISINE, pay
 
 //-------------fetching all boxes
 export const getAllBoxesThunk = (arg) => async (dispatch) => {
-  
   let allBoxes = await (await fetch(`/boxes/allBoxes`)).json();
   
   if (allBoxes) dispatch(setAllBoxes(allBoxes));
@@ -20,7 +20,7 @@ export const getAllCuisinesThunk = (arg) => async (dispatch) => {
 
 //---------------fetching filtered boxes based on user's choice
 export const getFilteredBoxesThunk = (data) => async (dispatch) => {
-  console.log('dataaa=>', data);
+  console.log('dataaa time=>', data.time);
 
   if (
     data.cuisine === 'Any Cuisine' && 
@@ -29,6 +29,28 @@ export const getFilteredBoxesThunk = (data) => async (dispatch) => {
     console.log('yessssss', 11111);
     dispatch(getAllBoxesThunk(42));
   }
+
+  const DBDate = formateDate(data.time);
+
+  console.log(typeof DBDate);
+
+
+
+  // let request = await fetch(`/boxes/filter`, {
+  //   method: 'POST',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify({
+  //     cuisine: data.cuisine,
+  //     price: data.price,
+  //     time: value,
+  //   }),
+  // })
+
+  // let filteredBoxes = await request.json();
+
+  // console.log(filteredBoxes);
+
+
 
   // switch (data) {
   //   case {

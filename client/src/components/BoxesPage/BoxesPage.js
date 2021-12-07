@@ -21,17 +21,22 @@ export const BoxesPage = () => {
           <div className="flex flex-wrap -mx-4 justify-center">
           <FilterNav />
             {boxes.map((el) => {
+              console.log(el)
               return (
                 <Box
-                id={el.id}
-                img={el.Store.store_img}
-                restName={el.Store.name}
-                boxName={el.name}
-                descr={el.descr}
-                count={el.count}
-                price={el.price}
-                start_date={el.start_date}
-                end_date={el.end_date}/>
+                el={el}
+                // key={el.id}
+                // id={el.id}
+                // img={el.Store.store_img}
+                // restName={el.Store.name}
+                // boxName={el.name}
+                // descr={el.descr}
+                // count={el.count}
+
+                // price={el.price}
+                // start_date={el.start_date}
+                // end_date={el.end_date}
+                />
               )
             })}
             { !boxes.length && 

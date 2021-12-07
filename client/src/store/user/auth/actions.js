@@ -31,7 +31,6 @@ export const registerUserThunk = (data) => async (dispatch) => {
 
 //------------fetching server to authenticate the user
 export const authUserThunk = (data) => async (dispatch) => {
-  console.log(data.email, data.password);
   const request = await fetch(`/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

@@ -20,7 +20,7 @@ function addDateAndTimeToBox(box){
   return box;
 }
 
-function formateDate (str, date) { // функция которая принимает строку '00:00' и делает объект времени с сегодняшним числом и указанным временем
+function formateDate (str, date = 'now') { // функция которая принимает строку '00:00' и делает объект времени с сегодняшним числом и указанным временем
   let [hours, minites] = str.split(':');
   if (hours[0]=== '0') hours = hours[1];
   if (minites[0]=== '0') minites = minites[1];

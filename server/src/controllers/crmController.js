@@ -19,7 +19,7 @@ exports.addNewBox = async (req, res) => {
 };
 
 exports.getActiveBoxes = async (req, res) => { 
- 
+
   try {
     console.log(req.params.id)
     if (req.params.id === 'active') { // активные боксы, это боксы, у которых не вышло время(до end_time)
