@@ -1,5 +1,5 @@
 'use strict';
-const randStr = require('randomstring');
+
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -11,16 +11,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       store_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         references: { model: 'Stores', key: 'id' },
       },
       cuisine_id: {
         type: Sequelize.INTEGER,
         references: { model: 'Cuisines', key: 'id' },
-      },
-      order_code: {
-        type: Sequelize.STRING,
-        defaultValue: randStr.generate(6),
       },
       createdAt: {
         allowNull: false,

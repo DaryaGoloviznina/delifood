@@ -4,9 +4,9 @@ const { formatSendData } = require('../lib/formatDBData');
 const { getUser } = require('../lib/getUser');
 require('dotenv').config();
 
-function serializeUser(user) {
-  return user;
-}
+// exports.serializeUser = (user) => {
+//   return user;
+// }
 
 exports.isUser = (req, res) => {
   try {
@@ -23,7 +23,7 @@ exports.createUserAndSession = async (req, res) => {
   let newUser;
 
   try {
-    const oldUser = await getUser(email);
+    const oldUser = await getUser({email});
     
     if (oldUser) {
       res.status(401).end();
@@ -42,8 +42,8 @@ exports.createUserAndSession = async (req, res) => {
     
     const formatedUser = formatSendData(newUser.toJSON())
 
-    req.session.user = serializeUser(formatedUser); 
-    res.json(formatSendData(formatedUser));
+    req.session.user = formatedUser; 
+    res.json(formatedUser);
 
   } catch (err) {
     console.log(err);
@@ -54,14 +54,14 @@ exports.createUserAndSession = async (req, res) => {
 exports.checkUserAndCreateSession = async (req, res, next) => {
   const { email, password } = req.body;
   try {
-    const user = await getUser(email);
+    const user = await getUser({email});
     if (user) {
-      console.log(user.password);
       await bcrypt.compare(password, user.password);
       const formatedUser = formatSendData(user.toJSON())
     
-    req.session.user = serializeUser(formatedUser); 
-    res.json(formatSendData(formatedUser));
+    req.session.user = formatedUser; 
+    res.json(formatedUser);
+
     }
     else res.status(401).end();
     

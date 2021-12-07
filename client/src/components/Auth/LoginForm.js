@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
-import { authUserThunk } from '../../store/auth/actions.js'
+import { authUserThunk } from '../../store/user/auth/actions.js'
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
