@@ -3,6 +3,7 @@ const { getUser } = require('../lib/getUser');
 const path = require('path');
 
 const multer = require('multer');
+const { formatSendData } = require('../lib/formatDBData');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -16,7 +17,10 @@ const storage = multer.diskStorage({
 exports.upload = multer({ storage });
 
 exports.updateProfile = async (req, res) => {
-  let newItem = await getUser(req.body.email);
+  const {id} = req.session.user;
+  let newItem = await getUser({id});
+
+  if (!newItem) res.status(401).end();
 
   if (newItem instanceof Store) {
     try {
@@ -29,7 +33,6 @@ exports.updateProfile = async (req, res) => {
         );
 
       await newItem.save();
-      req.file = null;
 
     } catch (error) {
       console.log('Не удалось добавить запись в базу данных.', error);
@@ -45,7 +48,10 @@ exports.updateProfile = async (req, res) => {
     }
   }
 
-  const sendData = {...newItem.toJSON()};
-  delete sendData['updatedAt'];
+  console.log('data', newItem);
+
+  const sendData = formatSendData({...newItem.toJSON()});
+  req.session.user = sendData;
+
   return res.json(sendData);
 };

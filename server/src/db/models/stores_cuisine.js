@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Stores_Cuisine.init({
-    store_id: DataTypes.INTEGER,
+    store_id: DataTypes.UUID,
     cuisine_id: DataTypes.INTEGER
   }, {
     sequelize,

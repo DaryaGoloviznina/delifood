@@ -22,8 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.INTEGER,
     start_date: DataTypes.DATE,
     end_date: DataTypes.DATE,
-    store_id: DataTypes.INTEGER,
-    rest_visibility: DataTypes.BOOLEAN
+    rest_visibility: DataTypes.BOOLEAN,
+    store_id: DataTypes.UUID,
   }, {
     sequelize,
     modelName: 'Box',

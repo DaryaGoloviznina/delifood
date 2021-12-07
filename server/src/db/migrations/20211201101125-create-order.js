@@ -16,7 +16,7 @@ module.exports = {
         references: { model: 'Boxes', key: 'id' },
       },
       client_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         references: { model: 'Clients', key: 'id' },
       },
       order_code: {
