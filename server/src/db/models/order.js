@@ -19,6 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     client_id: DataTypes.UUID,
     order_code: DataTypes.STRING,
     picked_up: DataTypes.BOOLEAN,
+    rest_visibility: DataTypes.BOOLEAN,
+    client_visibility: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'Order',

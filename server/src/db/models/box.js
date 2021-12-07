@@ -17,9 +17,12 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     descr: DataTypes.TEXT,
     count: DataTypes.INTEGER,
+    count_reserved: DataTypes.INTEGER,
+    count_bought: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
     start_date: DataTypes.DATE,
     end_date: DataTypes.DATE,
+    rest_visibility: DataTypes.BOOLEAN,
     store_id: DataTypes.UUID,
   }, {
     sequelize,

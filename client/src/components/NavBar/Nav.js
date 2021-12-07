@@ -35,13 +35,9 @@ export const Nav = () => {
                 </div>
               </div>
               {!user 
-              ? <NavLinksNoUser/>
-              : <input/>
+              && <NavLinksNoUser/>
               }
             </div>
-            {!user &&
-              <NavLinksNoUser />
-            }
             { user && !user?.address &&
               <NavLinksUser />
             }

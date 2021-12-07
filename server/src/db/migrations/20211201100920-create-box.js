@@ -17,6 +17,14 @@ module.exports = {
       count: {
         type: Sequelize.INTEGER
       },
+      count_reserved: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
+      count_bought: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
       price: {
         type: Sequelize.INTEGER
       },
@@ -29,6 +37,10 @@ module.exports = {
       store_id: {
         type: Sequelize.UUID,
         references: { model: 'Stores', key: 'id' },
+      },
+      rest_visibility: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
       },
       createdAt: {
         allowNull: false,
