@@ -4,10 +4,6 @@ const { formatSendData } = require('../lib/formatDBData');
 const { getUser } = require('../lib/getUser');
 require('dotenv').config();
 
-// exports.serializeUser = (user) => {
-//   return user;
-// }
-
 exports.isUser = (req, res) => {
   try {
     res.json(

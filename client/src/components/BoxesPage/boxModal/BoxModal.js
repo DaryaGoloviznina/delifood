@@ -99,13 +99,13 @@ export default function BoxModal({setShowModal, boxData}) {
               <h1 className="h-full mt-2 px-4 py-3 bg-green-800 text-white font-bold uppercase rounded">
                 ${boxData.price}
               </h1>
-              {/* { !user && 
+              { !user && 
                 <NoUserLinks />
-              } */}
-              {/* { user && !user?.address && */}
+              }
+              { user && !user?.address &&
                 <UserLinks 
                 boxData={boxData}/>
-              {/* } */}
+              } 
             </div>
           </div>
         </div>
