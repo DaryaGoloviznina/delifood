@@ -35,6 +35,9 @@ export const restCRM = (state = initialState, action) => {
       let newArr = state.boxes.filter((el) => el.id !== action.payload.id);
       return { ...state, boxes: newArr }
 
+    case ACTypes.DELETE_ALL_BOXES:
+      return { ...state, boxes: [] }
+
     default:
       return state;
   }

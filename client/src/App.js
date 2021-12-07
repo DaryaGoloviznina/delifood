@@ -11,6 +11,8 @@ import { Nav } from './components/NavBar/Nav';
 import { RestCRM } from './components/RestCRM/RestCRM';
 import { checkUserThunk } from './store/auth/actions'
 import { OrderList } from "./components/OrderList/OrderList";
+import { Profile } from './components/profile/Profile';
+import { BoxesPage } from './components/Boxes/BoxesPage';
 
 const routes = [
   {
@@ -34,12 +36,23 @@ const routes = [
     element: <RestMap />
   },
   {
-    path: '/boxes',
+    path: '/crm/boxes/:id',
     element: <RestCRM />
   },
   {
-    path: '/orders',
+    path: '/crm/orders/:id',
     element: <OrderList />
+
+  },
+  
+  {
+    path: '/profile',
+    element: <Profile />
+
+  },
+  {
+    path: '/boxes',
+    element: <BoxesPage />
   },
 ]
 
@@ -47,9 +60,9 @@ function App() {
   const content = useRoutes(routes);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(checkUserThunk(42));
-  // }, [])
+  useEffect(() => {
+    dispatch(checkUserThunk());
+  }, [])
 
   return (
     <div className="App">

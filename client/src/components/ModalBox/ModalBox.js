@@ -1,101 +1,138 @@
-import { Fragment, useContext } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
+import { useContext } from 'react'
 import Context from '../../context'
 
 export const ModalBox = () => {
     const { modalState, SetModalState, modalInfo, inputValues } = useContext(Context);
-  //Return Component
-  return (
-    <Transition.Root show={modalState} as={Fragment}>
-      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto"  onClose={SetModalState}>
-        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            
-            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-          </Transition.Child>
-          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
-            &#8203;
-          </span>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            enterTo="opacity-100 translate-y-0 sm:scale-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-          >
-            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-8 sm:pb-4">
-                <div className="sm:flex sm:items-start">
-                  <div className="text-center sm:mt-0 sm:text-left">
-                  
-                    <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
 
-                      {modalInfo.title}
-                      <button type="button" onClick={() => SetModalState(false)} class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="default-modal">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
-                </button>
-                    </Dialog.Title>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-gray-50 px-4 py-3 sm:px-8 flex flex-col">
-              <form onSubmit={modalInfo.func}>
-               <input 
-                  type='text'
-                  name='name'
-                  placeholder='Name'
-                  defaultValue={inputValues?.name}
-                />
-                <input
+  return (
+    <>
+    <div
+      className="flex justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+    >
+      <div className="relative w-auto my-6 mx-auto max-w-3xl">
+        <div className="border-0 rounded-lg shadow-2xl relative flex w-full bg-white outline-none focus:outline-none flex items-start justify-between  border-b border-solid border-blueGray-200 rounded-lg">
+
+    <div className="flex  bg-gray-200 flex-1 h-full max-w-4xl mx-auto bg-white rounded-lg shadow-xl">
+      <div className="bg-gray-200 flex flex-col md:flex-row rounded-3xl">
+        <div 
+        onClick={() => SetModalState(false)}
+        className="bg-gray-200 justify-items-end top-0 right-0 cursor-pointer mt-4 ml-4 text-black text-sm z-50">
+          <img 
+          src="https://img.icons8.com/ios/25/000000/delete-sign--v1.png"
+          />
+        </div>
+        <div className="mr-3 bg-gray-200 flex items-center justify-center p-6 sm:p-12 md:w-1/2">
+          <form 
+          onSubmit={modalInfo.func}
+          className="w-full">
+            <h1 className="mb-4 text-2xl font-bold text-center text-gray-700">
+              Create Your Mystery Box
+            </h1>
+            <p className="mb-4 text-sm text-center text-gray-500">
+              Craft your own Mystery Box right here!
+            </p>
+            <div className="mt-4">
+              <label className="block text-sm">
+                Name
+              </label>
+              <input 
+              type='text'
+              name='name'
+              placeholder='Name'
+              required
+              defaultValue={inputValues?.name}
+              className="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+              />
+            </div>
+            <div className="mt-4 flex justify-start">
+              <div>
+                <label className=" text-sm">
+                  Amount
+                </label>
+                <input 
                 name="count"
                 type="number"
                 min="0"
-                placeholder={'enter count'}
+                placeholder={'Amount'}
                 defaultValue={inputValues?.count}
+                required
+                className="w-32 text-sm border rounded-md focus:border-green-600 focus:outline-none focus:ring-1 focus:ring-green-600"
                 />
-                <div>
-                  <span>From</span>
-                <input type="time" id="appt" name="timeFrom"
-                min="00:00" max="23:59" defaultValue={inputValues?.timeFrom} required />
-                <span>to</span>
-                <input type="time" id="appt" name="timeTo"
-                min="00:00" max="23:59" defaultValue={inputValues?.timeTo} required />
-                </div>
-                <input
+              </div>
+              <div>
+                <label className=" text-sm">
+                  Price
+                </label>
+                <input 
                 name="price"
                 type="number"
                 min="0"
+                placeholder={'Price'}
                 defaultValue={inputValues?.price}
-                placeholder={'enter price in $'}
+                required
+                className="w-32 px-4 py-2 text-sm border rounded-md focus:border-green-600 focus:outline-none focus:ring-1 focus:ring-green-600"
                 />
-                <div
-                  className='my-4'
-                >
-                <button
-                  type="submit"
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-500 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:mr-4 sm:w-auto sm:text-sm"
-                  
-                >
-                  {modalInfo.textButton}
-                </button>
-                
-                </div>
-                </form >
               </div>
             </div>
-          </Transition.Child>
+            <div className="mt-4">
+              <label className="block text-sm">
+                Pick Up Time
+              </label>
+              {/* <span>From</span> */}
+              <input 
+              type="time" 
+              id="appt"
+              name="timeFrom"
+              min="00:00" 
+              max="23:59" 
+              defaultValue={inputValues?.timeFrom} 
+              required 
+              className="w-28 mr-1 px-4 py-2 text-sm border rounded-md focus:border-green-600 focus:outline-none focus:ring-1 focus:ring-green-600"/>
+              <span>to</span>
+              <input 
+              type="time" 
+              id="appt" 
+              name="timeTo"
+              min="00:00" 
+              max="23:59" 
+              defaultValue={inputValues?.timeTo} 
+              required
+              className="w-32 ml-1 px-4 py-2 text-sm border rounded-md focus:border-green-600 focus:outline-none focus:ring-1 focus:ring-green-600" />
+            </div>
+            <div>
+              <label className="block mt-4 text-sm">
+                Description
+              </label>
+              <textarea
+              name="description"
+              type="text"
+              defaultValue={inputValues?.description}
+              placeholder={'Describe the contents of your box, add any comments or just advise of any allergens'}
+              className="w-full h-20 px-4 py-2 text-sm border rounded-md focus:border-green-600 focus:outline-none focus:ring-1 focus:ring-green-600"
+              ></textarea>
+            </div>
+            <div className="flex">
+              <button
+                type="submit"
+                className="justify-center block w-1/2 px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-green-500 border border-transparent rounded-lg active:bg-blue-600 hover:bg-green-700 focus:outline-none focus:shadow-outline-blue"
+                >
+                Create Box
+              </button>
+            </div>
+          </form>
         </div>
-      </Dialog>
-    </Transition.Root>
-  );
+        <div className="h-32 md:h-auto md:w-1/2">
+          <img 
+          className="w-full h-full object-cover rounded-lg"
+          src="https://images.unsplash.com/photo-1601314002592-b8734bca6604?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=872&q=80"
+          />
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div className="opacity-40 fixed inset-0 z-40 bg-black"></div>
+    </>
+);
 };

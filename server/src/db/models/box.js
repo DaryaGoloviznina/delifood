@@ -17,10 +17,13 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     descr: DataTypes.TEXT,
     count: DataTypes.INTEGER,
+    count_reserved: DataTypes.INTEGER,
+    count_bought: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
     start_date: DataTypes.DATE,
     end_date: DataTypes.DATE,
     store_id: DataTypes.INTEGER,
+    rest_visibility: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Box',

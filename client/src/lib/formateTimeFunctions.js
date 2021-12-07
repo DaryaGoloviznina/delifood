@@ -7,13 +7,16 @@ function convertObjTimetoStrTime(obj){
   return `${hours}:${minutes}`
 }
 
+function createStrDateFromDB(str){
+  let month = new Date(str).getMonth();
+  let day = new Date(str).getDate();
+  return `${day < 10 ? '0'+day : day}.${month+1 < 10 ? '0'+ (month+1) : month+1}.${new Date(str).getFullYear()}`;
+}
 //фунция добавляет в объект бокса дополнительные данные форматированной даты и времени
 function addDateAndTimeToBox(box){
   box.timeFrom = convertObjTimetoStrTime(box.start_date);
   box.timeTo = convertObjTimetoStrTime(box.end_date);
-  let month = new Date(box.start_date).getMonth();
-  let day = new Date(box.start_date).getDate();
-  box.date = `${day < 10 ? '0'+day : day}.${month+1 < 10 ? '0'+ (month+1) : month+1}.${new Date(box.start_date).getFullYear()}`;
+  box.date = createStrDateFromDB(box.start_date);
   return box;
 }
 
@@ -29,4 +32,4 @@ function formateDate (str, date) { // функция которая приним
   }
 }
 
-module.exports = {convertObjTimetoStrTime, addDateAndTimeToBox, formateDate}
+module.exports = {convertObjTimetoStrTime, addDateAndTimeToBox, formateDate, createStrDateFromDB}

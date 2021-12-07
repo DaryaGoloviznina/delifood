@@ -3,27 +3,25 @@ import { BoxesList } from "../BoxesList/BoxesList";
 import { ActionButton } from "../Buttons/ActionButton";
 import Context from '../../context';
 import { useDispatch } from "react-redux";
-import { setActiveBoxesAC, addNewBoxesAC } from '../../store/restCRM/actions.js';
 import {formateDate} from '../../lib/formateTimeFunctions';
-
+import { Link, useParams } from "react-router-dom";
+import { getBoxes, createNewBox } from '../../store/restCRM/actions'
 import './restcrm.css'
 
 export const RestCRM = () => {
+  const params = useParams();
   const [modalState, SetModalState] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
   const [inputValues, setInputValues] = useState(null);
   const dispatch = useDispatch();
-  // render boxes
+ 
   useEffect(() => {
     (async () => {
-      let request = await fetch(`/crm/boxes/active`); // Вынести в санки?
-      let response = await request.json();
-      console.log(response)
-      dispatch(setActiveBoxesAC(response))
+      dispatch(getBoxes(params.id))
     })();
-  }, [dispatch]);
+  }, [dispatch, params.id]);
   
-  // это информация для модалки при создании нового бокса
+  // это информация для модального окна при создании нового бокса
   function addNewBox(){
     SetModalState(true);
     setInputValues(null);
@@ -32,26 +30,18 @@ export const RestCRM = () => {
 
 
   // функция отправляющая в бд новый бокс
-  async function sendBoxtoDB (e) {
+  function sendBoxtoDB (e) {
     e.preventDefault();
-     
     SetModalState(false)
-
-    let request = await fetch(`/crm/box/new`, { // Вынести в санки?
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: e.target.name.value,
-        count: e.target.count.value,
-        price: e.target.price.value,
-        start_date: formateDate(e.target.timeFrom.value, 'now'),
-        end_date: formateDate(e.target.timeTo.value, 'now'),
-        // store_id: 1 // ИЗМЕНИТЬ НА НАСТОЯЩИЙ ID!!!
-      }),
-    });
-    let response = await request.json();
-    dispatch(addNewBoxesAC(response))
-    
+    dispatch(createNewBox({
+      name: e.target.name.value,
+      count: e.target.count.value,
+      price: e.target.price.value,
+      start_date: formateDate(e.target.timeFrom.value, 'now'),
+      end_date: formateDate(e.target.timeTo.value, 'now'),
+      descr: e.target.description.value
+      // store_id: 1 // ИЗМЕНИТЬ НА НАСТОЯЩИЙ ID!!!
+    }, params.id))
   }
   
   return (
@@ -62,13 +52,13 @@ export const RestCRM = () => {
       </div>
       <ul class="flex bg-green-700 h-16 items-center">
       <li class="mr-6">
-      <a class="text-blue-50 hover:text-green-900" href="#">Active</a>
+      <Link className="text-blue-50 hover:text-green-900" to="/crm/boxes/active">Active</Link>
       </li>
       <li class="mr-6">
-      <a class="text-blue-50 hover:text-green-900" href="#">Picked Up</a>
+      <Link className="text-blue-50 hover:text-green-900" to="/crm/boxes/picked">Picked Up</Link>
       </li>
       <li class="mr-6">
-      <a class="text-blue-50 hover:text-green-900" href="#">Expired</a>
+      <Link className="text-blue-50 hover:text-green-900" to="/crm/boxes/expired">Expired</Link>
       </li>
       </ul>
       <BoxesList modalState={modalState} SetModalState={SetModalState} modalInfo={modalInfo} setModalInfo={setModalInfo} setInputValues={setInputValues} inputValues={inputValues} />
