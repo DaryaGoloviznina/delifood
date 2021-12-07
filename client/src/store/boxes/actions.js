@@ -5,6 +5,7 @@ export const setAllCuisines = (cuisines) => ({type: ACTypes.SET_ALL_CUISINE, pay
 
 //-------------fetching all boxes
 export const getAllBoxesThunk = (arg) => async (dispatch) => {
+  
   let allBoxes = await (await fetch(`/boxes/allBoxes`)).json();
   
   if (allBoxes) dispatch(setAllBoxes(allBoxes));
@@ -21,13 +22,13 @@ export const getAllCuisinesThunk = (arg) => async (dispatch) => {
 export const getFilteredBoxesThunk = (data) => async (dispatch) => {
   console.log('dataaa=>', data);
 
-  // if (
-  //   data.cuisine === 'Any Cuisine' && 
-  //   data.price === 'anyPrice' && 
-  //   data.time === 'anyTime') {
-  //   console.log('yessssss', 11111);
-  //   dispatch(getAllBoxesThunk(42));
-  // }
+  if (
+    data.cuisine === 'Any Cuisine' && 
+    data.price === 'anyPrice' && 
+    data.time === 'anyTime') {
+    console.log('yessssss', 11111);
+    dispatch(getAllBoxesThunk(42));
+  }
 
   // switch (data) {
   //   case {

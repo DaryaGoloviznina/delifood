@@ -33,7 +33,7 @@ export const FilterNav = () => {
     });
     
     // console.log(option, value)
-    // console.log('optionsssss=>', pickedOptions)
+    console.log('optionsssss=>', pickedOptions)
     // console.log('cuisines=>>>', cuisines2)
     // dispatch(getFilteredBoxesThunk(pickedOptions));
   }
@@ -56,11 +56,11 @@ export const FilterNav = () => {
         placeholder="Search by restaurant name or location"  className="px-8 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"/>
       </div>
 
-      <button onClick={()=> setOptions({...pickedOptions,
+      {/* <button onClick={()=> setOptions({...pickedOptions,
       cuisine: 123
     })}>
       hey
-      </button>
+      </button> */}
 
       <div className="flex items-center justify-between mt-4">
         <p className="font-medium">
