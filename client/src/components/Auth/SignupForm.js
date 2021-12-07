@@ -29,7 +29,8 @@ export const SignupForm = () => {
     const phone = event.target.phone.value;
     const password = event.target.password.value;
     const confirm_password = event.target.confirm_password.value;
-    if (password === confirm_password){
+
+    if (password === confirm_password) {
       dispatch(registerUserThunk({name, address, email, password, address, lon, lat, phone, navigate}));
     } else {
       alert('passwords do not match');
@@ -55,9 +56,16 @@ export const SignupForm = () => {
       <div className="flex-1 h-full max-w-4xl mx-auto bg-white rounded-lg shadow-xl">
         <div className="flex flex-col md:flex-row">
           <div className="h-32 md:h-auto md:w-1/2">
-            <img className="object-cover w-full h-full" 
-            src="https://source.unsplash.com/user/erondu/1600x900"
-            alt="img" />
+            { businessButton && 
+              <img className="object-cover rounded-lg w-full h-full" 
+              src="https://images.unsplash.com/photo-1595257841889-eca2678454e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2787&q=80"
+              alt="img" />
+            }
+            { userButton && 
+              <img className="object-cover rounded-lg w-full h-full" 
+              src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=960&q=80"
+              alt="img" />
+            }
           </div>
           <div className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
             <form 

@@ -8,7 +8,9 @@ export const UserLinks = ({boxData}) => {
       min="1" 
       placeholder={boxData.box_amount}
       max={boxData.box_amount}/>
-      <button className="px-4 py-3 bg-green-800 text-white text-xs font-bold uppercase rounded hover:bg-green-900">Reserve Box</button>
+      <button className="px-4 py-3 bg-green-800 text-white text-xs font-bold uppercase rounded hover:bg-green-900">
+        Reserve Box
+      </button>
     </form>
   )
 }

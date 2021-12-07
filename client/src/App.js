@@ -42,13 +42,11 @@ const routes = [
   {
     path: '/crm/orders/:id',
     element: <OrderList />
-
   },
   
   {
     path: '/profile',
     element: <Profile />
-
   },
   {
     path: '/boxes',

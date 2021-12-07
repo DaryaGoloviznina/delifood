@@ -20,7 +20,8 @@ export const LoginForm = () => {
       <div className="flex-1 h-full max-w-4xl mx-auto bg-white rounded-lg shadow-xl">
         <div className="flex flex-col md:flex-row">
           <div className="h-32 md:h-auto md:w-1/2">
-            <img className="object-cover w-full h-full" src="https://source.unsplash.com/user/erondu/1600x900"
+            <img className="object-cover w-full h-full" 
+            src="https://images.unsplash.com/photo-1564759224907-65b945ff0e84?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
               alt="img" />
           </div>
           <div className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
