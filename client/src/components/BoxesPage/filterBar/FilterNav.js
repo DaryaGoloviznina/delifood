@@ -34,8 +34,6 @@ export const FilterNav = () => {
     setOptions({...pickedOptions,
       [option]: value
     });
-    
-    console.log('optionsssss=>', pickedOptions)
   }
 
   return (
@@ -87,9 +85,9 @@ export const FilterNav = () => {
             <option 
             value="anyPrice">Any Price</option>
             <option 
-            value="lowPrice">Low to High</option>
+            value="ASC">Low to High</option>
             <option
-            value="highPrice">Hight to Low</option>
+            value="DESC">Hight to Low</option>
           </select>
 
           <select 

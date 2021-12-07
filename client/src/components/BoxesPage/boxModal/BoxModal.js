@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Map, Placemark, SearchControl, YMaps } from 'react-yandex-maps';
+import { Map, Placemark, YMaps } from 'react-yandex-maps';
 import { useSelector } from 'react-redux';
 import { NoUserLinks } from "./modalLinks/noUserLinks";
 import { UserLinks } from "./modalLinks/UserLinks";
@@ -7,10 +6,6 @@ import { UserLinks } from "./modalLinks/UserLinks";
 export default function BoxModal({setShowModal, boxData}) {
 
   const user = useSelector((store) => (store.auth?.user));
-
-  const [lon, SetLon] = useState(0);
-  const [lat, SetLat] = useState(0);
-  const [address, SetAddress] = useState(null);
 
   const modalImg = {
     height: '38rem'
@@ -74,7 +69,7 @@ export default function BoxModal({setShowModal, boxData}) {
               <YMaps 
               query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357'}}>
                 <Map 
-                  state={{ center: [boxData.store_lat, boxData.store_lon], zoom: 12 }} 
+                  state={{ center: [boxData.store_lat, boxData.store_lon], zoom: 14 }} 
                   width={'100%'} height={'250px'} 
                   options={{autoFitToViewport: 'always'}} 
                   modules={["geolocation", "geocode"]}
