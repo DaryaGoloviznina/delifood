@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 export const UserLinks = ({boxData}) => {
   return (
     <form className="flex">
@@ -8,8 +6,8 @@ export const UserLinks = ({boxData}) => {
       type="number" 
       name="quantity" 
       min="1" 
-      placeholder={boxData.count}
-      max={boxData.count}/>
+      placeholder={boxData.box_amount}
+      max={boxData.box_amount}/>
       <button className="px-4 py-3 bg-green-800 text-white text-xs font-bold uppercase rounded hover:bg-green-900">Reserve Box</button>
     </form>
   )

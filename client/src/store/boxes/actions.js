@@ -30,9 +30,16 @@ export const getFilteredBoxesThunk = (data) => async (dispatch) => {
     dispatch(getAllBoxesThunk(42));
   }
 
-  const DBDate = formateDate(data.time);
+  if (
+    data.cuisine !== 'Any Cuisine' && 
+    data.price !== 'anyPrice' && 
+    data.time !== 'anyTime'
+  ) {
+    const DBDate = formateDate(data.time);
 
-  console.log(typeof DBDate);
+    console.log('date=>', DBDate);
+  }
+
 
 
 

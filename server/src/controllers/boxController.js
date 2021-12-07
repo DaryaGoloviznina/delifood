@@ -5,7 +5,11 @@ require('dotenv').config();
 exports.getAllBoxes = async (req, res) => {
   try {
     const allBoxes = await Box.findAll({
-      attributes: ['id', 'name', 'descr', 'count', 'price', 'count_reserved', 'count_bought', 'start_date', 'end_date', [Sequelize.col('Store.name'), 'store_name'], [Sequelize.col('Store.store_img'), 'store_img']],
+      attributes: ['id', 'name', 'descr', 'count', 'price', 'count_reserved', 'count_bought', 'start_date', 'end_date', 
+      [Sequelize.col('Store.name'), 'store_name'], 
+      [Sequelize.col('Store.store_img'), 'store_img'],
+      [Sequelize.col('Store.lon'), 'store_lon'],
+      [Sequelize.col('Store.lat'), 'store_lat']],
       include: [{
         model: Store,
         attributes: []
@@ -20,6 +24,8 @@ exports.getAllBoxes = async (req, res) => {
     const activeBoxes = allBoxes.filter((el) => {
       return el.count !== (el.count_reserved + el.count_bought);
     });
+
+    console.log(activeBoxes);
 
     res.json(activeBoxes);
   } catch (err) {
