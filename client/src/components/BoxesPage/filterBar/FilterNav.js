@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CuisineOption } from './Cuisine';
-import { PickUpTimes } from './PickUpTimes';
+import { CuisineOption } from './filterOptions/Cuisine';
+import { PickUpTimes } from './filterOptions/PickUpTimes';
 import { 
   getAllCuisinesThunk,
   getFilteredBoxesThunk } from '../../../store/boxes/actions';
@@ -10,21 +10,45 @@ export const FilterNav = () => {
   const dispatch = useDispatch();
   const cuisines = useSelector((store) => (store.boxes?.cuisines));
 
-  useEffect(() => {
-    dispatch(getAllCuisinesThunk(42));
-  }, []);
+  const [pickedOptions, setOptions] = useState({
+    cuisine: 'Any Cuisine',
+    price: 'anyPrice',
+    time: 'anyTime',
+  });
 
-  const onChangeHandler = (event) => {
-    event.preventDefault();
+  useLayoutEffect(() => {
+    dispatch(getAllCuisinesThunk(42));
+  }, [])
+
+  useEffect(() => {
+    dispatch(getFilteredBoxesThunk(pickedOptions));
+  }, [pickedOptions]);
+  
+  const onChangeHandler = (event) => {    
     const option = event.target.name;
     const value = event.target.value;
+
+    setOptions({...pickedOptions,
+      [option]: value
+    });
     
-    dispatch(getFilteredBoxesThunk({option, value}));
+    // console.log(option, value)
+    console.log('optionsssss=>', pickedOptions)
+    // console.log('cuisines=>>>', cuisines2)
+    // dispatch(getFilteredBoxesThunk(pickedOptions));
   }
+  
+  
+  const onClickHandler = () => {
+    console.log('ONCLICKKKKK')
+    console.log('NEW LOG=>>>>>', pickedOptions)
+    dispatch(getFilteredBoxesThunk(pickedOptions));
+  }
+
+  // console.log('yooo=>', cuisines2)
 
   return (
     <div className="w-screen  shadow p-5 rounded-lg bg-white">
-      <form>
       <div className="relative">
         <input 
         type="text" 
@@ -32,13 +56,21 @@ export const FilterNav = () => {
         placeholder="Search by restaurant name or location"  className="px-8 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"/>
       </div>
 
+      {/* <button onClick={()=> setOptions({...pickedOptions,
+      cuisine: 123
+    })}>
+      hey
+      </button> */}
+
       <div className="flex items-center justify-between mt-4">
         <p className="font-medium">
         Filter the boxes
         </p>
 
         <div>
-          <button className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md mr-2">
+          <button 
+          className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md mr-2"
+          onClick={() => dispatch(getAllCuisinesThunk(42))}>
           All boxes
           </button>
 
@@ -50,15 +82,16 @@ export const FilterNav = () => {
 
       <div>
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
-          <select 
+          <select
           onChange={onChangeHandler}
           name="cuisine"
           className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
             {cuisines.map((el) => {
-              return (
-                <CuisineOption 
-                cuisine={el.name} />
-              )
+                return (
+                  <CuisineOption 
+                  id={el.id}
+                  cuisine={el.name} />
+                )
             })}
           </select>
 
@@ -66,9 +99,12 @@ export const FilterNav = () => {
           onChange={onChangeHandler}
           name="price"
           className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
-            <option value="anyPrice">Any Price</option>
-            <option value="lowPrice">Low to High</option>
-            <option value="highPrice">Hight to Low</option>
+            <option 
+            value="anyPrice">Any Price</option>
+            <option 
+            value="lowPrice">Low to High</option>
+            <option
+            value="highPrice">Hight to Low</option>
           </select>
 
           <select 
@@ -79,7 +115,6 @@ export const FilterNav = () => {
           </select>
         </div>
       </div>
-      </form>
     </div>
   )
 }

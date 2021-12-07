@@ -4,9 +4,9 @@ const { formatSendData } = require('../lib/formatDBData');
 const { getUser } = require('../lib/getUser');
 require('dotenv').config();
 
-exports.serializeUser = (user) => {
-  return user;
-}
+// exports.serializeUser = (user) => {
+//   return user;
+// }
 
 exports.isUser = (req, res) => {
   try {
@@ -42,7 +42,7 @@ exports.createUserAndSession = async (req, res) => {
     
     const formatedUser = formatSendData(newUser.toJSON())
 
-    req.session.user = serializeUser(formatedUser); 
+    req.session.user = formatedUser; 
     res.json(formatedUser);
 
   } catch (err) {
@@ -59,7 +59,7 @@ exports.checkUserAndCreateSession = async (req, res, next) => {
       await bcrypt.compare(password, user.password);
       const formatedUser = formatSendData(user.toJSON())
     
-    req.session.user = serializeUser(formatedUser); 
+    req.session.user = formatedUser; 
     res.json(formatedUser);
 
     }

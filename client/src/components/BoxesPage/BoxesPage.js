@@ -1,19 +1,18 @@
-import { Box } from "./Box"
+import { Box } from "./SingleBox"
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBoxesThunk } from '../../store/boxes/actions'
-import { FilterNav } from "./filter bar/FilterNav";
+import { FilterNav } from "./filterBar/FilterNav";
 
 export const BoxesPage = () => {
   const dispatch = useDispatch();
   const boxes = useSelector((store) => (store.boxes?.boxes));
 
-  console.log('reducre boxes: ', boxes)
+  console.log('reducer boxes: ', boxes);
 
   useEffect(() => {
     dispatch(getAllBoxesThunk(42));
   }, []);
-  // const location = useLocation();
 
   return (
     <main className="bg-gray-100">
@@ -24,6 +23,7 @@ export const BoxesPage = () => {
             {boxes.map((el) => {
               return (
                 <Box
+                id={el.id}
                 img={el.Store.store_img}
                 restName={el.Store.name}
                 boxName={el.name}
@@ -34,6 +34,13 @@ export const BoxesPage = () => {
                 end_date={el.end_date}/>
               )
             })}
+            { !boxes.length && 
+              <div className="container h-80 text-center mt-36">
+                <p className="uppercase text-gray-400 font-bold">
+                  No boxes were found 
+                </p>
+              </div>
+            }
           </div>
         </div>
       </div>

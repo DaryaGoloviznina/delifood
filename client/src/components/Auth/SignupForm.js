@@ -127,15 +127,6 @@ export const SignupForm = () => {
                     </Map>
                   </YMaps>
                 </div>
-                {/* <div className="mt-4">
-                  <label className="block text-sm">
-                    Contact Number
-                  </label>
-                  <input type="text"
-                    name="number"
-                    className="w-full px-4 py-2 text-sm border rounded-md focus:border-green-200 focus:outline-none focus:ring-1 focus:ring-green-200"
-                    placeholder="Contact Number" />
-                </div> */}
                 </>
                 }
               <div className="mt-4">

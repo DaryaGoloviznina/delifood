@@ -45,12 +45,10 @@ module.exports = {
         picked_up: false,
         createdAt: new Date()
       }], {});
-   
+  
   },
 
   down: async (queryInterface, Sequelize) => {
-   
     await queryInterface.bulkDelete('Orders', null, {});
-     
   }
 };

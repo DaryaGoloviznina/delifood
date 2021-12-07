@@ -12,7 +12,7 @@ import { RestCRM } from './components/RestCRM/RestCRM';
 import { checkUserThunk } from './store/user/auth/actions'
 import { OrderList } from "./components/OrderList/OrderList";
 import { Profile } from './components/profile/Profile';
-import { BoxesPage } from './components/Boxes/BoxesPage';
+import { BoxesPage } from './components/BoxesPage/BoxesPage';
 
 const routes = [
   {
