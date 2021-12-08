@@ -13,7 +13,7 @@ import { checkUserThunk } from './store/user/auth/actions'
 import { OrderList } from "./components/OrderList/OrderList";
 import { Profile } from './components/profile/Profile';
 import { BoxesPage } from './components/BoxesPage/BoxesPage';
-import { getUserLocationThunk } from './store/user/clientLocation/actions';
+import { ClientOrders } from './components/ClientOrders/ClientOrders'
 
 const routes = [
   {
@@ -46,7 +46,13 @@ const routes = [
   },
   {
     path: '/profile',
-    element: <Profile />
+    element: <Profile />,
+    children: [
+      {
+        path: ':id',
+        element: <ClientOrders />
+      }
+    ]
   },
   {
     path: '/boxes',

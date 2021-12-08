@@ -8,12 +8,13 @@ import { Link, useParams } from "react-router-dom";
 export const OrderList = () => {
   const dispatch = useDispatch();
   const params = useParams();
+  const user = useSelector((store) => (store.auth?.user));
 
   useEffect(() => {
     (async () => {
-      dispatch(getOrders(params.id))
+      dispatch(getOrders(params.id, user?.id))
     })();
-  }, [dispatch, params.id]);
+  }, [dispatch, params.id, user]);
 
   const arr = useSelector((store) => store.orders.orders);
 

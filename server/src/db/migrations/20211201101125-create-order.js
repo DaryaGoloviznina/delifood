@@ -1,7 +1,5 @@
 'use strict';
 
-const randStr = require('randomstring');
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Orders', {
@@ -19,9 +17,11 @@ module.exports = {
         type: Sequelize.UUID,
         references: { model: 'Clients', key: 'id' },
       },
+      order_count: {
+        type: Sequelize.INTEGER,
+      },
       order_code: {
         type: Sequelize.STRING,
-        defaultValue: randStr.generate(6),
       },
       picked_up: {
         type: Sequelize.BOOLEAN,
