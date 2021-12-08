@@ -1,16 +1,18 @@
-import {useContext} from "react";
+import { useContext, useState } from "react";
 import './box.css';
 import Context from '../../context';
 import {formateDate} from '../../lib/formateTimeFunctions';
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { editBoxes, delBox } from '../../store/restCRM/actions'
+import { DeleteModal } from "./DeleteModal";
 
 export const Box = ({box, setModalInfoState}) => {
   const params = useParams();
+  const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
   
   const { SetModalState, setModalInfo, setInputValues } = useContext(Context);
-  const dispatch = useDispatch();
   // функция для редактирования бокса - fetch + dispatch
   async function sendEditBoxToDB(e){
     e.preventDefault();
@@ -34,10 +36,12 @@ export const Box = ({box, setModalInfoState}) => {
   }
 
   async function deleteBox(){
-    dispatch(delBox(params.id, box.id, setModalInfoState))
+    dispatch(delBox(params.id, box.id, setModalInfoState));
+    setShowModal(false);
   }
   
   return (
+    <>
     <div className='card'>
       <p>Name: {box.name}</p>
       <p>Total/reserved/bought: {box.count}/{box.count_reserved}/{box.count_bought}</p>
@@ -45,8 +49,15 @@ export const Box = ({box, setModalInfoState}) => {
       <p>Time: {box.timeFrom} - {box.timeTo}</p>
       <p>Price: {box.price}</p>
       <button onClick={editBoxInfo} className='boxbutt'>Edit</button>
-      <button onClick={deleteBox} className='boxbutt'>Delete</button>
+      <button onClick={()=> setShowModal(true)} className='boxbutt'>Delete</button>
+      {showModal
+      ? <DeleteModal
+        box={box}
+        deleteBox={deleteBox}
+        setShowModal={setShowModal}/>
+      : null }
     </div>
+    </>
   );
 };
 
