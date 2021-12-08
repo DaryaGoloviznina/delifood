@@ -2,7 +2,7 @@ import {useState, useEffect} from "react";
 import { BoxesList } from "../BoxesList/BoxesList";
 import { ActionButton } from "../Buttons/ActionButton";
 import Context from '../../context';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {formateDate} from '../../lib/formateTimeFunctions';
 import { Link, useParams } from "react-router-dom";
 import { getBoxes, createNewBox } from '../../store/restCRM/actions'
@@ -14,12 +14,14 @@ export const RestCRM = () => {
   const [modalInfo, setModalInfo] = useState({});
   const [inputValues, setInputValues] = useState(null);
   const dispatch = useDispatch();
+
+  const user = useSelector((store) => (store.auth?.user));
  
   useEffect(() => {
     (async () => {
-      dispatch(getBoxes(params.id))
+      dispatch(getBoxes(params.id, user?.id))
     })();
-  }, [dispatch, params.id]);
+  }, [dispatch, params.id, user]);
   
   // это информация для модального окна при создании нового бокса
   function addNewBox(){
@@ -39,8 +41,8 @@ export const RestCRM = () => {
       price: e.target.price.value,
       start_date: formateDate(e.target.timeFrom.value, 'now'),
       end_date: formateDate(e.target.timeTo.value, 'now'),
-      descr: e.target.description.value
-      // store_id: 1 // ИЗМЕНИТЬ НА НАСТОЯЩИЙ ID!!!
+      descr: e.target.description.value,
+      store_id: user?.id
     }, params.id))
   }
   

@@ -12,6 +12,19 @@ export default function BoxModal({setShowModal, boxData}) {
   const [lat, SetLat] = useState(0);
   const [address, SetAddress] = useState(null);
 
+  async function reserveBox(e){
+    e.preventDefault();
+    let request = await fetch(`/client/order/new`, { 
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        box_id: boxData.id, client_id: user.id
+      }),
+    }); 
+    let response = await request.json();
+    console.log(response)
+  }
+
   const modalImg = {
     height: '38rem'
   };
@@ -104,9 +117,10 @@ export default function BoxModal({setShowModal, boxData}) {
               }
               { user && !user?.address &&
                 <UserLinks 
-                boxData={boxData}/>
+                boxData={boxData} reserveBox={reserveBox}/>
               } 
             </div>
+           { <p>cooбщение</p> }
           </div>
         </div>
       </div>

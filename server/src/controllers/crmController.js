@@ -27,7 +27,8 @@ exports.getActiveBoxes = async (req, res) => {
       where: {
         end_date: {
           [Op.gt]: new Date()
-        }
+        },
+        store_id: req.body.id
         },
       order: [
         ['id', 'DESC'],
@@ -44,6 +45,7 @@ exports.getActiveBoxes = async (req, res) => {
            count: {
           [Op.col]: 'Box.count_bought'
         },
+        store_id: req.body.id,
         rest_visibility: true,
           },
         order: [
@@ -60,6 +62,7 @@ exports.getActiveBoxes = async (req, res) => {
           },
           [Op.not]: {count: {[Op.col]: 'Box.count_bought'}},
           rest_visibility: true,
+          store_id: req.body.id
           },
         order: [
           ['id', 'DESC'],
@@ -129,11 +132,12 @@ exports.getActiveOrders = async (req, res) => {
           [Sequelize.col('Box.start_date'), 'box_start_date'],
           [Sequelize.col('Box.end_date'), 'box_end_date'],
         ],
-      include: [{ model: Box, attributes: ['end_date'] }, { model: Client, attributes: [] }],
+      include: [{ model: Box, attributes: ['end_date', 'store_id'] }, { model: Client, attributes: [] }],
       where: { 
         '$Box.end_date$': {
           [Op.gt]: new Date()
         },
+        '$Box.store_id$': req.body.id,
         picked_up: false,
      },
       order: [
@@ -154,10 +158,11 @@ exports.getActiveOrders = async (req, res) => {
           [Sequelize.col('Box.start_date'), 'box_start_date'],
           [Sequelize.col('Box.end_date'), 'box_end_date'],
         ],
-      include: [{ model: Box, attributes: ['end_date'] }, { model: Client, attributes: [] }],
+      include: [{ model: Box, attributes: ['end_date', 'store_id'] }, { model: Client, attributes: [] }],
       where: { 
         picked_up: true,
-        rest_visibility: true
+        rest_visibility: true,
+        '$Box.store_id$':  req.body.id
      },
       order: [
         ['id', 'DESC'],
@@ -177,12 +182,13 @@ exports.getActiveOrders = async (req, res) => {
           [Sequelize.col('Box.start_date'), 'box_start_date'],
           [Sequelize.col('Box.end_date'), 'box_end_date'],
         ],
-      include: [{ model: Box, attributes: ['end_date'] }, { model: Client, attributes: [] }],
+      include: [{ model: Box, attributes: ['end_date', 'store_id'] }, { model: Client, attributes: [] }],
       where: { 
         '$Box.end_date$': {
           [Op.lt]: new Date()
         },
         picked_up: false,
+        '$Box.store_id$':  req.body.id,
         rest_visibility: true
      },
       order: [

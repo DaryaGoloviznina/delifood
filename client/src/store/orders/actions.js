@@ -4,9 +4,15 @@ export const setActiveOrdersAC = (arr) => ({ type: ACTypes.SET_ACTIVE_ORDERS, pa
 export const deleteOrderAC = (id) => ({ type: ACTypes.DELETE_ORDER, payload: { id } });
 export const deleteAllOrdersAC = () => ({ type: ACTypes.DELETE_ALL_ORDERS });
 
-export const getOrders = (params) => async (dispatch) => {
+export const getOrders = (params, id) => async (dispatch) => {
   try {
-    let request = await fetch(`/crm/orders/${params}`); 
+    let request = await fetch(`/crm/orders/${params}`, { 
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id
+      }),
+    }); 
     let response = await request.json();
     dispatch(setActiveOrdersAC(response))
   } catch (err) {

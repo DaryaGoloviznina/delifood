@@ -30,9 +30,9 @@ export const getFilteredBoxesThunk = (data) => async (dispatch) => {
     dispatch(getAllBoxesThunk(42));
   }
 
-  const DBDate = formateDate(data.time);
+  // const DBDate = formateDate(data.time);
 
-  console.log(typeof DBDate);
+  // console.log(typeof DBDate);
 
 
 
