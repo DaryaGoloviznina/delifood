@@ -6,9 +6,13 @@ export const editBoxAC = (id, obj) => ({ type: ACTypes.EDIT_BOX, payload: { id, 
 export const deleteBoxAC = (id) => ({ type: ACTypes.DELETE_BOX, payload: { id } });
 export const deleteAllBoxAC = () => ({ type: ACTypes.DELETE_ALL_BOXES });
 
-export const getBoxes = (params) => async (dispatch) => {
+export const getBoxes = (params, id) => async (dispatch) => {
   try {
-    let request = await fetch(`/crm/boxes/${params}`); 
+    let request = await fetch(`/crm/boxes/${params}`, { 
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({id}),
+    }); 
     let response = await request.json();
     dispatch(setActiveBoxesAC(response))
   } catch (err) {

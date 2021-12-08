@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   Order.init({
     box_id: DataTypes.INTEGER,
     client_id: DataTypes.UUID,
+    order_count: DataTypes.INTEGER,
     order_code: DataTypes.STRING,
     picked_up: DataTypes.BOOLEAN,
     rest_visibility: DataTypes.BOOLEAN,
