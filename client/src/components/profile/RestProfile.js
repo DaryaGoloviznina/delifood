@@ -86,7 +86,3 @@ export const RestProfile = () => {
     </form>
   )
 }
-
-      {/* <GeolocationControl options={{ float: 'left' }} onLocationChange={(e) => {
-        console.log(e);
-      }}/> */}

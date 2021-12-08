@@ -3,15 +3,17 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBoxesThunk } from '../../store/boxes/actions'
 import { FilterNav } from "./filterBar/FilterNav";
+import { getUserLocationThunk } from "../../store/user/clientLocation/actions";
 
 export const BoxesPage = () => {
   const dispatch = useDispatch();
   const boxes = useSelector((store) => (store.boxes?.boxes));
-
+  const user = useSelector((store) => store.auth.user)
   console.log('reducer boxes: ', boxes);
 
   useEffect(() => {
     dispatch(getAllBoxesThunk(42));
+    dispatch(getUserLocationThunk());
   }, []);
 
   return (

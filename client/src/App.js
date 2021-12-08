@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useRoutes } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { LoginForm } from './components/Auth/LoginForm';
 import { Navigate } from 'react-router';
 import { SignupForm } from './components/Auth/SignupForm';
@@ -13,6 +13,7 @@ import { checkUserThunk } from './store/user/auth/actions'
 import { OrderList } from "./components/OrderList/OrderList";
 import { Profile } from './components/profile/Profile';
 import { BoxesPage } from './components/BoxesPage/BoxesPage';
+import { getUserLocationThunk } from './store/user/clientLocation/actions';
 
 const routes = [
   {
@@ -44,11 +45,9 @@ const routes = [
     element: <OrderList />
 
   },
-  
   {
     path: '/profile',
     element: <Profile />
-
   },
   {
     path: '/boxes',
@@ -59,6 +58,7 @@ const routes = [
 function App() {
   const content = useRoutes(routes);
   const dispatch = useDispatch();
+  const user = useSelector((store) => store.auth.user)
 
   useEffect(() => {
     dispatch(checkUserThunk());
