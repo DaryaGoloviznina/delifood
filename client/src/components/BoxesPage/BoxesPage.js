@@ -8,8 +8,6 @@ export const BoxesPage = () => {
   const dispatch = useDispatch();
   const boxes = useSelector((store) => (store.boxes?.boxes));
 
-  console.log('reducer boxes: ', boxes);
-
   useEffect(() => {
     dispatch(getAllBoxesThunk(42));
   }, []);

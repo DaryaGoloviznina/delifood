@@ -34,6 +34,7 @@ export const Box = ({el}) => {
     const startTime = convertObjTimetoStrTime(start_date);
     const endTime = convertObjTimetoStrTime(end_date);
 
+    //--------------filters active boxes and the amount left
     const box_amount = count - count_reserved - count_bought;
 
     //---------------activates modal and gathers data for it

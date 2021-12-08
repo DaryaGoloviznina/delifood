@@ -105,7 +105,7 @@ export default function BoxModal({setShowModal, boxData}) {
                 boxData={boxData} reserveBox={reserveBox}/>
               } 
             </div>
-           { <p>cooбщение</p> }
+          { <p>cooбщение</p> }
           </div>
         </div>
       </div>

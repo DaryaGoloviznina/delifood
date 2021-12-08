@@ -7,6 +7,7 @@ import {formateDate} from '../../lib/formateTimeFunctions';
 import { Link, useParams } from "react-router-dom";
 import { getBoxes, createNewBox } from '../../store/restCRM/actions'
 import './restcrm.css'
+import { RestCRMNavigation } from "./RestCRMNavigation";
 
 export const RestCRM = () => {
   const params = useParams();
@@ -16,7 +17,7 @@ export const RestCRM = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((store) => (store.auth?.user));
- 
+  
   useEffect(() => {
     (async () => {
       dispatch(getBoxes(params.id, user?.id))
@@ -49,21 +50,20 @@ export const RestCRM = () => {
   return (
     <Context.Provider value={ {modalState, SetModalState, modalInfo, setModalInfo, inputValues, setInputValues} }>
     <div>
-      <div className="addButton">
-      <ActionButton id="addButton" content={"+ Add box"} func={addNewBox}/>
+      <div className="mb-12 mt-10">
+        <RestCRMNavigation
+        addNewBox={addNewBox} />
       </div>
-      <ul class="flex bg-green-700 h-16 items-center">
-      <li class="mr-6">
-      <Link className="text-blue-50 hover:text-green-900" to="/crm/boxes/active">Active</Link>
-      </li>
-      <li class="mr-6">
-      <Link className="text-blue-50 hover:text-green-900" to="/crm/boxes/picked">Picked Up</Link>
-      </li>
-      <li class="mr-6">
-      <Link className="text-blue-50 hover:text-green-900" to="/crm/boxes/expired">Expired</Link>
-      </li>
-      </ul>
-      <BoxesList modalState={modalState} SetModalState={SetModalState} modalInfo={modalInfo} setModalInfo={setModalInfo} setInputValues={setInputValues} inputValues={inputValues} />
+      
+      <div className="container mx-auto flex justify-center flex-wrap mb-10">
+        <BoxesList 
+        modalState={modalState} 
+        SetModalState={SetModalState} 
+        modalInfo={modalInfo} 
+        setModalInfo={setModalInfo} 
+        setInputValues={setInputValues} 
+        inputValues={inputValues} />
+      </div>
     </div>
     </Context.Provider>
   );
