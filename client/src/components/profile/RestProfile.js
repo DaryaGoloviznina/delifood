@@ -181,6 +181,5 @@ export const RestProfile = () => {
       </div>
   </div>
   </>
-  
   )
 }

@@ -10,11 +10,13 @@ const filterActiveBoxes = (boxesArr) => {
 }
 
 //================ setting attributes for future queries
-const attributes = ['id', 'name', 'descr', 'count', 'price', 'count_reserved', 'count_bought', 'start_date', 'end_date', 
-[Sequelize.col('Store.name'), 'store_name'], 
-[Sequelize.col('Store.store_img'), 'store_img'],
-[Sequelize.col('Store.lon'), 'store_lon'],
-[Sequelize.col('Store.lat'), 'store_lat']];
+const attributes = [
+  'id', 'name', 'descr', 'count', 'price', 'count_reserved', 'count_bought', 'start_date', 'end_date', 
+  [Sequelize.col('Store.name'), 'store_name'], 
+  [Sequelize.col('Store.store_img'), 'store_img'],
+  [Sequelize.col('Store.lon'), 'store_lon'],
+  [Sequelize.col('Store.lat'), 'store_lat'],
+];
 
 //================== getting all non-expired boxes
 exports.getAllBoxes = async (req, res) => {

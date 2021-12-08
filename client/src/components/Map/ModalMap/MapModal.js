@@ -1,15 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useRef } from 'react'
-import { Map, SearchControl, YMaps } from "react-yandex-maps";
+import { GeolocationControl, Map, Placemark, SearchControl, YMaps } from "react-yandex-maps";
 import { setUserLocation } from "../../../store/user/clientLocation/actions";
+import { ActionButton } from "../../Buttons/ActionButton";
 
-export const Modal = ({ modalState, SetModalState }) => {
-  const user = useSelector((store) => store.user);
-
+export const MapModal = ({ modalState, SetModalState }) => {
+  const user = useSelector((store) => store.auth.user);
   const cancelButtonRef = useRef(null);
   const dispatch = useDispatch();
-
+  
   return (
     <Transition.Root show={modalState} as={Fragment}>
       <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={SetModalState}>
@@ -44,7 +44,7 @@ export const Modal = ({ modalState, SetModalState }) => {
                 <div className="sm:flex sm:items-start">
                   <div className="text-center sm:mt-0 sm:text-left">
                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                      Choose your location:
+                      Change your location:
                     </Dialog.Title>
                   </div>
                 </div>
@@ -56,30 +56,42 @@ export const Modal = ({ modalState, SetModalState }) => {
                 query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357'}}
               >
                 <Map 
-                  defaultState={{ center: [lat, lon], zoom: 9 }} 
+                  state={{ center: [user?.location?.lat, user?.location?.lon], zoom: 9 }} 
                   width={'100%'} height={'600px'} 
                   options={{autoFitToViewport: 'always'}} 
-                  modules={["geolocation", "geocode"]} 
+                  modules={["geolocation", "geocode"]}
                 >
+                  <Placemark 
+                    geometry={[user?.location?.lat, user?.location?.lon]}
+                    options={{draggable: true}}
+                  />
+                  <GeolocationControl options={{ float: 'left', noPlacemark: true }} onLocationChange={async (e) => {
+                    const [lat, lon] =  e.originalEvent.position;
+                    let req = await fetch(`https://geocode-maps.yandex.ru/1.x/?format=json&apikey=51d9c7fc-7e81-4f44-a747-14323b05f7a6&geocode=${lon}, ${lat}`)
+                    let res = await req.json();
+                    const address = res.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.Address.formatted;
+
+                    dispatch(setUserLocation({address, lat, lon}))
+                  }}/>
                   <SearchControl 
                     options={{ float: 'right' }} 
                     onResultSelect={async (e) => {
-                      const index = e.get('index');
-                      const res = await e.originalEvent.target.getResult(index);
-                      const coord = res.geometry.getCoordinates();
+                      const res = await e.originalEvent.target.getResult(0);
+                      const [lat, lon] = res.geometry.getCoordinates();
+                      // console.log(res.getAdministrativeAreas());
+                      // console.log(res.getLocalities());
                       
                       dispatch(setUserLocation({
                         address: res.getAddressLine(),
-                        lat: coord[0],
-                        lon: coord[1],
+                        lat,
+                        lon,
                       }))
                     }
                   }/>
                 </Map>
               </YMaps>
               </div>
-                {/* onClick={() => SetModalState(false)} */}
-              
+              <ActionButton content={'OK'} func={() => SetModalState(false)}/>   
             </div>
           </Transition.Child>
         </div>

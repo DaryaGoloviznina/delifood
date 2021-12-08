@@ -1,58 +1,99 @@
 import { useEffect, useState } from 'react';
-import { YMaps, Map, SearchControl} from 'react-yandex-maps';
-import { useNavigate } from 'react-router-dom';
+import { YMaps, Map, SearchControl, Placemark} from 'react-yandex-maps';
 import {UserPlacemark} from './PlaceMark'
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllBoxesThunk } from '../../store/boxes/actions';
+import { getUserLocationThunk } from '../../store/user/clientLocation/actions';
+import BoxModal from '../BoxesPage/boxModal/BoxModal';
 
 export const RestMap = () => {
   
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const boxes = useSelector((store) => (store.boxes?.boxes));
+  const user = useSelector((store) => (store.auth?.user));
+  const [showModal, setShowModal] = useState(false);
+  const [boxData, setBoxdata] = useState({});
 
-  function buttonHandler () {
-    navigate('/');
+  function compareBox (boxes) {
+    const formatedBoxArr = [];
+
+    boxes.forEach((box) => {
+      const index = formatedBoxArr.findIndex((formatedBox) => 
+        formatedBox.store_name === box.store_name
+        || formatedBox[0]?.store_name === box.store_name
+      );
+
+      if (index !== -1) formatedBoxArr[index] = 
+        formatedBoxArr[index].length 
+          ? [...formatedBoxArr[index], box]
+          : [formatedBoxArr[index], box];
+      else formatedBoxArr.push(box);
+    })
+
+    return formatedBoxArr;
   }
 
-  const [lon, SetLon] = useState(0);
-  const [lat, SetLat] = useState(0);
-  const [address, SetAddres] = useState(0);
+  function buttonHandler(event) {
+    setBoxdata(event.data.boxData);
+    setShowModal(true);
+  }
 
-  useEffect(async () => {
-    navigator.geolocation.getCurrentPosition(position => {
-      const { latitude, longitude } = position.coords;
-      SetLon(longitude);
-      SetLat(latitude);
-    });
+  useEffect(() => {
+    if (user && !user.location) dispatch(getUserLocationThunk());
+  }, [user]);
 
-    let req = await fetch(`https://geocode-maps.yandex.ru/1.x/?format=json&apikey=51d9c7fc-7e81-4f44-a747-14323b05f7a6&geocode=${lon}, ${lat}`)
-    let res = await req.json();
-    SetAddres(res.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.Address.formatted);
-  }, [])
-
+  useEffect(() => {
+    dispatch(getAllBoxesThunk());
+  }, []);
+  
+  // console.log(compareBox(boxes));
   return (
-    <div
-      className='container lg'
-    >
-      <p>Address: <b>{address}</b></p>
+    <div className="container mx-auto">
+      {showModal 
+        ? 
+          <BoxModal
+            showModal={showModal}
+            setShowModal={setShowModal}
+            boxData={boxData} 
+          />
+        : 
+        null
+      }
       <YMaps 
         query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357'}}
       >
-        <Map defaultState={{ center: [lat, lon], zoom: 9 }} width={'100%'} height={'600px'} options={{autoFitToViewport: 'always'}} modules={["geolocation", "geocode"]} >
-          <UserPlacemark 
-            geometry={[lat, lon]}
-            options={{
-              iconColor: '#ff0000',
-              hideIconOnBalloonOpen: false,
-              balloonMaxWidth: 200,
-            }}
-            myClick={() => buttonHandler()} 
-            user={{id: 0}}
-          />
+        <Map 
+          state={{ 
+            center: [user?.location?.lat, user?.location?.lon], 
+            zoom: 9 
+          }} 
+          width={'100%'} 
+          height={'600px'} 
+          options={{autoFitToViewport: 'always'}} 
+          modules={["geolocation", "geocode"]} 
+        >
+          {compareBox(boxes).map((el) => {
+            return <UserPlacemark 
+              geometry={
+                Array.isArray(el) 
+                ? [el[0].store_lat, el[0].store_lon]
+                : [el.store_lat, el.store_lon]
+              }
+              options={{
+                iconColor: '#ff0000',
+                hideIconOnBalloonOpen: false,
+                balloonMaxWidth: 200,
+              }}
+              myClick={buttonHandler} 
+              boxData={el}
+            />
+          })}
           <SearchControl options={{ float: 'right' }} onResultSelect={async (e) => {
-            const index = e.get('index');
-            e.originalEvent.target.getResult(index)
-              .then((res) => console.log(res.geometry.getCoordinates()));
-            SetAddres(e.originalEvent.target.getRequestString());
+            // const index = e.get('index');
+            // e.originalEvent.target.getResult(index)
+            //   .then((res) => console.log(res.geometry.getCoordinates()));
+            // SetAddres(e.originalEvent.target.getRequestString());
           }}/>
-        {/* {rests.map((el, ind) => <Placemark key={ind} geometry={el} />)} */}
         </Map>
       </YMaps>
     </div>
