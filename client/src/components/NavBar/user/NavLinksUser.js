@@ -10,19 +10,16 @@ export const NavLinksUser = () => {
     <div className="hidden sm:block sm:ml-6">
       <div className="ml-3 relative">
         <div>
-            <Link to="/auth/signup" 
-            className="text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">
-                My Cart
-            </Link>
-            <Link to="/auth/login" 
+          <Link to="/profile" 
             className="text-white px-3 py-2 rounded-md text-sm font-medium ml-4" aria-current="page">
-                My Profile
-            </Link>
-            <button
+              My Profile
+          </Link>
+          <button
             className="bg-green-600 text-white px-3 py-2 rounded-md text-sm font-medium ml-4" aria-current="page"
-            onClick={()=> dispatch(signOutThunk(navigate))}>
-              Signout
-            </button>
+            onClick={()=> dispatch(signOutThunk(navigate))}
+          >
+            Signout
+          </button>
         </div>
       </div>
     </div>

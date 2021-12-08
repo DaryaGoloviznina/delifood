@@ -8,8 +8,6 @@ import { getUserLocationThunk } from "../../store/user/clientLocation/actions";
 export const BoxesPage = () => {
   const dispatch = useDispatch();
   const boxes = useSelector((store) => (store.boxes?.boxes));
-  const user = useSelector((store) => store.auth.user)
-  console.log('reducer boxes: ', boxes);
 
   useEffect(() => {
     dispatch(getAllBoxesThunk(42));
@@ -25,15 +23,9 @@ export const BoxesPage = () => {
             {boxes.map((el) => {
               return (
                 <Box
-                id={el.id}
-                img={el.Store.store_img}
-                restName={el.Store.name}
-                boxName={el.name}
-                descr={el.descr}
-                count={el.count}
-                price={el.price}
-                start_date={el.start_date}
-                end_date={el.end_date}/>
+                el={el}
+                key={el.id}
+                />
               )
             })}
             { !boxes.length && 

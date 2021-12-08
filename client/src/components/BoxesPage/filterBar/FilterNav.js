@@ -20,10 +20,13 @@ export const FilterNav = () => {
     dispatch(getAllCuisinesThunk(42));
   }, [])
 
+  //-------------dispatching user's choices with every state change
   useEffect(() => {
     dispatch(getFilteredBoxesThunk(pickedOptions));
   }, [pickedOptions]);
   
+
+  //-------------setting state to match user's choises dynamically
   const onChangeHandler = (event) => {    
     const option = event.target.name;
     const value = event.target.value;
@@ -31,21 +34,7 @@ export const FilterNav = () => {
     setOptions({...pickedOptions,
       [option]: value
     });
-    
-    // console.log(option, value)
-    console.log('optionsssss=>', pickedOptions)
-    // console.log('cuisines=>>>', cuisines2)
-    // dispatch(getFilteredBoxesThunk(pickedOptions));
   }
-  
-  
-  const onClickHandler = () => {
-    console.log('ONCLICKKKKK')
-    console.log('NEW LOG=>>>>>', pickedOptions)
-    dispatch(getFilteredBoxesThunk(pickedOptions));
-  }
-
-  // console.log('yooo=>', cuisines2)
 
   return (
     <div className="w-screen  shadow p-5 rounded-lg bg-white">
@@ -56,26 +45,20 @@ export const FilterNav = () => {
         placeholder="Search by restaurant name or location"  className="px-8 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"/>
       </div>
 
-      {/* <button onClick={()=> setOptions({...pickedOptions,
-      cuisine: 123
-    })}>
-      hey
-      </button> */}
-
       <div className="flex items-center justify-between mt-4">
         <p className="font-medium">
-        Filter the boxes
+          Filter the boxes
         </p>
 
         <div>
           <button 
           className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md mr-2"
           onClick={() => dispatch(getAllCuisinesThunk(42))}>
-          All boxes
+            All boxes
           </button>
 
           <button className="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 text-sm font-medium rounded-md">
-          Reset Filter
+            Reset Filter
           </button>
         </div>
       </div>
@@ -102,9 +85,9 @@ export const FilterNav = () => {
             <option 
             value="anyPrice">Any Price</option>
             <option 
-            value="lowPrice">Low to High</option>
+            value="ASC">Low to High</option>
             <option
-            value="highPrice">Hight to Low</option>
+            value="DESC">Hight to Low</option>
           </select>
 
           <select 

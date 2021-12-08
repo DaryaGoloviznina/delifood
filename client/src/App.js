@@ -43,7 +43,6 @@ const routes = [
   {
     path: '/crm/orders/:id',
     element: <OrderList />
-
   },
   {
     path: '/profile',
