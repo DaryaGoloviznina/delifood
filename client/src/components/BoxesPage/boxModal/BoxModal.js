@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Map, SearchControl, YMaps } from 'react-yandex-maps';
+import { Map, Placemark, YMaps } from 'react-yandex-maps';
 import { useSelector } from 'react-redux';
 import { NoUserLinks } from "./modalLinks/noUserLinks";
 import { UserLinks } from "./modalLinks/UserLinks";
@@ -7,10 +6,6 @@ import { UserLinks } from "./modalLinks/UserLinks";
 export default function BoxModal({setShowModal, boxData}) {
 
   const user = useSelector((store) => (store.auth?.user));
-
-  const [lon, SetLon] = useState(0);
-  const [lat, SetLat] = useState(0);
-  const [address, SetAddress] = useState(null);
 
   async function reserveBox(e){
     e.preventDefault();
@@ -40,7 +35,7 @@ export default function BoxModal({setShowModal, boxData}) {
             <img 
             style={modalImg}
             className="object-cover rounded-lg"
-            src={boxData.img}/>
+            src={boxData.store_img}/>
           </div> 
 
           <div className="overflow-y-auto h-full w-2/3 p-4">
@@ -51,11 +46,11 @@ export default function BoxModal({setShowModal, boxData}) {
 
             <div>
               <h1 className="text-gray-700 font-bold text-2xl">
-                {boxData.boxName}
+                {boxData.name}
               </h1>
 
               <p className="text-m">
-                By <span className="px-2 py-1 leading-none bg-yellow-200 text-yellow-800 rounded-full font-semibold uppercase tracking-wide text-xs">{boxData.restName}</span>
+                By <span className="px-2 py-1 leading-none bg-yellow-200 text-yellow-800 rounded-full font-semibold uppercase tracking-wide text-xs">{boxData.store_name}</span>
               </p>
 
               <div className="flex mt-1">
@@ -78,7 +73,7 @@ export default function BoxModal({setShowModal, boxData}) {
               <div className="mt-3 mb-3 flex">
                 <img src="https://img.icons8.com/external-icongeek26-linear-colour-icongeek26/64/000000/external-lunch-bag-food-and-delivery-icongeek26-linear-colour-icongeek26.png"/>
                 <p className="ml-1 mt-1 text-sm text-gray-600">
-                  Mystery Box is, well, a mystery! {boxData.restName} will make sure to pack it up with delicious goodies that have been left at the end of the day.
+                  Mystery Box is, well, a mystery! {boxData.store_name} will make sure to pack it up with delicious goodies that have been left at the end of the day.
                 </p>
               </div>
             </div>
@@ -87,23 +82,12 @@ export default function BoxModal({setShowModal, boxData}) {
               <YMaps 
               query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357'}}>
                 <Map 
-                  state={{ center: [lat, lon], zoom: 9 }} 
+                  state={{ center: [boxData.store_lat, boxData.store_lon], zoom: 14 }} 
                   width={'100%'} height={'250px'} 
                   options={{autoFitToViewport: 'always'}} 
                   modules={["geolocation", "geocode"]}
                 >
-                  <SearchControl 
-                    options={{ float: 'right' }} 
-                    onResultSelect={async (e) => {
-                      const index = e.get('index');
-                      const res = await e.originalEvent.target.getResult(index);
-                      
-                      SetAddress(res.getAddressLine());
-                      const coord = res.geometry.getCoordinates();
-                      SetLat(coord[0]);
-                      SetLon(coord[1]);    
-                    }}
-                  />
+                  <Placemark geometry={[boxData.store_lat, boxData.store_lon]} />
                 </Map>
               </YMaps>
             </div>
