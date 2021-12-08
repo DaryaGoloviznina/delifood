@@ -25,7 +25,7 @@ export const Order = ({order}) => {
     <p>Box Info</p>
     <p>Box name: {order.box_name}</p>
     <p>Count: {order.order_count} </p>
-    <p>Price: {order.box_price}$</p>
+    <p>Price: {order.box_price * order.order_count}$</p>
     <p>Date: {createStrDateFromDB(order.box_start_date)}</p>
     <p>Time: {convertObjTimetoStrTime(order.box_start_date)}-{convertObjTimetoStrTime(order.box_end_date)}</p>
     <p>------------------------------</p>

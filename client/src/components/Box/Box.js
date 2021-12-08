@@ -22,7 +22,6 @@ export const Box = ({box, setModalInfoState}) => {
       start_date: formateDate(e.target.timeFrom.value, box.start_date),
       end_date: formateDate(e.target.timeTo.value, box.start_date),
       descr: e.target.description.value
-      // store_id: 1 // ИЗМЕНИТЬ НА НАСТОЯЩИЙ ID!!!
     }, box.id))
     SetModalState(false)
   }

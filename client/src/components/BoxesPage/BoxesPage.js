@@ -7,6 +7,7 @@ import { FilterNav } from "./filterBar/FilterNav";
 export const BoxesPage = () => {
   const dispatch = useDispatch();
   const boxes = useSelector((store) => (store.boxes?.boxes));
+  
 
   console.log('reducer boxes: ', boxes);
 
@@ -21,6 +22,7 @@ export const BoxesPage = () => {
           <div className="flex flex-wrap -mx-4 justify-center">
           <FilterNav />
             {boxes.map((el) => {
+              
               return (
                 <Box
                 el={el}

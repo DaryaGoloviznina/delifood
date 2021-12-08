@@ -8,18 +8,17 @@ export const ClientOrder = ({order}) => {
   const params = useParams();
   const dispatch = useDispatch();
 
-  // async function giveOrder(){
-  //   dispatch(issueOrder(order.id))
-  // }
   
   async function deleteOrder(){
+    console.log('СТАТУС', order.status)
+    console.log('СТАТУС', order.status)
     // dispatch(delOrder(params.id, order.id))
   }
   
   return (
   <div >
     <p>Box: {order.box_name}</p>
-    <p>Price: {order.box_price} $</p>
+    <p>Price: {order.box_price * order.order_count} $</p>
     <p>Count: {order.order_count} </p>
     <p>Date: {createStrDateFromDB(order.box_start_date)}</p>
     <p>Time: {convertObjTimetoStrTime(order.box_start_date)}-{convertObjTimetoStrTime(order.box_end_date)}</p>
