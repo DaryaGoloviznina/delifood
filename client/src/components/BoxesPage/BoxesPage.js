@@ -8,6 +8,7 @@ import { getUserLocationThunk } from "../../store/user/clientLocation/actions";
 export const BoxesPage = () => {
   const dispatch = useDispatch();
   const boxes = useSelector((store) => (store.boxes?.boxes));
+  
 
   useEffect(() => {
     dispatch(getAllBoxesThunk(42));
@@ -21,6 +22,7 @@ export const BoxesPage = () => {
           <div className="flex flex-wrap -mx-4 justify-center">
           <FilterNav />
             {boxes.map((el) => {
+              
               return (
                 <Box
                 el={el}

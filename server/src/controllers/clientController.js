@@ -6,10 +6,11 @@ exports.addNewOrder = async (req, res) => {
   try {
     console.log('ID BOX', req.body.box_id)
     console.log('ID CLIENT', req.body.client_id)
+    console.log('BOX COUNT ORDER', req.body.count_box)
     let box = await Box.findByPk(req.body.box_id);
     console.log(box.dataValues)
     console.log(box.dataValues.count === (box.dataValues.count_reserved + box.dataValues.count_bought))
-    if (box.dataValues.count === (box.dataValues.count_reserved + box.dataValues.count_bought)){
+    if ((box.dataValues.count - box.dataValues.count_reserved - box.dataValues.count_bought) < req.body.count_box){
       res.json('out')
     } else {
       await Order.create({
