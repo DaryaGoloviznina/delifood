@@ -27,7 +27,7 @@ exports.updateProfile = async (req, res) => {
       newItem.set(
         req.file ?
         {...req.body,
-          store_img: `/rests/images/${req.file.filename}`,
+          store_img: `/rppests/images/${req.file.filename}`,
         }
         : req.body
         );

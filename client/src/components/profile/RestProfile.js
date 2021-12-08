@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { updateProfileThunk } from "../../store/user/profile/actions";
 import { ActionButton } from "../Buttons/ActionButton";
-import { YMaps, Map, SearchControl, GeolocationControl } from 'react-yandex-maps';
+import { YMaps, Map, SearchControl, GeolocationControl, Placemark } from 'react-yandex-maps';
 
 export const RestProfile = () => {
   const dispatch = useDispatch();

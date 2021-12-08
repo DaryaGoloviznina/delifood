@@ -4,30 +4,49 @@ import {Placemark, withYMaps} from "react-yandex-maps";
 import {UserPlacemarkBalloon} from './Baloons';
 
 function UserPlacemark(props) {
+  const {boxData, myClick} = props;
   const UserPlacemarkCore = React.memo(({ymaps}) => {
     const makeLayout = (layoutFactory) => {
       const Layout = layoutFactory.createClass(
-          UserPlacemarkBalloon(props),
+          UserPlacemarkBalloon(boxData),
           {
             build: function() {
               Layout.superclass.build.call(this);
 
-              this.element = $('.map__placemark-balloon', this.getParentElement());
-              this.element
-                  .find('#placemark-balloon__profile-btn_user-id_' + props.user.id)
-                  .on('click', {user: this.user}, $.proxy(this.myClick, this));
+              Array.isArray(boxData) 
+                ? 
+                  boxData.map((el, ind) => {
+                    this.element = $('.map__placemark-balloon_' + el.id, this.getParentElement());
+
+                    this.element
+                      .find('#placemark-balloon__btn_box-id_' + el.id)
+                      .on('click', {boxData: el}, this.myClick);
+                  })
+                :
+                  this.element = $('.map__placemark-balloon', this.getParentElement());
+                  this.element
+                      .find('#placemark-balloon__btn_box-id_' + boxData.id)
+                      .on('click', {boxData: this.boxData}, this.myClick);
             },
 
             clear: function() {
+              Array.isArray(boxData) 
+              ? 
+              boxData.forEach((el) => {
+                this.element
+                    .find('#placemark-balloon__btn_box-id_' + el.id)
+                    .off('click');
+              })
+              :
               this.element
-                  .find('#placemark-balloon__profile-btn_user-id_' + props.user.id)
+                  .find('#placemark-balloon__btn_box-id_' + boxData.id)
                   .off('click');
 
               Layout.superclass.clear.call(this);
             },
 
-            user: props.user,
-            myClick: props.myClick,
+            boxData,
+            myClick,
           },
       );
       return Layout;

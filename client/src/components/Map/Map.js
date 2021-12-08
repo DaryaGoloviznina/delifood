@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { YMaps, Map, SearchControl} from 'react-yandex-maps';
-import { useNavigate } from 'react-router-dom';
+import { YMaps, Map, SearchControl, Placemark} from 'react-yandex-maps';
 import {UserPlacemark} from './PlaceMark'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBoxesThunk } from '../../store/boxes/actions';
@@ -9,45 +8,84 @@ import BoxModal from '../BoxesPage/boxModal/BoxModal';
 
 export const RestMap = () => {
   
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const boxes = useSelector((store) => (store.boxes?.boxes));
   const user = useSelector((store) => (store.auth?.user));
-
   const [showModal, setShowModal] = useState(false);
   const [boxData, setBoxdata] = useState({});
 
-  function buttonHandler(box) {
-    setBoxdata(box);
+  function compareBox (boxes) {
+    const formatedBoxArr = [];
+
+    boxes.forEach((box) => {
+      const index = formatedBoxArr.findIndex((formatedBox) => 
+        formatedBox.store_name === box.store_name
+        || formatedBox[0]?.store_name === box.store_name
+      );
+
+      if (index !== -1) formatedBoxArr[index] = 
+        formatedBoxArr[index].length 
+          ? [...formatedBoxArr[index], box]
+          : [formatedBoxArr[index], box];
+      else formatedBoxArr.push(box);
+    })
+
+    return formatedBoxArr;
+  }
+
+  function buttonHandler(event) {
+    setBoxdata(event.data.boxData);
     setShowModal(true);
   }
 
   useEffect(() => {
-    dispatch(getAllBoxesThunk());
     if (user && !user.location) dispatch(getUserLocationThunk());
-  }, []);
+  }, [user]);
 
+  useEffect(() => {
+    dispatch(getAllBoxesThunk());
+  }, []);
+  
+  // console.log(compareBox(boxes));
   return (
     <div className="container mx-auto">
-      <BoxModal
-        showModal={showModal}
-        setShowModal={setShowModal}
-        boxData={boxData} 
-      />
+      {showModal 
+        ? 
+          <BoxModal
+            showModal={showModal}
+            setShowModal={setShowModal}
+            boxData={boxData} 
+          />
+        : 
+        null
+      }
       <YMaps 
         query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357'}}
       >
-        <Map state={{ center: [user?.location?.lat, user?.location?.lon], zoom: 9 }} width={'100%'} height={'600px'} options={{autoFitToViewport: 'always'}} modules={["geolocation", "geocode"]} >
-          {boxes.map((el) => {
-            <UserPlacemark 
-              geometry={[el.store_lat, el.store_lon]}
+        <Map 
+          state={{ 
+            center: [user?.location?.lat, user?.location?.lon], 
+            zoom: 9 
+          }} 
+          width={'100%'} 
+          height={'600px'} 
+          options={{autoFitToViewport: 'always'}} 
+          modules={["geolocation", "geocode"]} 
+        >
+          {compareBox(boxes).map((el) => {
+            return <UserPlacemark 
+              geometry={
+                Array.isArray(el) 
+                ? [el[0].store_lat, el[0].store_lon]
+                : [el.store_lat, el.store_lon]
+              }
               options={{
                 iconColor: '#ff0000',
                 hideIconOnBalloonOpen: false,
                 balloonMaxWidth: 200,
               }}
-              myClick={() => buttonHandler(el)} 
-              user={{id: 0}}
+              myClick={buttonHandler} 
+              boxData={el}
             />
           })}
           <SearchControl options={{ float: 'right' }} onResultSelect={async (e) => {

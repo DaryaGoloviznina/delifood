@@ -61,7 +61,10 @@ export const MapModal = ({ modalState, SetModalState }) => {
                   options={{autoFitToViewport: 'always'}} 
                   modules={["geolocation", "geocode"]}
                 >
-                  <Placemark geometry={[user?.location?.lat, user?.location?.lon]}/>
+                  <Placemark 
+                    geometry={[user?.location?.lat, user?.location?.lon]}
+                    options={{draggable: true}}
+                  />
                   <GeolocationControl options={{ float: 'left', noPlacemark: true }} onLocationChange={async (e) => {
                     const [lat, lon] =  e.originalEvent.position;
                     let req = await fetch(`https://geocode-maps.yandex.ru/1.x/?format=json&apikey=51d9c7fc-7e81-4f44-a747-14323b05f7a6&geocode=${lon}, ${lat}`)

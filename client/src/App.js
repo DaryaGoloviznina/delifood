@@ -63,7 +63,6 @@ const routes = [
 function App() {
   const content = useRoutes(routes);
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.auth.user)
 
   useEffect(() => {
     dispatch(checkUserThunk());
