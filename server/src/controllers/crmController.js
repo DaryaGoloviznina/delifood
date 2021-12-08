@@ -42,7 +42,7 @@ exports.getActiveBoxes = async (req, res) => {
           end_date: {
             [Op.lt]: new Date()
           },
-           count: {
+          count: {
           [Op.col]: 'Box.count_bought'
         },
         store_id: req.body.id,
@@ -124,7 +124,7 @@ exports.getActiveOrders = async (req, res) => {
     if (req.params.id === 'active') {
     const activeOrders = await Order.findAll({
       attributes:
-        ['id', 'box_id', 'client_id', 'order_code', 'picked_up', 'createdAt',
+        ['id', 'box_id', 'client_id', 'order_count', 'order_code', 'picked_up', 'createdAt',
           [Sequelize.col('Client.name'), 'client_name'],
           [Sequelize.col('Client.phone'), 'client_phone'],
           [Sequelize.col('Box.name'), 'box_name'],
@@ -139,7 +139,7 @@ exports.getActiveOrders = async (req, res) => {
         },
         '$Box.store_id$': req.body.id,
         picked_up: false,
-     },
+      },
       order: [
         ['id', 'DESC'],
     ],
@@ -150,7 +150,7 @@ exports.getActiveOrders = async (req, res) => {
   } else if (req.params.id === 'picked'){
     const pickedOrders = await Order.findAll({
       attributes:
-        ['id', 'box_id', 'client_id', 'order_code', 'picked_up', 'createdAt',
+        ['id', 'box_id', 'client_id', 'order_count', 'order_code', 'picked_up', 'createdAt',
           [Sequelize.col('Client.name'), 'client_name'],
           [Sequelize.col('Client.phone'), 'client_phone'],
           [Sequelize.col('Box.name'), 'box_name'],
@@ -163,18 +163,18 @@ exports.getActiveOrders = async (req, res) => {
         picked_up: true,
         rest_visibility: true,
         '$Box.store_id$':  req.body.id
-     },
+      },
       order: [
         ['id', 'DESC'],
     ],
       raw: true,
     });
-   
+  
     res.json(pickedOrders)
   } else {
     const expiredOrders = await Order.findAll({
       attributes:
-        ['id', 'box_id', 'client_id', 'order_code', 'picked_up', 'createdAt',
+        ['id', 'box_id', 'client_id', 'order_code', 'order_count', 'picked_up', 'createdAt',
           [Sequelize.col('Client.name'), 'client_name'],
           [Sequelize.col('Client.phone'), 'client_phone'],
           [Sequelize.col('Box.name'), 'box_name'],
@@ -190,7 +190,7 @@ exports.getActiveOrders = async (req, res) => {
         picked_up: false,
         '$Box.store_id$':  req.body.id,
         rest_visibility: true
-     },
+      },
       order: [
         ['id', 'DESC'],
     ],
@@ -210,8 +210,8 @@ exports.giveOrder = async (req, res) => {
   const orderEdited = await Order.findByPk(req.body.id);
   const boxEdited = await Box.findByPk(orderEdited.dataValues.box_id);
   orderEdited.picked_up = true;
-  boxEdited.count_bought += 1;
-  boxEdited.count_reserved -= 1;
+  boxEdited.count_bought += orderEdited.order_count;
+  boxEdited.count_reserved -= orderEdited.order_count;
   await boxEdited.save();
   await orderEdited.save();
   res.end()
@@ -225,7 +225,7 @@ exports.deleteOrder = async (req, res) => {
   if(req.params.id === 'active') {
     const delOrder = await Order.findByPk(req.body.id);
     const corBox = await Box.findByPk(delOrder.dataValues.box_id);
-    corBox.count_reserved -= 1;
+    corBox.count_reserved -= delOrder.order_count;
     await corBox.save()
     await Order.destroy({
       where: {

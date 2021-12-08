@@ -110,12 +110,12 @@ export const RestProfile = () => {
             <div>
               <YMaps query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357'}}>
                 <Map 
-                  state={{ center: [profileData.lat, profileData.lon], zoom: 9 }} 
+                  state={{ center: [lat, lon], zoom: 9 }} 
                   width={'300px'} height={'250px'} 
                   options={{autoFitToViewport: 'always'}} 
                   modules={["geolocation", "geocode"]}
                 >
-                <Placemark geometry={[profileData.lat, profileData.lon]} />
+                <Placemark geometry={[lat, lon]} />
                 <SearchControl 
                   options={{ float: 'right' }} 
                   onResultSelect={async (e) => {

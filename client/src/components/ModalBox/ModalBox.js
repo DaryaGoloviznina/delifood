@@ -10,24 +10,29 @@ export const ModalBox = () => {
       className="flex justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
     >
       <div className="relative w-auto my-6 mx-auto max-w-3xl">
-        <div className="border-0 rounded-lg shadow-2xl relative flex w-full bg-white outline-none focus:outline-none flex items-start justify-between  border-b border-solid border-blueGray-200 rounded-lg">
+        <div className="border-0 rounded-lg shadow-2xl relative flex w-full bg-white outline-none focus:outline-none flex items-start justify-between  border-b border-solid border-white rounded-lg">
 
-    <div className="flex  bg-gray-200 flex-1 h-full max-w-4xl mx-auto bg-white rounded-lg shadow-xl">
-      <div className="bg-gray-200 flex flex-col md:flex-row rounded-3xl">
+    <div className="flex  bg-white flex-1 h-full max-w-4xl mx-auto bg-white rounded-lg shadow-xl">
+      <div className="bg-white flex flex-col md:flex-row rounded-3xl">
         <div 
         onClick={() => SetModalState(false)}
-        className="bg-gray-200 justify-items-end top-0 right-0 cursor-pointer mt-4 ml-4 text-black text-sm z-50">
+        className="bg-white justify-items-end top-0 right-0 cursor-pointer mt-4 ml-4 text-black text-sm z-50">
           <img 
           src="https://img.icons8.com/ios/25/000000/delete-sign--v1.png"
           />
         </div>
-        <div className="mr-3 bg-gray-200 flex items-center justify-center p-6 sm:p-12 md:w-1/2">
+        <div className="mr-3 bg-white flex items-center justify-center p-6 sm:p-12 md:w-1/2">
           <form 
           onSubmit={modalInfo.func}
           className="w-full">
-            <h1 className="mb-4 text-2xl font-bold text-center text-gray-700">
+            {modalInfo.title === 'Edit box'
+              ? <h1 className="mb-4 text-2xl font-bold text-center text-gray-700">
+              Edit Your Mystery Box
+              </h1>
+              : <h1 className="mb-4 text-2xl font-bold text-center text-gray-700">
               Create Your Mystery Box
-            </h1>
+              </h1>
+            }
             <p className="mb-4 text-sm text-center text-gray-500">
               Craft your own Mystery Box right here!
             </p>
@@ -116,7 +121,9 @@ export const ModalBox = () => {
                 type="submit"
                 className="justify-center block w-1/2 px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-green-500 border border-transparent rounded-lg active:bg-blue-600 hover:bg-green-700 focus:outline-none focus:shadow-outline-blue"
                 >
-                Create Box
+                {modalInfo.title === 'Edit box'
+                ? <p>Edit</p>
+                : <p>Create Box</p>}
               </button>
             </div>
           </form>
@@ -128,9 +135,9 @@ export const ModalBox = () => {
           />
         </div>
       </div>
-    </div>
-    </div>
-    </div>
+      </div>
+      </div>
+      </div>
     </div>
     <div className="opacity-40 fixed inset-0 z-40 bg-black"></div>
     </>
