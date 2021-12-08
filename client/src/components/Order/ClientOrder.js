@@ -20,7 +20,7 @@ export const ClientOrder = ({order}) => {
   <div >
     <p>Box: {order.box_name}</p>
     <p>Price: {order.box_price} $</p>
-    <p>Count: тут будет count </p>
+    <p>Count: {order.order_count} </p>
     <p>Date: {createStrDateFromDB(order.box_start_date)}</p>
     <p>Time: {convertObjTimetoStrTime(order.box_start_date)}-{convertObjTimetoStrTime(order.box_end_date)}</p>
     <p>Code: {order.order_code}</p> 

@@ -15,9 +15,10 @@ exports.addNewOrder = async (req, res) => {
       await Order.create({
           box_id: req.body.box_id,
           client_id: req.body.client_id,
+          order_count: req.body.count_box,
           order_code: randStr.generate(6)
       });
-      box.count_reserved += 1;
+      box.count_reserved += req.body.count_box;
       box.save();
       res.json('ok')
     } 
@@ -34,7 +35,7 @@ exports.getClientOrders = async (req, res) => {
     if (req.params.id === 'all'){
       const allOrders = await Order.findAll({
         attributes:
-          ['id', 'box_id', 'client_id', 'order_code', 'picked_up', 'createdAt',
+          ['id', 'box_id', 'client_id', 'order_count', 'order_code', 'picked_up', 'createdAt',
             [Sequelize.col('Box.name'), 'box_name'],
             [Sequelize.col('Box.price'), 'box_price'],
             [Sequelize.col('Box.start_date'), 'box_start_date'],
@@ -54,7 +55,7 @@ exports.getClientOrders = async (req, res) => {
     } else if (req.params.id === 'active') {
       const activeOrders = await Order.findAll({
         attributes:
-          ['id', 'box_id', 'client_id', 'order_code', 'picked_up', 'createdAt',
+          ['id', 'box_id', 'client_id', 'order_count', 'order_code', 'picked_up', 'createdAt',
             [Sequelize.col('Box.name'), 'box_name'],
             [Sequelize.col('Box.price'), 'box_price'],
             [Sequelize.col('Box.start_date'), 'box_start_date'],
@@ -78,7 +79,7 @@ exports.getClientOrders = async (req, res) => {
     } else {
       const inactiveOrders = await Order.findAll({
         attributes:
-          ['id', 'box_id', 'client_id', 'order_code', 'picked_up', 'createdAt',
+          ['id', 'box_id', 'client_id', 'order_count', 'order_code', 'picked_up', 'createdAt',
             [Sequelize.col('Box.name'), 'box_name'],
             [Sequelize.col('Box.price'), 'box_price'],
             [Sequelize.col('Box.start_date'), 'box_start_date'],
