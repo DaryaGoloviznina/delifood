@@ -116,7 +116,7 @@ export const SignupForm = () => {
                   <YMaps query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357'}}>
                     <Map 
                       state={{ center: [lat, lon], zoom: 9 }} 
-                      width={'300px'} height={'250px'} 
+                      width={'100%'} height={'250px'} 
                       options={{autoFitToViewport: 'always'}} 
                       modules={["geolocation", "geocode"]}
                     >

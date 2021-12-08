@@ -26,7 +26,7 @@ export const registerUserThunk = (data) => async (dispatch) => {
 
   !profileData.address 
     ? data.navigate('/boxes') 
-    : data.navigate('/');
+    : data.navigate('/profile');
 }
 
 //------------fetching server to authenticate the user

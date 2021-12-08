@@ -12,14 +12,14 @@ export const NavLinksUser = () => {
         <div>
             <Link to="/auth/signup" 
             className="text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">
-                My Cart
+              My Cart
             </Link>
             <Link to="/auth/login" 
             className="text-white px-3 py-2 rounded-md text-sm font-medium ml-4" aria-current="page">
-                My Profile
+              My Profile
             </Link>
             <button
-            className="bg-green-600 text-white px-3 py-2 rounded-md text-sm font-medium ml-4" aria-current="page"
+            className="bg-green-800 text-white px-3 py-2 rounded-md text-sm font-medium ml-4" aria-current="page"
             onClick={()=> dispatch(signOutThunk(navigate))}>
               Signout
             </button>

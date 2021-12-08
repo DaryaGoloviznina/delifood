@@ -14,7 +14,7 @@ export const RestCRM = () => {
   const [modalInfo, setModalInfo] = useState({});
   const [inputValues, setInputValues] = useState(null);
   const dispatch = useDispatch();
- 
+
   useEffect(() => {
     (async () => {
       dispatch(getBoxes(params.id))
@@ -61,7 +61,13 @@ export const RestCRM = () => {
       <Link className="text-blue-50 hover:text-green-900" to="/crm/boxes/expired">Expired</Link>
       </li>
       </ul>
-      <BoxesList modalState={modalState} SetModalState={SetModalState} modalInfo={modalInfo} setModalInfo={setModalInfo} setInputValues={setInputValues} inputValues={inputValues} />
+      <BoxesList 
+      modalState={modalState} 
+      SetModalState={SetModalState} 
+      modalInfo={modalInfo} 
+      setModalInfo={setModalInfo} 
+      setInputValues={setInputValues} 
+      inputValues={inputValues} />
     </div>
     </Context.Provider>
   );
