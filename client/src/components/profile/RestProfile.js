@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { updateProfileThunk } from "../../store/user/profile/actions";
 import { ActionButton } from "../Buttons/ActionButton";
-import { YMaps, Map, SearchControl, Placemark, GeolocationControl } from 'react-yandex-maps';
+import { YMaps, Map, SearchControl, GeolocationControl, Placemark } from 'react-yandex-maps';
 
 export const RestProfile = () => {
   const dispatch = useDispatch();
@@ -161,7 +161,6 @@ export const RestProfile = () => {
         ) return <p key={key}>{value}</p>
       })}
       <ActionButton content={'Edit'} func={() => SetEdit(true)}/>
-
     </>
     : 
     <form onSubmit={formHandler}>
