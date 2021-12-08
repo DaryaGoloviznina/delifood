@@ -16,7 +16,7 @@ export default function Home() {
                 <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                   <div className="flex items-center justify-between w-full md:w-auto">
                     <Link to="/">
-                        <span className="font-medium text-green-800 hover:text-gray-900 text-3xl font-extrabold">
+                        <span className="font-medium text-green-5 hover:text-gray-900 text-3xl font-extrabold">
                           DeliFood
                         </span>
                     </Link>
@@ -29,7 +29,7 @@ export default function Home() {
               <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
                 <div className="px-5 pt-4 flex items-center justify-between">
                   <div>
-                  <span className="font-medium text-green-800 hover:text-gray-900 text-3xl font-extrabold">
+                  <span className="font-medium text-green-5 hover:text-gray-900 text-3xl font-extrabold">
                     DeliFood
                   </span>
                   </div>
@@ -42,7 +42,7 @@ export default function Home() {
             <div className="sm:text-center lg:text-left">
                 <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
                   <span className="block xl:inline">Let's battle </span>
-                  <span className="block text-green-500 xl:inline"> food waste together</span>
+                  <span className="block text-green-4 xl:inline"> food waste together</span>
                 </h1>
               <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                 Get a mystery box through DeliFood and help us get our planet free of food-waste step by step. Just log in, browse and get amazing food from your local restaurants. Did we mention great savings?

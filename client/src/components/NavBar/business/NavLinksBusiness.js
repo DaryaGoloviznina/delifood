@@ -1,8 +1,10 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
 import { signOutThunk } from "../../../store/user/auth/actions";
 
 export const NavLinksBusiness = () => {
+  const user = useSelector((store) => (store.auth?.user));
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -10,15 +12,15 @@ export const NavLinksBusiness = () => {
     <div className="hidden sm:block sm:ml-6">
       <div className="ml-3 relative">
         <div>
-          <Link to="/auth/signup" 
+          <Link to='/crm/boxes/active'
           className="text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">
               Boxes
           </Link>
-          <Link to="/auth/login" 
+          <Link to='/crm/orders/active' 
           className="text-white px-3 py-2 rounded-md text-sm font-medium ml-4" aria-current="page">
               Orders
           </Link>
-          <Link to="/auth/login" 
+          <Link to="/profile" 
           className="text-white px-3 py-2 rounded-md text-sm font-medium ml-4" aria-current="page">
               Profile
           </Link>

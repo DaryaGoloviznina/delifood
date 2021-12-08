@@ -42,7 +42,7 @@ exports.getActiveBoxes = async (req, res) => {
           end_date: {
             [Op.lt]: new Date()
           },
-           count: {
+          count: {
           [Op.col]: 'Box.count_bought'
         },
         store_id: req.body.id,
@@ -139,7 +139,7 @@ exports.getActiveOrders = async (req, res) => {
         },
         '$Box.store_id$': req.body.id,
         picked_up: false,
-     },
+      },
       order: [
         ['id', 'DESC'],
     ],
@@ -163,13 +163,13 @@ exports.getActiveOrders = async (req, res) => {
         picked_up: true,
         rest_visibility: true,
         '$Box.store_id$':  req.body.id
-     },
+      },
       order: [
         ['id', 'DESC'],
     ],
       raw: true,
     });
-   
+  
     res.json(pickedOrders)
   } else {
     const expiredOrders = await Order.findAll({
@@ -190,7 +190,7 @@ exports.getActiveOrders = async (req, res) => {
         picked_up: false,
         '$Box.store_id$':  req.body.id,
         rest_visibility: true
-     },
+      },
       order: [
         ['id', 'DESC'],
     ],

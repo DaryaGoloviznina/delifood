@@ -1,17 +1,17 @@
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
-import { NavDropdownBusiness } from './business/NavDropdownBusiness';
-import { NavLinksBusiness } from './business/NavLinksBusiness';
-import { NavDropdownNoUser } from './no user/NavDropdownNoUser';
-import { NavLinksNoUser } from './no user/NavLinksNoUser';
-import { NavDropdownUser } from './user/NavDropDownUser';
-import { NavLinksUser } from './user/NavLinksUser';
+import { LinkButton } from '../Buttons/LinkButton';
+import { NavBusiness } from './business/NavBusiness';
+import { NavNoUSer } from './no user/NavNoUser';
+import { NavClient } from './user/NavClient';
+import { MapModal } from "../Map/ModalMap/MapModal";
+import { useState } from 'react';
 
 export const Nav = () => {
   const location = useLocation();
-
   const user = useSelector((store) => (store.auth?.user));
-
+  const [modalState, SetModalState] = useState(false);
+  
   return (
     !/home/.test(location.pathname) &&
     <>
@@ -20,7 +20,7 @@ export const Nav = () => {
           src="https://api-maps.yandex.ru/2.1/?apikey=a9e98eaf-d4c4-45e6-9ee4-5afad392d357&lang=en_US" type="text/javascript">
         </script>
       </head>
-      <nav className="bg-green-800 pt-4">
+      <nav className="bg-green-700 pt-4">
         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex items-center justify-between h-16">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -33,27 +33,32 @@ export const Nav = () => {
                     DeliFood
                   </span>
                 </div>
-              </div>
-              {!user 
-              && <NavLinksNoUser/>
+              { user && !user?.address &&
+               <div className="flex items-center max-w-md space-x-2 mx-8" >
+                 <div className='max-w-xs flex items-center justify-center space-x-2'>
+                  <img src='/img/icons/location-mark.svg' className='h-7 sm:h-6'/>
+                  <span className='text-white text-sm'>{user?.location?.address}</span>
+                  </div>
+                  {/* <input value='Change location' type='button' onClick={()=> SetModalState(true)}/> */}
+                  <button className='flex-2 px-3 py-2 rounded-md text-sm font-medium ml-2 bg-white text-dark hover:bg-gray-400' onClick={()=> SetModalState(true)}>Change location</button>
+                  <MapModal 
+                    modalState={modalState} 
+                    SetModalState={SetModalState}
+                  />
+                </div>
               }
+              </div>
             </div>
+            {!user 
+            && <NavNoUSer/>
+            }
             { user && !user?.address &&
-              <NavLinksUser />
+              <NavClient />
             }
             { user?.address &&
-              <NavLinksBusiness />
+              <NavBusiness />
             }
           </div>
-          {!user &&
-            <NavDropdownNoUser />
-          }
-          { user && !user?.address &&
-            <NavDropdownUser />
-          }
-          { user?.address &&
-            <NavDropdownBusiness />
-          }
         </div>
       </nav>
     </>
