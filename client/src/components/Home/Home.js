@@ -1,4 +1,4 @@
-import { LinkButton } from '../Buttons/LinkButton'
+import { LinkButton } from '../ui components/Buttons/LinkButton'
 import { Link } from "react-router-dom";
 
 export default function Home() {
