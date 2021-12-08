@@ -1,4 +1,4 @@
-export const DeleteModal = ({box, deleteBox, setShowModal}) => {
+export const DeleteModal = ({box, deleteBox, setShowModal, deleteAll}) => {
     return (
       <div>
         <div
@@ -23,20 +23,32 @@ export const DeleteModal = ({box, deleteBox, setShowModal}) => {
                         <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
                     </svg>
                 </div>
-                  <p className="text-lg text-gray-800 dark:text-gray-100 font-semibold pl-2">Delete {box.name}?</p>
+                { deleteAll 
+                ? <p className="text-lg text-gray-800 dark:text-gray-100 font-semibold pl-2">Delete all boxes?</p>
+                : <p className="text-lg text-gray-800 dark:text-gray-100 font-semibold pl-2">Delete {box.name}?</p>}
               </div>
                 <p className="text-sm text-gray-600 dark:text-gray-400 pb-3 font-normal">Please note that this is an irreversable change.</p>
-                <button 
+                { deleteAll 
+                ? <button 
+                onClick={deleteAll}
+                className="focus:outline-none bg-red-400 transition duration-150 ease-in-out hover:bg-red-500 rounded text-white px-3 py-2 text-xs">
+                  Delete All Boxes
+                </button>
+                : <button 
                 onClick={deleteBox}
                 className="focus:outline-none bg-red-400 transition duration-150 ease-in-out hover:bg-red-500 rounded text-white px-3 py-2 text-xs">
                   Delete Box
-                </button>
+                </button>}
+                {/* <button 
+                onClick={deleteBox}
+                className="focus:outline-none bg-red-400 transition duration-150 ease-in-out hover:bg-red-500 rounded text-white px-3 py-2 text-xs">
+                  Delete Box
+                </button> */}
               </div>
             </div>
           </div>
         </div>
         <div className="opacity-40 fixed inset-0 z-40 bg-black"></div>
-      </div>
-        
+      </div>   
     );
 };

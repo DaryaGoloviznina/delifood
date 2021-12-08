@@ -9,11 +9,12 @@ export default function BoxModal({setShowModal, boxData}) {
 
   async function reserveBox(e){
     e.preventDefault();
+    console.log(e.target.quantity.value)
     let request = await fetch(`/client/order/new`, { 
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        box_id: boxData.id, client_id: user.id
+        box_id: boxData.id, client_id: user.id, count_box: e.target.quantity.value
       }),
     }); 
     let response = await request.json();
