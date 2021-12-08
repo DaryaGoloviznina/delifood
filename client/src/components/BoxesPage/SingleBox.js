@@ -1,5 +1,5 @@
 import { useState } from "react";
-import BoxModal from "./boxModal/BoxModal";
+import BoxModal from "../ui components/Modals/CustomerBoxesPage/BoxModal";
 
 export const Box = ({el}) => {
   const {

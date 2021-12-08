@@ -4,16 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LoginForm } from './components/Auth/LoginForm';
 import { Navigate } from 'react-router';
 import { SignupForm } from './components/Auth/SignupForm';
-import { Footer } from './components/Footer';
+import { Footer } from './components/ui components/Footer/Footer';
 import Home from './components/Home/Home';
-import { RestMap } from './components/Map/Map';
-import { Nav } from './components/NavBar/Nav';
-import { RestCRM } from './components/RestCRM/RestCRM';
+import { RestMap } from './components/ui components/Map/Map';
+import { Nav } from './components/ui components/NavBar/Nav';
+import { MainPageCRM } from './components/RestCRM/MainPageCRM';
 import { checkUserThunk } from './store/user/auth/actions'
-import { OrderList } from "./components/OrderList/OrderList";
-import { Profile } from './components/profile/Profile';
+import { OrderList } from "./components/RestCRM/OrdersList/OrderList";
+import { Profile } from './components/ui components/profile/Profile';
 import { BoxesPage } from './components/BoxesPage/BoxesPage';
-import { ClientOrders } from './components/ClientOrders/ClientOrders'
+import { ClientOrdersList } from './components/Client/OrdersList/ClientOrdersList'
 
 const routes = [
   {
@@ -38,7 +38,7 @@ const routes = [
   },
   {
     path: '/crm/boxes/:id',
-    element: <RestCRM />
+    element: <MainPageCRM />
   },
   {
     path: '/crm/orders/:id',
@@ -50,7 +50,7 @@ const routes = [
     children: [
       {
         path: ':id',
-        element: <ClientOrders />
+        element: <ClientOrdersList />
       }
     ]
   },

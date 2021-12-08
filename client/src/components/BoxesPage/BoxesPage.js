@@ -8,11 +8,11 @@ import { getUserLocationThunk } from "../../store/user/clientLocation/actions";
 export const BoxesPage = () => {
   const dispatch = useDispatch();
   const boxes = useSelector((store) => (store.boxes?.boxes));
-  
+  const user = useSelector((store) => (store.auth?.user));
 
   useEffect(() => {
     dispatch(getAllBoxesThunk(42));
-    dispatch(getUserLocationThunk());
+    if (user && !user.address) dispatch(getUserLocationThunk());
   }, []);
 
   return (
