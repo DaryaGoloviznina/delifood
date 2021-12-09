@@ -62,7 +62,7 @@ exports.getClientOrders = async (req, res) => {
             [Sequelize.col('Box.start_date'), 'box_start_date'],
             [Sequelize.col('Box.end_date'), 'box_end_date'],
           ],
-        include: [{ model: Box, attributes: ['end_date'], include: [{ model: Store, attributes: ['name', 'address', 'phone'] }] }],
+        include: [{ model: Box, attributes: ['end_date'], include: [{ model: Store, attributes: ['name', 'address', 'phone', 'store_img'] }] }],
         where: { 
           client_id: req.body.id,
           client_visibility: true,
@@ -70,7 +70,7 @@ exports.getClientOrders = async (req, res) => {
           '$Box.end_date$': {
             [Op.gt]: new Date()
           },
-       },
+        },
         order: [
           ['id', 'DESC'],
       ],
@@ -86,14 +86,14 @@ exports.getClientOrders = async (req, res) => {
             [Sequelize.col('Box.start_date'), 'box_start_date'],
             [Sequelize.col('Box.end_date'), 'box_end_date'],
           ],
-        include: [{ model: Box, attributes: ['end_date'], include: [{ model: Store, attributes: ['name', 'address', 'phone'] }] }],
+        include: [{ model: Box, attributes: ['end_date'], include: [{ model: Store, attributes: ['name', 'address', 'phone', 'store_img'] }] }],
         where: { 
           client_id: req.body.id,
           client_visibility: true,
           [Op.or]: [{ [Op.and]: [{ '$Box.end_date$': {
             [Op.lt]: new Date()
           } }, { picked_up: false }] }, { picked_up: true }]
-       },
+        },
         order: [
           ['id', 'DESC'],
       ],

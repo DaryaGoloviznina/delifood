@@ -12,11 +12,5 @@ export const Profile = () => {
     : 
     <> 
       <ClientProfile /> 
-      <div>
-        <Link to='/profile/all'><button>ВСЕ</button></Link>  
-        <Link to='/profile/active'><button>Активные</button></Link>  
-        <Link to='/profile/finished'><button>Неактивные</button></Link>  
-        <Outlet />
-      </div>
     </>
 }

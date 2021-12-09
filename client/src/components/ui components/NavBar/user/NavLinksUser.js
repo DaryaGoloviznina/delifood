@@ -10,7 +10,7 @@ export const NavLinksUser = () => {
     <div className="hidden sm:block sm:ml-6">
       <div className="ml-3 relative">
         <div>
-          <Link to="/profile" 
+          <Link to="/profile/all" 
             className="text-white px-3 py-2 rounded-md text-sm font-medium ml-4" aria-current="page">
               My Profile
           </Link>
