@@ -106,3 +106,26 @@ exports.getClientOrders = async (req, res) => {
     console.log(error);
   }
 };
+
+exports.deleteClientOrder = async (req, res) => {
+  try {
+    if (req.body.status === 'Pending Pick Up'){
+    const delOrder = await Order.findByPk(req.body.id);
+    const corBox = await Box.findByPk(delOrder.dataValues.box_id);
+    corBox.count_reserved -= delOrder.order_count;
+    await corBox.save()
+    await Order.destroy({
+      where: {
+        id: req.body.id,
+      }
+    })
+    } else {
+      const delOrder = await Order.findByPk(req.body.id);
+      delOrder.client_visibility = false;
+      await delOrder.save();
+    }
+    res.end()
+  } catch (error) {
+    console.log(error);
+  }
+};
