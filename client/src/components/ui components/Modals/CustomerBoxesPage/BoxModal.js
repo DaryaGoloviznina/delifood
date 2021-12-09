@@ -29,7 +29,6 @@ export default function BoxModal({
     if (response === 'ok'){
       setclientOrderBoxAmount((prev)=> prev - Math.abs(Number(e.target.quantity.value)))
     } 
-    
     setShowModal(false)
     setEndOrderModal(true)
   }

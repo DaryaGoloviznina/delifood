@@ -1,14 +1,16 @@
 import { Box } from "./SingleBox"
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBoxesThunk } from '../../store/boxes/actions'
 import { FilterNav } from "./filterBar/FilterNav";
 import { getUserLocationThunk } from "../../store/user/clientLocation/actions";
+import { ModalInfo } from "../ui components/Modals/universal/ModalInfo";
 
 export const BoxesPage = () => {
   const dispatch = useDispatch();
   const boxes = useSelector((store) => (store.boxes?.boxes));
   const user = useSelector((store) => (store.auth?.user));
+  const [endOrderModal, setEndOrderModal] = useState(false) // показ модальное окно завершения заказа клиента
 
   useEffect(() => {
     dispatch(getAllBoxesThunk());
@@ -29,6 +31,7 @@ export const BoxesPage = () => {
                 <Box
                 el={el}
                 key={el.id}
+                setEndOrderModal={setEndOrderModal}
                 />
               )
             })}
@@ -42,6 +45,13 @@ export const BoxesPage = () => {
           </div>
         </div>
       </div>
+      {endOrderModal ? (
+            <ModalInfo
+            modalInfoState={endOrderModal}
+            setModalInfoState={setEndOrderModal}
+            info={'успешно'}
+            />
+          ) : null}  
     </main>
   )
 }
