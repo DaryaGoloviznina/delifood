@@ -3,6 +3,7 @@ import { createStrDateFromDB, convertObjTimetoStrTime } from '../../../lib/forma
 import { issueOrder, delOrder } from '../../../store/orders/actions'
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { deleteOrderAC } from '../../../store/orders/actions'
 
 export const ClientOrder = ({order}) => {  
   const params = useParams();
@@ -11,8 +12,15 @@ export const ClientOrder = ({order}) => {
   
   async function deleteOrder(){
     console.log('СТАТУС', order.status)
-    console.log('СТАТУС', order.status)
-    // dispatch(delOrder(params.id, order.id))
+    console.log('АЙДИ', order.id)
+    
+    await fetch(`/client/order/del`, { 
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({status: order.status, id: order.id}),
+    }); 
+  
+    dispatch(deleteOrderAC(order.id))
   }
   
   return (
@@ -28,7 +36,7 @@ export const ClientOrder = ({order}) => {
     <p>Phone: {order["Box.Store.phone"]}</p> 
     <p>Status: {order.status}</p> 
     <p><i>created at: {`${createStrDateFromDB(order.createdAt)} ${convertObjTimetoStrTime(order.createdAt)}`}</i></p> 
-    <button onClick={deleteOrder} className='boxbutt'>{ order.status === 'ожидает' ? 'Отменить' : 'Удалить'}</button>
+    <button onClick={deleteOrder} className='boxbutt'>{ order.status === 'Pending Pick Up' ? 'Отменить' : 'Удалить'}</button>
   <p>------------------------------</p>
   </div>
 );

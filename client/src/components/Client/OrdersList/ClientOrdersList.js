@@ -23,13 +23,13 @@ export const ClientOrdersList = () => {
     let response = await request.json();
     response = response.map((el)=>{
       if (new Date(el.box_end_date) > new Date() && el.picked_up === false) {
-        el.status = 'ожидает';
+        el.status = 'Pending Pick Up';
         return el
       } else if (new Date(el.box_end_date) < new Date() && el.picked_up === false){
-        el.status = 'не получен';
+        el.status = 'Picked up';
         return el
       } else {
-        el.status = 'получен';
+        el.status = 'Expired';
         return el
       }
     })
@@ -38,13 +38,9 @@ export const ClientOrdersList = () => {
   })()
   }, [dispatch, user, params.id]); 
 
-  // async function giveOrder(){
-  //   dispatch(issueOrder(order.id))
-  // }
+  
   const arr = useSelector((store) => (store.orders.orders));
-  // async function deleteOrder(){
-  //   dispatch(delOrder(params.id, order.id))
-  // }
+ 
   console.log(arr)
   return (
   <div >
