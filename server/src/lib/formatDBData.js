@@ -6,3 +6,9 @@ exports.formatSendData = (data) => {
     )
   );
 };
+
+exports.formatToRawSendData = (data) => {
+  return data.filter(
+      (el) => el.toJSON()
+    )
+};

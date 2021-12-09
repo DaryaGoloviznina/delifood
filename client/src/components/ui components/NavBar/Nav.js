@@ -17,11 +17,6 @@ export const Nav = () => {
   return (
     !/home/.test(location.pathname) &&
     <>
-      <head>
-        <script 
-          src="https://api-maps.yandex.ru/2.1/?apikey=a9e98eaf-d4c4-45e6-9ee4-5afad392d357&lang=en_US" type="text/javascript">
-        </script>
-      </head>
       <nav className="bg-green-700 pt-4">
         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex items-center justify-between h-16">
