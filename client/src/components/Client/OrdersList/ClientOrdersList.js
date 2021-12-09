@@ -20,8 +20,8 @@ export const ClientOrdersList = () => {
   console.log(arr)
   return (
   <div className="flex items-center justify-center py-8 dark:bg-gray-900">
-    {/* ТУТ БУДУТ ЗАКАЗЫ {params.id} */}
-    {arr.map((el) => <ClientOrder order={el}/>)}
+
+    {arr.map((el) => <ClientOrder key={el.id} order={el}/>)}
   </div>
 );
 };

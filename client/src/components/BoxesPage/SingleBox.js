@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import BoxModal from "../ui components/Modals/CustomerBoxesPage/BoxModal";
+import { calculateDistance } from '../../lib/distance'
 
 export const Box = ({el, setEndOrderModal}) => {
   const {
@@ -22,8 +24,16 @@ export const Box = ({el, setEndOrderModal}) => {
     const [showModal, setShowModal] = useState(false);
     const [boxData, setBoxdata] = useState({});
     const [clientOrderBoxAmount, setclientOrderBoxAmount] = useState(box_amount) // для изменения количества оставшихся боксов в ресторане после оформления заказа клиента
-
-  
+    const location = useSelector((store) => (store.auth?.location));
+    const [distance, setDistance] = useState(0);
+    
+    
+    useEffect(()=>{(()=> {
+      if (location !== null) {
+        setDistance(calculateDistance({latitude: location.lat, longitude: location.lon}, {latitude: store_lat, longitude: store_lon}).toFixed(1))
+      }
+    })()
+    }, [location]);
 
     //--------------formats time data from DB to readable string
     const convertObjTimetoStrTime = (obj) => {
@@ -86,7 +96,7 @@ export const Box = ({el, setEndOrderModal}) => {
                 <i className="far fa-clock fa-fw mr-2 text-gray-900"></i> Pick-up time: {startTime} - {endTime}
               </span>
               <span className="flex items-center">
-                <i className="far fa-address-card fa-fw text-gray-900 mr-2"></i>Distance:
+                <i className="far fa-address-card fa-fw text-gray-900 mr-2"></i>Distance: {distance} km
               </span> 
               <span className="flex items-center">
                 <i className="far fa-address-card fa-fw text-gray-900 mr-2"></i>Left in stock: {clientOrderBoxAmount}
