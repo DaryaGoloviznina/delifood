@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BoxModal from "../ui components/Modals/CustomerBoxesPage/BoxModal";
 
-export const Box = ({el, setEndOrderModal, user}) => {
+export const Box = ({el, setEndOrderModal}) => {
   const {
     id, 
     store_img,
@@ -21,9 +21,7 @@ export const Box = ({el, setEndOrderModal, user}) => {
     const [boxData, setBoxdata] = useState({});
     const [clientOrderBoxAmount, setclientOrderBoxAmount] = useState(box_amount) // для изменения количества оставшихся боксов в ресторане после оформления заказа клиента
 
-    console.log('USER ИЗ БОКСА', user?.location?.lat, user?.location?.lon )
-    console.log('USER ИЗ БОКСА', user?.location?.lat, user?.location?.lon )
-    
+  
 
     //--------------formats time data from DB to readable string
     const convertObjTimetoStrTime = (obj) => {

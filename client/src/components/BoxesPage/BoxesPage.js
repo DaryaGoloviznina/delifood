@@ -30,7 +30,6 @@ export const BoxesPage = () => {
               
               return (
                 <Box
-                user={user}
                 el={el}
                 key={el.id}
                 setEndOrderModal={setEndOrderModal}
