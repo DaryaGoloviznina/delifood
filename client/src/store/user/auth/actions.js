@@ -5,6 +5,7 @@ export const noUser = () => ({type: ACTypes.SIGNOUT});
 
 //------------fetching server to register the user
 export const registerUserThunk = (data) => async (dispatch) => {
+  console.log('data=>>', data);
   let request = await fetch(`/auth/signup`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -14,6 +15,7 @@ export const registerUserThunk = (data) => async (dispatch) => {
       password: data.password,
       phone: data?.phone,
       address: data?.address,
+      cuisine: data?.cuisine,
       lon: data?.lon,
       lat: data?.lat,
     }),

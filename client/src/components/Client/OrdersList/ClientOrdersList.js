@@ -16,11 +16,11 @@ export const ClientOrdersList = () => {
 
   
   const arr = useSelector((store) => (store.orders.orders));
- 
+
   console.log(arr)
   return (
-  <div >
-    ТУТ БУДУТ ЗАКАЗЫ {params.id}
+  <div className="flex items-center justify-center py-8 dark:bg-gray-900">
+    {/* ТУТ БУДУТ ЗАКАЗЫ {params.id} */}
     {arr.map((el) => <ClientOrder order={el}/>)}
   </div>
 );

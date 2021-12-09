@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const { Client, Store } = require('../db/models');
+const { Client, Store, Stores_Cuisine, Cuisine } = require('../db/models');
 const { formatSendData } = require('../lib/formatDBData');
 const { getUser } = require('../lib/getUser');
 require('dotenv').config();
@@ -15,7 +15,12 @@ exports.isUser = (req, res) => {
 };
 
 exports.createUserAndSession = async (req, res) => {
-  const { email, password, address } = req.body;
+  console.log('body=>>>', req.body);
+  const { email, password, address, cuisine } = req.body;
+
+  let cuisineId;
+  if (cuisine) cuisineId = await Cuisine.findOne({where: {name: cuisine}});
+
   let newUser;
 
   try {
@@ -27,16 +32,25 @@ exports.createUserAndSession = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     
-    if (address) newUser = await Store.create(
-      {...req.body,
-        password: hashedPassword,
-      });
+    if (address) {
+      newUser = await Store.create(
+        {...req.body,
+          password: hashedPassword,
+        });
+
+      await Stores_Cuisine.create({
+        store_id: newUser.id,
+        cuisine_id: cuisineId.id
+      }); 
+    } 
     else newUser = await Client.create(
       {...req.body,
         password: hashedPassword,
       });
     
     const formatedUser = formatSendData(newUser.toJSON())
+    
+    if (formatedUser.address) formatedUser.cuisine = cuisine;
 
     req.session.user = formatedUser; 
     res.json(formatedUser);
@@ -51,14 +65,36 @@ exports.checkUserAndCreateSession = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const user = await getUser({email});
-    if (user) {
+    if (user && !user.address) { 
       await bcrypt.compare(password, user.password);
       const formatedUser = formatSendData(user.toJSON())
     
     req.session.user = formatedUser; 
     res.json(formatedUser);
 
+    } else if (user.address) {
+      const cuisine = await Cuisine.findOne({
+        include: [{
+          model: Store,
+          attributes: [],
+          required: true, 
+          where: {id: user.id}
+        }],
+      }, {raw: true});
+
+      
+      user.cuisine = cuisine.name;
+      console.log('user=>', user);
+      const formatedUser = formatSendData(user.toJSON());
+
+      formatedUser.cuisine = cuisine.name;
+
+      console.log('formatted=>', formatedUser);
+
+      req.session.user = formatedUser; 
+      res.json(formatedUser);
     }
+
     else res.status(401).end();
     
   } catch (err) {
