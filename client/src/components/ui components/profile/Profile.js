@@ -5,7 +5,7 @@ import { RestProfile } from "../../RestCRM/RestProfile";
 
 export const Profile = () => {
 
-  const profileData = useSelector((store) => store.auth.user ?? store.auth.business);
+  const profileData = useSelector((store) => store.auth.user);
   console.log(profileData);
   return profileData?.address 
     ? <RestProfile /> 
