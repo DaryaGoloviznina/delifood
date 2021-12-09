@@ -5,7 +5,7 @@ import { ActionButton } from '../ui components/Buttons/ActionButton'
 import { registerUserThunk } from '../../store/user/auth/actions.js'
 import { Map, SearchControl, YMaps } from 'react-yandex-maps';
 import { getAllCuisinesThunk } from '../../store/boxes/actions';
-import { CuisineOption } from '../BoxesPage/filterBar/filterOptions/Cuisine';
+import { CuisineOption } from '../BoxesPage/filterBar/filterOptions/Cuisine/OptionsCuisine';
 export const SignupForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
