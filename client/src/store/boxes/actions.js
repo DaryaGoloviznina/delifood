@@ -52,4 +52,15 @@ export const getFilteredBoxesThunk = (data) => async (dispatch) => {
   }
 }
 
+export const getSearchedBoxesThunk = (query) => async (dispatch) => {
+  const searchedBoxes = await (await fetch('/boxes/search', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({query}),
+    }
+  )).json();
+
+  dispatch(setAllBoxes(searchedBoxes));
+}
+
 

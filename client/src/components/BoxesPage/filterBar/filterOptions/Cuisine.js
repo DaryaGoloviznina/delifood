@@ -1,5 +1,11 @@
-export const CuisineOption = ({id, cuisine}) => {
+export const CuisineOption = ({id, cuisine, selected}) => {
+  
   return (
-    <option id={id}>{cuisine}</option>
+    <option 
+      id={id}
+      selected={
+        selected && selected  
+      }
+    >{cuisine}</option>
   )
 }

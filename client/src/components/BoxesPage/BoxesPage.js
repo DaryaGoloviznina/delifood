@@ -13,9 +13,12 @@ export const BoxesPage = () => {
   const [endOrderModal, setEndOrderModal] = useState(false) // показ модальное окно завершения заказа клиента
 
   useEffect(() => {
-    dispatch(getAllBoxesThunk(42));
-    if (user && !user.address) dispatch(getUserLocationThunk());
+    dispatch(getAllBoxesThunk());
   }, []);
+
+  useEffect(() => {
+    if (user && !user.address && !user.location) dispatch(getUserLocationThunk());
+  }, [user])
 
   return (
     <main className="bg-gray-100">
