@@ -31,7 +31,7 @@ export const SignupForm = () => {
     const phone = event.target.phone.value;
     const password = event.target.password.value;
     const confirm_password = event.target.confirm_password.value;
-    const cuisine = event.target.cuisine.value;
+    const cuisine = event.target?.cuisine?.value;
 
     console.log('info=>>>', name, email, phone, password, cuisine);
     if (password === confirm_password) {

@@ -15,6 +15,7 @@ exports.isUser = (req, res) => {
 };
 
 exports.createUserAndSession = async (req, res) => {
+  console.log('body=>>>', req.body);
   const { email, password, address, cuisine } = req.body;
 
   let cuisineId;
