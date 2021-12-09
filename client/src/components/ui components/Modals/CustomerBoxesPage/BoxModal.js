@@ -8,7 +8,8 @@ export default function BoxModal({
   setShowModal, 
   boxData, 
   clientOrderBoxAmount, 
-  setclientOrderBoxAmount}) {
+  setclientOrderBoxAmount,
+  setEndOrderModal}) {
 
   const user = useSelector((store) => (store.auth?.user));
   const [orderPrice, setOrderPrice] = useState(boxData.price) // для изменения цены заказа
@@ -28,6 +29,9 @@ export default function BoxModal({
     if (response === 'ok'){
       setclientOrderBoxAmount((prev)=> prev - Math.abs(Number(e.target.quantity.value)))
     } 
+    
+    setShowModal(false)
+    setEndOrderModal(true)
   }
 
   const modalImg = {

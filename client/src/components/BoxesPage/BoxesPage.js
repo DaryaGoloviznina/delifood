@@ -11,9 +11,12 @@ export const BoxesPage = () => {
   const user = useSelector((store) => (store.auth?.user));
 
   useEffect(() => {
-    dispatch(getAllBoxesThunk(42));
-    if (user && !user.address) dispatch(getUserLocationThunk());
+    dispatch(getAllBoxesThunk());
   }, []);
+
+  useEffect(() => {
+    if (user && !user.address && !user.location) dispatch(getUserLocationThunk());
+  }, [user])
 
   return (
     <main className="bg-gray-100">
