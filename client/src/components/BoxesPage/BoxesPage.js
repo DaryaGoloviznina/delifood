@@ -3,13 +3,12 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBoxesThunk } from '../../store/boxes/actions'
 import { FilterNav } from "./filterBar/FilterNav";
-import { getUserLocationThunk } from "../../store/user/clientLocation/actions";
+import { getUserLocationThunk, setUserLocation } from "../../store/user/UserLocation/actions";
 import { ModalInfo } from "../ui components/Modals/universal/ModalInfo";
 
 export const BoxesPage = () => {
   const dispatch = useDispatch();
   const boxes = useSelector((store) => (store.boxes?.boxes));
-  const user = useSelector((store) => (store.auth?.user));
   const [endOrderModal, setEndOrderModal] = useState(false) // показ модальное окно завершения заказа клиента
 
   useEffect(() => {
@@ -17,8 +16,10 @@ export const BoxesPage = () => {
   }, []);
 
   useEffect(() => {
-    if (user && !user.address && !user.location) dispatch(getUserLocationThunk());
-  }, [user])
+    dispatch(getUserLocationThunk());
+
+    return () => dispatch(setUserLocation(null))
+  }, [])
 
   return (
     <main className="bg-gray-100">
@@ -49,7 +50,8 @@ export const BoxesPage = () => {
             <ModalInfo
             modalInfoState={endOrderModal}
             setModalInfoState={setEndOrderModal}
-            info={'успешно'}
+            info={'Success! Check your orders in your profile!'}
+            img={<img src="https://img.icons8.com/doodle/48/000000/firework-explosion.png"/>}
             />
           ) : null}  
     </main>

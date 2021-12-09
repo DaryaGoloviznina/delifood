@@ -12,10 +12,9 @@ import { DeleteModal } from "../../ui components/Modals/RestCRMPage/DeleteModal"
 export const BoxesList = () => {
   const params = useParams();
   const { modalState } = useContext(Context);
-  const [modalInfoState, setModalInfoState] = useState(false);
+  const [modalsInfoState, setModalsInfoState] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const arr = useSelector((store) => store.restCRM.boxes);
-  const modalInformation = "Вы не можете удалить бокс"
   const dispatch = useDispatch();
 
   function deleteAll(){
@@ -46,9 +45,11 @@ export const BoxesList = () => {
             No boxes yet!
           </p>
         </div>}
-      { arr.map((el)=> <Box key={el.id} box={el} setModalInfoState={setModalInfoState}/>) }
+      { arr.map((el)=> <Box key={el.id} box={el} setModalInfoState={setModalsInfoState}/>) }
       {  modalState && <ModalBox /> }
-      <ModalInfo info={modalInformation} modalInfoState={modalInfoState} setModalInfoState={setModalInfoState} />
+      { modalsInfoState && <ModalInfo info={'You cannot delete this box as it was already ordered and pending pick up!'} 
+      setModalInfoState={setModalsInfoState}
+      img={<img src="https://img.icons8.com/office/30/000000/cancel-2.png"/>} /> }
     </div>
     </>
   );
