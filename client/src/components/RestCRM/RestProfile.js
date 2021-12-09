@@ -2,16 +2,17 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { updateProfileThunk } from "../../store/user/profile/actions";
-import { ActionButton } from "../ui components/Buttons/ActionButton";
 import { YMaps, Map, SearchControl, GeolocationControl, Placemark } from 'react-yandex-maps';
+import { CuisineOption } from "../BoxesPage/filterBar/filterOptions/Cuisine/OptionsCuisine";
 
 export const RestProfile = () => {
   const dispatch = useDispatch();
   const profileData = useSelector((store) => store.auth.user) ?? {};
-  const [isEdit, SetEdit] = useState(false);
-
+  const cuisines = useSelector((store) => (store.boxes?.cuisines));
+  
   console.log('profileData=>', profileData)
   
+  const [isEdit, SetEdit] = useState(false);
   const [lon, SetLon] = useState(profileData?.lon);
   const [lat, SetLat] = useState(profileData?.lat);
   const [address, SetAddress] = useState(profileData?.address);
@@ -82,7 +83,7 @@ export const RestProfile = () => {
                 </p>
               )
               if (key === 'address') return (
-                <p className="pt-2  text-gray-600 text-xs lg:text-sm flex items-center justify-center lg:justify-start">
+                <p className="pt-2 text-gray-600 text-xs lg:text-sm flex items-center justify-center lg:justify-start">
                   <img 
                   className="pr-4 mr-1 ml-1 mb-1"
                   src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/24/000000/external-world-web-and-social-media-flatart-icons-outline-flatarticons.png"/>
@@ -102,7 +103,7 @@ export const RestProfile = () => {
                   type='text' 
                   name={key}
                   defaultValue={value}
-                  className="rounded-md mb-2 text-3xl font-bold pt-8 lg:pt-0"/>
+                  className="rounded-md mb-2 text-3xl font-bold pt-8 lg:pt-0 w-full" />
               )
               if (key === 'email') return (
                 <input
@@ -110,7 +111,7 @@ export const RestProfile = () => {
                   type='text'
                   name={key}
                   defaultValue={value}
-                  className="rounded-md mb-2 text-3xl font-bold pt-8 lg:pt-0"
+                  className="rounded-md mb-2 text-3xl font-bold pt-8 lg:pt-0 w-full"
                 />
               )
               if (key === 'phone') return (
@@ -118,16 +119,38 @@ export const RestProfile = () => {
                   type='text' 
                   name={key} 
                   defaultValue={value}
-                  className="mb-2 rounded-md pt-4 text-base font-bold flex items-center justify-center lg:justify-start"
+                  className="mb-2 rounded-md pt-4 text-base font-bold flex items-center justify-center lg:justify-start w-full"
                 />
+              )
+              if (key === 'cuisine') return (
+                <select
+                  name="cuisine"
+                  className="mb-2 rounded-md pt-4 text-base font-bold w-full">
+                    {cuisines.map((el) => {
+                        return (
+                          <CuisineOption 
+                            id={el.id}
+                            cuisine={el.name}
+                            selected={
+                              value === el.name
+                              ? 'selected'
+                              : null
+                            }
+                          />
+                        )
+                    })}
+                </select>
               )
               })
             }
-            <div>
+            
+            <div
+              className='w-full'
+            >
               <YMaps query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357'}}>
                 <Map 
                   state={{ center: [lat, lon], zoom: 9 }} 
-                  width={'300px'} height={'250px'} 
+                  width={'100%'} height={'250px'} 
                   options={{autoFitToViewport: 'always'}} 
                   modules={["geolocation", "geocode"]}
                 >
@@ -147,16 +170,15 @@ export const RestProfile = () => {
               </YMaps>
             </div>
 
-            <div className="mb-2 mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-green-500 opacity-25"></div>
+            <div className="mb-2 mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 opacity-25"></div>
             
             <label>Change Your Image</label><br/>
             <input type='file' name='store_img'/><br/>
 
             <button 
-            type="submit"
-            className="mt-3 bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full">
-              Save Changes
-            </button> 
+              type="submit"
+              className="mt-6 bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full"
+            >Save Changes</button> 
           </form>
         }
         {!isEdit && 

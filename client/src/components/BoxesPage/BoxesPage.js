@@ -25,7 +25,6 @@ export const BoxesPage = () => {
           <div className="flex flex-wrap -mx-4 justify-center">
           <FilterNav />
             {boxes.map((el) => {
-              
               return (
                 <Box
                 el={el}
