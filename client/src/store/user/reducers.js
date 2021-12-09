@@ -2,6 +2,7 @@ import { ACTypes } from '../types';
 
 const initialState = {
   user: null,
+  location: null,
 }
 
 export const auth = (state = initialState, action) => {
@@ -29,9 +30,7 @@ export const auth = (state = initialState, action) => {
       
       case ACTypes.SET_USER_LOCATION:
         return {...state,
-          user: {...state.user,
-            location: action.payload
-          }
+          location: action.payload,
         }
 
     default:
