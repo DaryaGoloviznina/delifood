@@ -1,9 +1,9 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CuisineOption } from './filterOptions/Cuisine';
+import { CuisineOption } from './filterOptions/Cuisine/OptionsCuisine';
 import { PickUpTimes } from './filterOptions/PickUpTimes';
 import { 
-  getAllCuisinesThunk,
+  getAllBoxesThunk,
   getFilteredBoxesThunk, 
   getSearchedBoxesThunk} from '../../../store/boxes/actions';
 
@@ -19,10 +19,6 @@ export const FilterNav = () => {
   }
 
   const [pickedOptions, setOptions] = useState(defaultState);
-
-  useLayoutEffect(() => {
-    dispatch(getAllCuisinesThunk());
-  }, [])
 
   //-------------dispatching user's choices with every state change
   useEffect(() => {
@@ -65,12 +61,12 @@ export const FilterNav = () => {
             Filter the boxes
           </p>
 
-          <div>
-            <button 
-            className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md mr-2"
-            onClick={() => dispatch(getAllCuisinesThunk(42))}>
-              All boxes
-            </button>
+        <div>
+          <button 
+          className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md mr-2"
+          onClick={() => dispatch(getAllBoxesThunk(42))}>
+            All boxes
+          </button>
 
             <button 
               className="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 text-sm font-medium rounded-md"

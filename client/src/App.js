@@ -14,6 +14,7 @@ import { OrderList } from "./components/RestCRM/OrdersList/OrderList";
 import { Profile } from './components/ui components/profile/Profile';
 import { BoxesPage } from './components/BoxesPage/BoxesPage';
 import { ClientOrdersList } from './components/Client/OrdersList/ClientOrdersList'
+import { getAllCuisinesThunk } from '../src/store/boxes/actions';
 
 const routes = [
   {
@@ -66,6 +67,7 @@ function App() {
 
   useEffect(() => {
     dispatch(checkUserThunk());
+    dispatch(getAllCuisinesThunk(42));
   }, [])
 
   return (

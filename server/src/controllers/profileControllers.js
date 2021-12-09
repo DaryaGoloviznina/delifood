@@ -1,4 +1,4 @@
-const { Store, Client } = require('../db/models');
+const { Store, Client, Stores_Cuisine, Cuisine } = require('../db/models');
 const { getUser } = require('../lib/getUser');
 const path = require('path');
 
@@ -21,18 +21,27 @@ exports.updateProfile = async (req, res) => {
   let newItem = await getUser({id});
 
   if (!newItem) res.status(401).end();
-
+  
   if (newItem instanceof Store) {
+    
     try {
       newItem.set(
         req.file ?
         {...req.body,
-          store_img: `/rppests/images/${req.file.filename}`,
+          store_img: `/rests/images/${req.file.filename}`,
         }
         : req.body
         );
 
       await newItem.save();
+      await Stores_Cuisine.update(
+        {
+          cuisine_id: (await Cuisine.findOne({where: {name: req.body.cuisine}})).id
+        },
+        {
+          where: {store_id: id},
+        },
+      );
 
     } catch (error) {
       console.log('Не удалось добавить запись в базу данных.', error);
@@ -51,6 +60,10 @@ exports.updateProfile = async (req, res) => {
   console.log('data', newItem);
 
   const sendData = formatSendData({...newItem.toJSON()});
+
+  if (sendData.address) {
+    sendData.cuisine = req.body.cuisine
+  }
   req.session.user = sendData;
 
   return res.json(sendData);
