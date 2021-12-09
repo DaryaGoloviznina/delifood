@@ -2,6 +2,9 @@ const bcrypt = require('bcryptjs');
 const { Client, Store, Stores_Cuisine, Cuisine } = require('../db/models');
 const { formatSendData } = require('../lib/formatDBData');
 const { getUser } = require('../lib/getUser');
+const nodemailer = require("nodemailer");
+const { sendNotice } = require('../lib/nodemailer')
+
 require('dotenv').config();
 
 exports.isUser = (req, res) => {
@@ -53,6 +56,12 @@ exports.createUserAndSession = async (req, res) => {
     if (formatedUser.address) formatedUser.cuisine = cuisine;
 
     req.session.user = formatedUser; 
+
+    const text = `<p>Hello, ${req.body.name}!</p>
+                  <p>You have successfully registered on the Delifood website!</p>`
+
+    sendNotice(email, text).catch(console.error); // отправка сообщений
+
     res.json(formatedUser);
 
   } catch (err) {
