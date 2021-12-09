@@ -1,8 +1,7 @@
 import { useState } from "react";
 import BoxModal from "../ui components/Modals/CustomerBoxesPage/BoxModal";
-import { ModalInfo } from "../ui components/Modals/universal/ModalInfo";
 
-export const Box = ({el}) => {
+export const Box = ({el, setEndOrderModal, user}) => {
   const {
     id, 
     store_img,
@@ -21,7 +20,10 @@ export const Box = ({el}) => {
     const [showModal, setShowModal] = useState(false);
     const [boxData, setBoxdata] = useState({});
     const [clientOrderBoxAmount, setclientOrderBoxAmount] = useState(box_amount) // для изменения количества оставшихся боксов в ресторане после оформления заказа клиента
-    const [endOrderModal, setEndOrderModal] = useState(false)
+
+    console.log('USER ИЗ БОКСА', user?.location?.lat, user?.location?.lon )
+    console.log('USER ИЗ БОКСА', user?.location?.lat, user?.location?.lon )
+    
 
     //--------------formats time data from DB to readable string
     const convertObjTimetoStrTime = (obj) => {
@@ -56,7 +58,9 @@ export const Box = ({el}) => {
       });
       setShowModal(true);
     }
-  if (clientOrderBoxAmount === 0) return null
+
+  if (clientOrderBoxAmount === 0) return null // удаление бокса со страницы 
+
   return (
     <div
     key={id}
@@ -101,13 +105,6 @@ export const Box = ({el}) => {
             setclientOrderBoxAmount={setclientOrderBoxAmount}
             setEndOrderModal={setEndOrderModal}/>
           ) : null}
-            {endOrderModal ? (
-            <ModalInfo
-            modalInfoState={endOrderModal}
-            setModalInfoState={setEndOrderModal}
-            info={'успешно'}
-            />
-          ) : null}          
         </div>
       </div>
     </div>
