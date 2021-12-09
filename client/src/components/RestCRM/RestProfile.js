@@ -147,7 +147,9 @@ export const RestProfile = () => {
             <div
               className='w-full'
             >
-              <YMaps query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357'}}>
+              <YMaps 
+                query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357', lang: 'en_US'}}
+              >
                 <Map 
                   state={{ center: [lat, lon], zoom: 9 }} 
                   width={'100%'} height={'250px'} 

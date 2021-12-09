@@ -16,7 +16,7 @@ export const RestMap = ({setEndOrderModal}) => {
   const [showModal, setShowModal] = useState(false);
   const [boxData, setBoxdata] = useState({});
   const [clientOrderBoxAmount, setclientOrderBoxAmount] = useState() // для изменения количества оставшихся боксов в ресторане после оформления заказа клиента
-  
+
   useEffect(() => {
     dispatch(getAllBoxesThunk());
   }, []);
@@ -63,7 +63,7 @@ export const RestMap = ({setEndOrderModal}) => {
   }
   
   return (
-    <div className="rounded-lg">
+    <div className="rounded-xl">
       {showModal 
         ? 
           <BoxModal
@@ -78,7 +78,7 @@ export const RestMap = ({setEndOrderModal}) => {
         null
       }
       <YMaps 
-        query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357'}}
+        query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357', lang: 'en_US'}}
       >
         <Map 
           state={{ 

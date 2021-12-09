@@ -59,7 +59,7 @@ export const BoxesPage = () => {
             
            {mode === 'map' && 
            <div
-            className={'w-screen shadow my-5'}
+            className={'w-screen shadow my-5 rounded-xl'}
            >
             <RestMap 
               setEndOrderModal={setEndOrderModal}
@@ -74,7 +74,8 @@ export const BoxesPage = () => {
             <ModalInfo
             modalInfoState={endOrderModal}
             setModalInfoState={setEndOrderModal}
-            info={'успешно'}
+            info={'Success! Check your orders in your profile!'}
+            img={<img src="https://img.icons8.com/doodle/48/000000/firework-explosion.png"/>}
             />
           ) : null}  
     </main>
