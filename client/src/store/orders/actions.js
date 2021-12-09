@@ -20,6 +20,35 @@ export const getOrders = (params, id) => async (dispatch) => {
   } 
 };
 
+export const getClientOrders = (params, user) => async (dispatch) => {
+  try {
+    let request = await fetch(`/client/orders/${params}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: user?.id,
+      }),
+    });
+    let response = await request.json();
+    response = response.map((el)=>{
+      if (new Date(el.box_end_date) > new Date() && el.picked_up === false) {
+        el.status = 'Pending Pick Up';
+        return el
+      } else if (new Date(el.box_end_date) < new Date() && el.picked_up === false){
+        el.status = 'Picked up';
+        return el
+      } else {
+        el.status = 'Expired';
+        return el
+      }
+    })
+    dispatch(setActiveOrdersAC(response))
+
+  } catch (err) {
+    console.error("Err", err);
+  } 
+};
+
 export const issueOrder = (id) => async (dispatch) => {
   try {
     dispatch(deleteOrderAC(id))
@@ -45,6 +74,21 @@ export const delOrder = (params, id) => async (dispatch) => {
         id
       }),
     });
+  } catch (err) {
+    console.error("Err", err);
+  } 
+};
+
+export const delClientOrder = (status, id) => async (dispatch) => {
+  try {
+    await fetch(`/client/order/del`, { 
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({status, id}),
+    }); 
+  
+    dispatch(deleteOrderAC(id))
+
   } catch (err) {
     console.error("Err", err);
   } 

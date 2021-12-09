@@ -32,6 +32,7 @@ export const Order = ({order}) => {
     <p><i>created at: {`${createStrDateFromDB(order.createdAt)} ${convertObjTimetoStrTime(order.createdAt)}`}</i></p>
     { params.id === 'active' && <button onClick={giveOrder} className='boxbutt'>Picked up</button> }
     <button onClick={deleteOrder} className='boxbutt'>Delete</button>
+    <p>----------------------------------------------------------------------------------------</p>
   </div>
 );
 };
