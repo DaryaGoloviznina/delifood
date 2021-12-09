@@ -1,16 +1,18 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState, useLayoutEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link , useNavigate} from "react-router-dom";
 import { ActionButton } from '../ui components/Buttons/ActionButton'
 import { registerUserThunk } from '../../store/user/auth/actions.js'
 import { Map, SearchControl, YMaps } from 'react-yandex-maps';
-
+import { getAllCuisinesThunk } from '../../store/boxes/actions';
+import { CuisineOption } from '../BoxesPage/filterBar/filterOptions/Cuisine';
 export const SignupForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [userButton, setUser] = useState(true);
   const [businessButton, setBusiness] = useState(false);
+  const cuisines = useSelector((store) => (store.boxes?.cuisines));
 
   const [lon, SetLon] = useState(0);
   const [lat, SetLat] = useState(0);
@@ -29,9 +31,11 @@ export const SignupForm = () => {
     const phone = event.target.phone.value;
     const password = event.target.password.value;
     const confirm_password = event.target.confirm_password.value;
+    const cuisine = event.target.cuisine.value;
 
+    console.log('info=>>>', name, email, phone, password, cuisine);
     if (password === confirm_password) {
-      dispatch(registerUserThunk({name, address, email, password, address, lon, lat, phone, navigate}));
+      dispatch(registerUserThunk({name, address, email, password, address, lon, lat, phone, cuisine, navigate}));
     } else {
       alert('passwords do not match');
     }
@@ -49,7 +53,7 @@ export const SignupForm = () => {
     <>
     <div className="pt-11 mt-5 flex items-center justify-center">
       <ActionButton content="User" func={changeForm}/>
-      <ActionButton content="Business" func={changeForm}/>
+      <ActionButton content="Restaurant" func={changeForm}/>
     </div>
 
     <div className="flex items-center mt-11 mb-20">
@@ -134,6 +138,21 @@ export const SignupForm = () => {
                       />
                     </Map>
                   </YMaps>
+                </div>
+                <div className="mt-4">
+                  <label className="block text-sm">Pick Cuisine</label>
+                  <select
+                    // onChange={onChangeHandler}
+                    name="cuisine"
+                    className="px-4 py-3 w-full border-gray-500 text-gray-500 rounded-md bg-white border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+                      {cuisines.map((el) => {
+                          return (
+                            <CuisineOption 
+                            id={el.id}
+                            cuisine={el.name} />
+                          )
+                      })}
+                  </select>
                 </div>
                 </>
                 }

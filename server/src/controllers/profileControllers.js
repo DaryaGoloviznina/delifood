@@ -27,7 +27,7 @@ exports.updateProfile = async (req, res) => {
       newItem.set(
         req.file ?
         {...req.body,
-          store_img: `/rppests/images/${req.file.filename}`,
+          store_img: `/rests/images/${req.file.filename}`,
         }
         : req.body
         );
@@ -51,6 +51,10 @@ exports.updateProfile = async (req, res) => {
   console.log('data', newItem);
 
   const sendData = formatSendData({...newItem.toJSON()});
+
+  if (sendData.address) {
+    sendData.cuisine = req.session.user.cuisine
+  }
   req.session.user = sendData;
 
   return res.json(sendData);

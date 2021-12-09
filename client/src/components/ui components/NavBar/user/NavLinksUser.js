@@ -14,6 +14,10 @@ export const NavLinksUser = () => {
             className="text-white px-3 py-2 rounded-md text-sm font-medium ml-4" aria-current="page">
               My Profile
           </Link>
+          <Link to="/boxes" 
+            className="text-white px-3 py-2 rounded-md text-sm font-medium ml-4" aria-current="page">
+              Browse Boxes
+          </Link>
           <button
             className="bg-green-600 text-white px-3 py-2 rounded-md text-sm font-medium ml-4" aria-current="page"
             onClick={()=> dispatch(signOutThunk(navigate))}

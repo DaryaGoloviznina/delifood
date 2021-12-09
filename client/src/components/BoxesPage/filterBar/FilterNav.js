@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CuisineOption } from './filterOptions/Cuisine';
 import { PickUpTimes } from './filterOptions/PickUpTimes';
 import { 
-  getAllCuisinesThunk,
-  getFilteredBoxesThunk } from '../../../store/boxes/actions';
+  getFilteredBoxesThunk, 
+  getAllBoxesThunk} from '../../../store/boxes/actions';
 
 export const FilterNav = () => {
   const dispatch = useDispatch();
@@ -15,10 +15,6 @@ export const FilterNav = () => {
     price: 'anyPrice',
     time: 'anyTime',
   });
-
-  useLayoutEffect(() => {
-    dispatch(getAllCuisinesThunk(42));
-  }, [])
 
   //-------------dispatching user's choices with every state change
   useEffect(() => {
@@ -53,7 +49,7 @@ export const FilterNav = () => {
         <div>
           <button 
           className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md mr-2"
-          onClick={() => dispatch(getAllCuisinesThunk(42))}>
+          onClick={() => dispatch(getAllBoxesThunk(42))}>
             All boxes
           </button>
 

@@ -14,6 +14,7 @@ export const registerUserThunk = (data) => async (dispatch) => {
       password: data.password,
       phone: data?.phone,
       address: data?.address,
+      cuisine: data?.cuisine,
       lon: data?.lon,
       lat: data?.lat,
     }),
