@@ -1,18 +1,29 @@
 import { useEffect, useState } from 'react';
-import { YMaps, Map, SearchControl, Placemark} from 'react-yandex-maps';
-import {UserPlacemark} from './PlaceMark'
+import { YMaps, Map, SearchControl } from 'react-yandex-maps';
+import  {UserPlacemark } from './PlaceMark'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBoxesThunk } from '../../../store/boxes/actions';
-import { getUserLocationThunk } from '../../../store/user/UserLocation/actions';
 import BoxModal from '../Modals/CustomerBoxesPage/BoxModal'
+import { convertObjTimetoStrTime } from '../../../lib/formateTimeFunctions';
+import { setUserLocation } from '../../../store/user/UserLocation/actions';
 
-export const RestMap = () => {
+export const RestMap = ({setEndOrderModal}) => {
   
   const dispatch = useDispatch();
   const boxes = useSelector((store) => (store.boxes?.boxes));
-  const user = useSelector((store) => (store.auth?.user));
+  const location = useSelector((store) => (store.auth?.location));
+
   const [showModal, setShowModal] = useState(false);
   const [boxData, setBoxdata] = useState({});
+  const [clientOrderBoxAmount, setclientOrderBoxAmount] = useState() // для изменения количества оставшихся боксов в ресторане после оформления заказа клиента
+  
+  useEffect(() => {
+    dispatch(getAllBoxesThunk());
+  }, []);
+
+  useEffect(() => {
+    if (clientOrderBoxAmount === 0) dispatch(getAllBoxesThunk());
+  }, [clientOrderBoxAmount]);
 
   function compareBox (boxes) {
     const formatedBoxArr = [];
@@ -34,27 +45,34 @@ export const RestMap = () => {
   }
 
   function buttonHandler(event) {
-    setBoxdata(event.data.boxData);
+    const {boxData: newBoxData} = event.data;
+
+    const startTime = convertObjTimetoStrTime(newBoxData.start_date);
+    const endTime = convertObjTimetoStrTime(newBoxData.end_date);
+    const box_amount = newBoxData.count - newBoxData.count_reserved - newBoxData.count_bought;
+
+    setBoxdata(
+      {...newBoxData,
+        startTime,
+        endTime,
+        box_amount,
+      }
+    );
+    setclientOrderBoxAmount(box_amount);
     setShowModal(true);
   }
-
-  useEffect(() => {
-    if (user && !user.location) dispatch(getUserLocationThunk());
-  }, [user]);
-
-  useEffect(() => {
-    dispatch(getAllBoxesThunk());
-  }, []);
   
-  // console.log(compareBox(boxes));
   return (
-    <div className="container mx-auto">
+    <div className="rounded-lg">
       {showModal 
         ? 
           <BoxModal
             showModal={showModal}
             setShowModal={setShowModal}
-            boxData={boxData} 
+            boxData={boxData}
+            clientOrderBoxAmount={clientOrderBoxAmount}
+            setclientOrderBoxAmount={setclientOrderBoxAmount}
+            setEndOrderModal={setEndOrderModal}
           />
         : 
         null
@@ -64,7 +82,7 @@ export const RestMap = () => {
       >
         <Map 
           state={{ 
-            center: [user?.location?.lat, user?.location?.lon], 
+            center: [location?.lat, location?.lon], 
             zoom: 9 
           }} 
           width={'100%'} 
@@ -88,12 +106,21 @@ export const RestMap = () => {
               boxData={el}
             />
           })}
-          <SearchControl options={{ float: 'right' }} onResultSelect={async (e) => {
-            // const index = e.get('index');
-            // e.originalEvent.target.getResult(index)
-            //   .then((res) => console.log(res.geometry.getCoordinates()));
-            // SetAddres(e.originalEvent.target.getRequestString());
-          }}/>
+          <SearchControl 
+            options={{ float: 'right', noPlacemark: true }} 
+            onResultSelect={async (e) => {
+              const res = await e.originalEvent.target.getResult(0);
+              const [lat, lon] = res.geometry.getCoordinates();
+              console.log(res.getAdministrativeAreas());
+              console.log(res.getLocalities());
+              
+              dispatch(setUserLocation({
+                address: res.getAddressLine(),
+                lat,
+                lon,
+              }));
+            }}
+          />
         </Map>
       </YMaps>
     </div>
