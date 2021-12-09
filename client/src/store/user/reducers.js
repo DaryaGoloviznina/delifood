@@ -17,12 +17,12 @@ export const auth = (state = initialState, action) => {
       return {...state,  
         business: action.payload
       } 
-
+    
     case ACTypes.SIGNOUT:
       return {...state,  
         user: null,
       }
-
+    
     case ACTypes.UPDATE_PROFILE:
       return {...state, 
           user: {...state.user, ...action.payload}

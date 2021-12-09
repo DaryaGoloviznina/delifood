@@ -49,7 +49,7 @@ module.exports = {
         },
       ]);
 
-      const Boxes = await Box.bulkCreate([
+    const Boxes = await Box.bulkCreate([
         { name: 'Campechano Box',
           descr: 'Awesome box here< buy stuff!',
           count: 2,
@@ -122,7 +122,8 @@ module.exports = {
           store_id: Stores.find((el) => el.email === 'barrr@gmail.com').id,
           createdAt: new Date()
         },
-      ]) 
+      
+    ]) 
     
     await queryInterface.bulkInsert('Cuisines', 
     [

@@ -7,11 +7,11 @@ import {
   getFilteredBoxesThunk, 
   getSearchedBoxesThunk} from '../../../store/boxes/actions';
 
-export const FilterNav = () => {
+export const FilterNav = ({modeHandler, mode}) => {
   const dispatch = useDispatch();
   const cuisines = useSelector((store) => (store.boxes?.cuisines));
   const [query, SetQuery] = useState('');
-
+  
   const defaultState = {
     cuisine: 'Any Cuisine',
     price: 'anyPrice',
@@ -62,12 +62,18 @@ export const FilterNav = () => {
           </p>
 
         <div>
-          <button 
-          className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md mr-2">
+          <button
+            name='map'
+            onClick={(e) => modeHandler(e.target.name)}
+            className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md mr-2"
+          >
             Show on Map
           </button>
-          <button 
-          className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md mr-2">
+          <button
+            onClick={(e) => modeHandler(e.target.name)}
+            name='listBox'
+            className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md mr-2"
+          >
             Show List
           </button>
 
