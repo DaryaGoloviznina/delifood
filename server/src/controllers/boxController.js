@@ -1,5 +1,6 @@
 const { Store, Box, Cuisine, Sequelize} = require('../db/models');
 const { Op } = require("sequelize");
+const { formatToRawSendData } = require('../lib/formatDBData');
 require('dotenv').config();
 
 //================ filtering an array of boxes to add only active and non-reserved boxes
@@ -262,3 +263,22 @@ exports.getFilteredBoxes = async (req, res) => {
   }
   res.end();
 };
+
+exports.getSearchedBoxes = async (req, res) => {
+  const {query} = req.body;
+
+  const searchedBoxes = await Box.findAll(
+    {
+      attributes: attributes,
+      include: [{
+        model: Store,
+        attributes: [],
+        where: {
+          name: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('Store.name')), 'LIKE', '%' + query.toLowerCase() + '%'),
+        },
+      }],
+    }
+  );
+
+  res.json(formatToRawSendData(searchedBoxes))
+}
