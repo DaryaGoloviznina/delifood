@@ -53,7 +53,7 @@ export const MapModal = ({ modalState, SetModalState }) => {
               <div className="bg-gray-50 px-4 py-3 sm:px-8 flex flex-col">
               
               <YMaps 
-                query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357'}}
+                query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357', lang: 'en_US'}}
               >
                 <Map 
                   state={{ center: [userLocation?.lat, userLocation?.lon], zoom: 9 }} 

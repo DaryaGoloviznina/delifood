@@ -5,6 +5,7 @@ import {UserPlacemarkBalloon} from './Baloons';
 
 function UserPlacemark(props) {
   const {boxData, myClick} = props;
+  
   const UserPlacemarkCore = React.memo(({ymaps}) => {
     const makeLayout = (layoutFactory) => {
       const Layout = layoutFactory.createClass(
@@ -13,34 +14,45 @@ function UserPlacemark(props) {
             build: function() {
               Layout.superclass.build.call(this);
 
-              Array.isArray(boxData) 
-                ? 
-                  boxData.map((el, ind) => {
-                    this.element = $('.map__placemark-balloon_' + el.id, this.getParentElement());
-
-                    this.element
-                      .find('#placemark-balloon__btn_box-id_' + el.id)
-                      .on('click', {boxData: el}, this.myClick);
-                  })
-                :
-                  this.element = $('.map__placemark-balloon', this.getParentElement());
+              if (Array.isArray(boxData)) {
+                boxData.map((el) => {
+                  this.element = $('.map__placemark-balloon_' + el.id, this.getParentElement());
+                
                   this.element
-                      .find('#placemark-balloon__btn_box-id_' + boxData.id)
-                      .on('click', {boxData: this.boxData}, this.myClick);
-            },
-
-            clear: function() {
-              Array.isArray(boxData) 
-              ? 
-              boxData.forEach((el) => {
-                this.element
                     .find('#placemark-balloon__btn_box-id_' + el.id)
-                    .off('click');
-              })
-              :
-              this.element
+                    .on('click', 
+                      {
+                        boxData: el,
+                      }, 
+                      this.myClick,
+                    );
+                })
+              } 
+              else {
+                this.element = $('.map__placemark-balloon', this.getParentElement());
+
+                this.element
+                    .find('#placemark-balloon__btn_box-id_' + boxData.id)
+                    .on('click', 
+                      {
+                        boxData: this.boxData
+                      }, 
+                      this.myClick);
+              }   
+            },
+            clear: function() {
+              if (Array.isArray(boxData)) {
+                boxData.forEach((el) => {
+                  this.element
+                      .find('#placemark-balloon__btn_box-id_' + el.id)
+                      .off('click');
+                })
+              }
+              else {
+                this.element
                   .find('#placemark-balloon__btn_box-id_' + boxData.id)
                   .off('click');
+              }
 
               Layout.superclass.clear.call(this);
             },

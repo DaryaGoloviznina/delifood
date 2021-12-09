@@ -27,5 +27,10 @@ export const ClientOrdersList = () => {
         </div>
       }
     </div>
-  );
+  // );
+  // <div className="flex items-center justify-center py-8 dark:bg-gray-900">
+
+  //   {arr.map((el) => <ClientOrder key={el.id} order={el}/>)}
+  // </div>
+);
 };

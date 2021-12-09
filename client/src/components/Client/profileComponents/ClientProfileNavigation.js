@@ -39,7 +39,7 @@ export const ClientProfileNavigation = () => {
                 </Link>
                 <Link to="/profile/finished">
                   <li onClick={() => setActiveStatus(3)} className={activeStatus == 3 ? "mr-14 text-m text-green-700 py-2 px-4 bg-white rounded font-normal" : "mr-14 text-m text-gray-600 py-3  font-normal hover:text-green-700 cursor-pointer"}>
-                    Expired
+                    Non Active
                   </li>
                 </Link>
               </ul>
