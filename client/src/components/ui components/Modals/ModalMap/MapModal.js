@@ -2,11 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useRef } from 'react'
 import { GeolocationControl, Map, Placemark, SearchControl, YMaps } from "react-yandex-maps";
-import { setUserLocation } from "../../../../store/user/clientLocation/actions";
+import { setUserLocation } from "../../../../store/user/UserLocation/actions";
 import { ActionButton } from "../../Buttons/ActionButton";
 
 export const MapModal = ({ modalState, SetModalState }) => {
-  const user = useSelector((store) => store.auth.user);
+  const userLocation = useSelector((store) => (store.auth?.location));
   const cancelButtonRef = useRef(null);
   const dispatch = useDispatch();
   
@@ -56,13 +56,13 @@ export const MapModal = ({ modalState, SetModalState }) => {
                 query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357'}}
               >
                 <Map 
-                  state={{ center: [user?.location?.lat, user?.location?.lon], zoom: 9 }} 
+                  state={{ center: [userLocation?.lat, userLocation?.lon], zoom: 9 }} 
                   width={'100%'} height={'600px'} 
                   options={{autoFitToViewport: 'always'}} 
                   modules={["geolocation", "geocode"]}
                 >
                   <Placemark 
-                    geometry={[user?.location?.lat, user?.location?.lon]}
+                    geometry={[userLocation?.lat, userLocation?.lon]}
                     options={{draggable: true}}
                   />
                   <GeolocationControl options={{ float: 'left', noPlacemark: true }} onLocationChange={async (e) => {

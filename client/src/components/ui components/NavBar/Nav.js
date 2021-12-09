@@ -10,6 +10,7 @@ import { useState } from 'react';
 export const Nav = () => {
   const location = useLocation();
   const user = useSelector((store) => (store.auth?.user));
+  const userLocation = useSelector((store) => (store.auth?.location));
   const [modalState, SetModalState] = useState(false);
 
   console.log('userrr=>', user)
@@ -30,11 +31,11 @@ export const Nav = () => {
                     DeliFood
                   </span>
                 </div>
-              { user && !user?.address &&
+              { userLocation &&
               <div className="flex items-center max-w-md space-x-2 mx-8" >
                 <div className='max-w-xs flex items-center justify-center space-x-2'>
                   <img src='/img/icons/location-mark.svg' className='h-7 sm:h-6'/>
-                  <span className='text-white text-sm'>{user?.location?.address}</span>
+                  <span className='text-white text-sm'>{userLocation?.address}</span>
                   </div>
                   {/* <input value='Change location' type='button' onClick={()=> SetModalState(true)}/> */}
                   <button className='flex-2 px-3 py-2 rounded-md text-sm font-medium ml-2 bg-white text-dark hover:bg-gray-400' onClick={()=> SetModalState(true)}>Change location</button>

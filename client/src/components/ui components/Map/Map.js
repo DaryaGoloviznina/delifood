@@ -3,7 +3,7 @@ import { YMaps, Map, SearchControl, Placemark} from 'react-yandex-maps';
 import {UserPlacemark} from './PlaceMark'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBoxesThunk } from '../../../store/boxes/actions';
-import { getUserLocationThunk } from '../../../store/user/clientLocation/actions';
+import { getUserLocationThunk } from '../../../store/user/UserLocation/actions';
 import BoxModal from '../Modals/CustomerBoxesPage/BoxModal'
 
 export const RestMap = () => {
