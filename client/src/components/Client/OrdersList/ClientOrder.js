@@ -1,9 +1,9 @@
 
 import { createStrDateFromDB, convertObjTimetoStrTime } from '../../../lib/formateTimeFunctions'
-import { issueOrder, delOrder } from '../../../store/orders/actions'
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { deleteOrderAC } from '../../../store/orders/actions'
+import { delClientOrder } from '../../../store/orders/actions'
+
 
 export const ClientOrder = ({order}) => {  
   const params = useParams();
@@ -11,16 +11,7 @@ export const ClientOrder = ({order}) => {
 
   
   async function deleteOrder(){
-    console.log('СТАТУС', order.status)
-    console.log('АЙДИ', order.id)
-    
-    await fetch(`/client/order/del`, { 
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({status: order.status, id: order.id}),
-    }); 
-  
-    dispatch(deleteOrderAC(order.id))
+    dispatch(delClientOrder(order.status, order.id))
   }
   
   return (

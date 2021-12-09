@@ -34,16 +34,9 @@ exports.createUserAndSession = async (req, res) => {
     
     if (address) {
       newUser = await Store.create(
-        { name: req.body.name,
-          email : email,
+        {...req.body,
           password: hashedPassword,
-          phone: req.body.phone,
-          address: address,
-          lon: req.body.lon,
-          lat: req.body.lat
         });
-
-      newUser.cuisine = cuisine;
 
       await Stores_Cuisine.create({
         store_id: newUser.id,
@@ -56,6 +49,8 @@ exports.createUserAndSession = async (req, res) => {
       });
     
     const formatedUser = formatSendData(newUser.toJSON())
+    
+    if (formatedUser.address) formatedUser.cuisine = cuisine;
 
     req.session.user = formatedUser; 
     res.json(formatedUser);
@@ -85,7 +80,6 @@ exports.checkUserAndCreateSession = async (req, res, next) => {
           required: true, 
           where: {id: user.id}
         }],
-        // where: {store_id: user.id}
       }, {raw: true});
 
       
