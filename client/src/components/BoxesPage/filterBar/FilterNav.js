@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CuisineOption } from './filterOptions/Cuisine';
 import { PickUpTimes } from './filterOptions/PickUpTimes';
 import { 
-  getAllCuisinesThunk,
+  getAllBoxesThunk, 
   getFilteredBoxesThunk, 
   getSearchedBoxesThunk} from '../../../store/boxes/actions';
 

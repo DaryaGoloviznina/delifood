@@ -23,7 +23,7 @@ exports.addNewOrder = async (req, res) => {
       box.save();
       res.json('ok')
     } 
-   
+
   } catch (error) {
     console.log(error);
   }
@@ -42,11 +42,11 @@ exports.getClientOrders = async (req, res) => {
             [Sequelize.col('Box.start_date'), 'box_start_date'],
             [Sequelize.col('Box.end_date'), 'box_end_date'],
           ],
-        include: [{ model: Box, attributes: [], include: [{ model: Store, attributes: ['name', 'address', 'phone'] }] }],
+        include: [{ model: Box, attributes: [], include: [{ model: Store, attributes: ['name', 'address', 'phone', 'store_img'] }] }],
         where: { 
           client_id: req.body.id,
           client_visibility: true
-       },
+        },
         order: [
           ['id', 'DESC'],
       ],
