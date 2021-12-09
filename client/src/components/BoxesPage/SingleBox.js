@@ -17,7 +17,9 @@ export const Box = ({el}) => {
     end_date,
     store_lon,
     store_lat } = el;
+
     const box_amount = count - count_reserved - count_bought;
+
     const [showModal, setShowModal] = useState(false);
     const [boxData, setBoxdata] = useState({});
     const [clientOrderBoxAmount, setclientOrderBoxAmount] = useState(box_amount) // для изменения количества оставшихся боксов в ресторане после оформления заказа клиента
@@ -36,8 +38,6 @@ export const Box = ({el}) => {
 
     const startTime = convertObjTimetoStrTime(start_date);
     const endTime = convertObjTimetoStrTime(end_date);
-
-    
 
     //---------------activates modal and gathers data for it
     const modalHandler = () => {
