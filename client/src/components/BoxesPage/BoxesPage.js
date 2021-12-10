@@ -20,9 +20,17 @@ export const BoxesPage = () => {
     SetMode(newState);
   }
 
+  const defaultState = {
+    cuisine: 'Any Cuisine',
+    price: 'anyPrice',
+    time: 'anyTime',
+  }
+
+  const [pickedOptions, setOptions] = useState(defaultState);
+
   useEffect(() => {
     dispatch(getAllBoxesThunk(userLocation));
-  }, [userLocation]);
+  }, [userLocation, mode]);
 
   useEffect(() => {
     dispatch(getUserLocationThunk());
@@ -35,9 +43,15 @@ export const BoxesPage = () => {
       <div className="antialiased text-gray-900 font-sans p-6">
         <div className="container mx-auto">
           <div className="flex flex-wrap -mx-4 justify-center">
-          <FilterNav mode={mode} modeHandler={modeHandler} />
+          <FilterNav 
+            modeHandler={modeHandler} 
+            userLocation={userLocation}
+            pickedOptions={pickedOptions}
+            setOptions={setOptions}
+            defaultState={defaultState}
+            />
           {
-            mode === 'listBox' &&
+            mode === 'listBox' && boxes.length &&
             boxes.map((el) => {
               return (
                 <Box
@@ -47,26 +61,30 @@ export const BoxesPage = () => {
                 />
               )
             })
-            }
-            {
-             !boxes.length && 
-              <div className="container h-80 text-center mt-36">
-                <p className="uppercase text-gray-400 font-bold">
-                  No boxes were found 
-                </p>
-              </div>
-            }
+          }
             
-           {mode === 'map' && 
+           { mode === 'map' && boxes.length &&
            <div
             className={'w-screen shadow my-5 rounded-xl'}
            >
             <RestMap 
               setEndOrderModal={setEndOrderModal}
+              boxes={boxes}
             />
            </div>
            }
-
+            {
+             !boxes.length && 
+              <div className="container h-80 text-center mt-36">
+                <p className="uppercase text-gray-400 font-bold">
+                  No boxes were found
+                </p>
+                <p className="uppercase text-gray-400 font-bold">
+                  Or no Delifood's partners in your country
+                </p>
+              </div>
+            }
+            
           </div>
         </div>
       </div>

@@ -7,23 +7,15 @@ import {
   getFilteredBoxesThunk, 
   getSearchedBoxesThunk} from '../../../store/boxes/actions';
 
-export const FilterNav = ({modeHandler, mode}) => {
+export const FilterNav = ({modeHandler, userLocation, pickedOptions, setOptions, defaultState}) => {
   const dispatch = useDispatch();
   const cuisines = useSelector((store) => (store.boxes?.cuisines));
   const [query, SetQuery] = useState('');
   
-  const defaultState = {
-    cuisine: 'Any Cuisine',
-    price: 'anyPrice',
-    time: 'anyTime',
-  }
-
-  const [pickedOptions, setOptions] = useState(defaultState);
-
   //-------------dispatching user's choices with every state change
   useEffect(() => {
-    dispatch(getFilteredBoxesThunk(pickedOptions));
-  }, [pickedOptions]);
+    dispatch(getFilteredBoxesThunk(pickedOptions, userLocation));
+  }, [pickedOptions, userLocation]);
   
   //-------------setting state to match user's choises dynamically
   const onChangeHandler = (event) => {    
@@ -50,7 +42,8 @@ export const FilterNav = ({modeHandler, mode}) => {
           name="search"
           value={query}
           onChange={searchHandler}
-          placeholder="Search by restaurant name or location"  className="px-8 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"/>
+          placeholder="Search by restaurant name or location"  
+          className="px-8 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"/>
       </div>
 
       {!query 
@@ -121,7 +114,7 @@ export const FilterNav = ({modeHandler, mode}) => {
                       content: 'Low to High',
                     }, 
                     {
-                      valu: "DESC",
+                      value: "DESC",
                       content: 'Hight to Low',
                     }
                   ].map((el) => {

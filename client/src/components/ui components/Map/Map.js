@@ -7,19 +7,14 @@ import BoxModal from '../Modals/CustomerBoxesPage/BoxModal'
 import { convertObjTimetoStrTime } from '../../../lib/formateTimeFunctions';
 import { setUserLocation } from '../../../store/user/UserLocation/actions';
 
-export const RestMap = ({setEndOrderModal}) => {
+export const RestMap = ({setEndOrderModal, boxes}) => {
   
   const dispatch = useDispatch();
-  const boxes = useSelector((store) => (store.boxes?.boxes));
   const location = useSelector((store) => (store.auth?.location));
 
   const [showModal, setShowModal] = useState(false);
   const [boxData, setBoxdata] = useState({});
   const [clientOrderBoxAmount, setclientOrderBoxAmount] = useState() // для изменения количества оставшихся боксов в ресторане после оформления заказа клиента
-
-  useEffect(() => {
-    dispatch(getAllBoxesThunk());
-  }, []);
 
   useEffect(() => {
     if (clientOrderBoxAmount === 0) dispatch(getAllBoxesThunk());
@@ -78,7 +73,7 @@ export const RestMap = ({setEndOrderModal}) => {
         null
       }
       <YMaps 
-        query={{apikey: '4321dfba-081c-44a9-8f75-0b7384c8952d', lang: 'en_US'}}
+        query={{apikey: 'c38ad5e0-1cb4-4183-8cf7-415924edffc6', lang: 'en_US'}}
       >
         <Map 
           state={{ 

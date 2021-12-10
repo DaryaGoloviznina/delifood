@@ -16,14 +16,14 @@ export const getAllBoxesThunk = (userLocation) => async (dispatch) => {
 }
 
 //--------------fetching all cuisines
-export const getAllCuisinesThunk = (arg) => async (dispatch) => {
+export const getAllCuisinesThunk = () => async (dispatch) => {
   let allCuisines = await (await fetch(`/boxes/allCuisines`)).json();
   
   if (allCuisines) dispatch(setAllCuisines(allCuisines));
 }
 
 //---------------fetching filtered boxes based on user's choice
-export const getFilteredBoxesThunk = (data) => async (dispatch) => {
+export const getFilteredBoxesThunk = (data, userLocation) => async (dispatch) => {
   console.log('dataaa time=>', data);
 
   //converting string time back to object for DB filtration
@@ -38,7 +38,7 @@ export const getFilteredBoxesThunk = (data) => async (dispatch) => {
     data.price === 'anyPrice' && 
     data.time === 'anyTime') {
     
-    dispatch(getAllBoxesThunk());
+    dispatch(getAllBoxesThunk(userLocation));
   } else {
     //fetching filtered boxes based on user's choices
     let request = await fetch(`/boxes/filter`, {
@@ -51,7 +51,7 @@ export const getFilteredBoxesThunk = (data) => async (dispatch) => {
       }),
     })
   let filteredBoxes = await request.json();
-
+  filteredBoxes = await filterBoxByLocation(filteredBoxes, userLocation)
   dispatch(setAllBoxes(filteredBoxes));
   }
 }
@@ -73,7 +73,7 @@ export const filterBoxByLocation = async (boxes, userLocation) => {
 
   for (let box of boxes) {
     let boxGeoData = await (
-      await fetch(`https://geocode-maps.yandex.ru/1.x/?format=json&lang=en_US&apikey=4321dfba-081c-44a9-8f75-0b7384c8952d&geocode=${box.store_lon}, ${box.store_lat}`)
+      await fetch(`https://geocode-maps.yandex.ru/1.x/?format=json&lang=en_US&apikey=c38ad5e0-1cb4-4183-8cf7-415924edffc6&geocode=${box.store_lon}, ${box.store_lat}`)
     ).json();
 
     const boxCountryCode = boxGeoData.response

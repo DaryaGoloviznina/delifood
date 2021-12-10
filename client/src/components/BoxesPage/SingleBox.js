@@ -28,7 +28,6 @@ export const Box = ({el, setEndOrderModal}) => {
     const location = useSelector((store) => (store.auth?.location));
     const [distance, setDistance] = useState(0);
     
-    
     useEffect(() => {
       if (location !== null) {
         setDistance(calculateDistance({latitude: location.lat, longitude: location.lon}, {latitude: store_lat, longitude: store_lon}).toFixed(1))
