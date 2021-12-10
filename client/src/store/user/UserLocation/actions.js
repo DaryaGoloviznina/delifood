@@ -5,10 +5,16 @@ export const setUserLocation = (locationData) => ({type: ACTypes.SET_USER_LOCATI
 export const getUserLocationThunk = () => (dispatch) => {
   navigator.geolocation.getCurrentPosition(async (position) => {
     const { latitude: lat, longitude: lon } = position.coords;
-    let req = await fetch(`https://geocode-maps.yandex.ru/1.x/?format=json&apikey=51d9c7fc-7e81-4f44-a747-14323b05f7a6&geocode=${lon}, ${lat}`)
+    let req = await fetch(`https://geocode-maps.yandex.ru/1.x/?format=json&lang=en_US&apikey=4321dfba-081c-44a9-8f75-0b7384c8952d&geocode=${lon}, ${lat}`)
     let res = await req.json();
-    const address = res.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.Address.formatted;
-
-    dispatch(setUserLocation({address, lat, lon}));
+    
+    const address = res.response.GeoObjectCollection.featureMember[0]
+      .GeoObject.metaDataProperty.GeocoderMetaData
+      .Address.formatted;
+    const country_code = res.response.GeoObjectCollection.featureMember[0]
+      .GeoObject.metaDataProperty.GeocoderMetaData
+      .Address.country_code;
+   
+    dispatch(setUserLocation({address, lat, lon, country_code}));
   });
 }

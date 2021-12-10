@@ -78,7 +78,7 @@ export const RestMap = ({setEndOrderModal}) => {
         null
       }
       <YMaps 
-        query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357', lang: 'en_US'}}
+        query={{apikey: '4321dfba-081c-44a9-8f75-0b7384c8952d', lang: 'en_US'}}
       >
         <Map 
           state={{ 

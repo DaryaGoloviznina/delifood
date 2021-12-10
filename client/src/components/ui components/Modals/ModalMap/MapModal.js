@@ -78,13 +78,12 @@ export const MapModal = ({ modalState, SetModalState }) => {
                     onResultSelect={async (e) => {
                       const res = await e.originalEvent.target.getResult(0);
                       const [lat, lon] = res.geometry.getCoordinates();
-                      // console.log(res.getAdministrativeAreas());
-                      // console.log(res.getLocalities());
-                      
+
                       dispatch(setUserLocation({
                         address: res.getAddressLine(),
                         lat,
                         lon,
+                        country_code: res.getCountryCode()
                       }))
                     }
                   }/>

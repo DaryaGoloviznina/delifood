@@ -5,8 +5,12 @@ export const setAllBoxes = (boxes) => ({type: ACTypes.SET_ALL_BOXES, payload: {b
 export const setAllCuisines = (cuisines) => ({type: ACTypes.SET_ALL_CUISINE, payload: {cuisines}});
 
 //-------------fetching all active boxes
-export const getAllBoxesThunk = (arg) => async (dispatch) => {
+export const getAllBoxesThunk = (userLocation) => async (dispatch) => {
   let allBoxes = await (await fetch(`/boxes/allBoxes`)).json();
+  
+  if (userLocation?.country_code) {
+    allBoxes = await filterBoxByLocation(allBoxes, userLocation)
+  }
   
   if (allBoxes) dispatch(setAllBoxes(allBoxes));
 }
@@ -34,7 +38,7 @@ export const getFilteredBoxesThunk = (data) => async (dispatch) => {
     data.price === 'anyPrice' && 
     data.time === 'anyTime') {
     
-    dispatch(getAllBoxesThunk(42));
+    dispatch(getAllBoxesThunk());
   } else {
     //fetching filtered boxes based on user's choices
     let request = await fetch(`/boxes/filter`, {
@@ -63,4 +67,23 @@ export const getSearchedBoxesThunk = (query) => async (dispatch) => {
   dispatch(setAllBoxes(searchedBoxes));
 }
 
+export const filterBoxByLocation = async (boxes, userLocation) => {
+
+  const newBoxes = [];
+
+  for (let box of boxes) {
+    let boxGeoData = await (
+      await fetch(`https://geocode-maps.yandex.ru/1.x/?format=json&lang=en_US&apikey=4321dfba-081c-44a9-8f75-0b7384c8952d&geocode=${box.store_lon}, ${box.store_lat}`)
+    ).json();
+
+    const boxCountryCode = boxGeoData.response
+    .GeoObjectCollection.featureMember[0]
+    .GeoObject.metaDataProperty.GeocoderMetaData
+    .Address.country_code;
+    
+    if (boxCountryCode === userLocation?.country_code) newBoxes.push(box);
+  }
+
+  return newBoxes
+}
 

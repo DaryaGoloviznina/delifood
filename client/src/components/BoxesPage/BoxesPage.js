@@ -11,7 +11,7 @@ import { RestMap } from "../ui components/Map/Map";
 export const BoxesPage = () => {
   const dispatch = useDispatch();
   const boxes = useSelector((store) => (store.boxes?.boxes));
-
+  const userLocation = useSelector((store) => store?.auth?.location)
   const [endOrderModal, setEndOrderModal] = useState(false) // показ модальное окно завершения заказа клиента
   const [mode, SetMode] = useState('listBox');
 
@@ -21,8 +21,8 @@ export const BoxesPage = () => {
   }
 
   useEffect(() => {
-    dispatch(getAllBoxesThunk());
-  }, []);
+    dispatch(getAllBoxesThunk(userLocation));
+  }, [userLocation]);
 
   useEffect(() => {
     dispatch(getUserLocationThunk());

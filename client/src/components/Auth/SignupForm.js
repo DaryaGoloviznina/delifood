@@ -6,16 +6,19 @@ import { registerUserThunk } from '../../store/user/auth/actions.js'
 import { Map, SearchControl, YMaps } from 'react-yandex-maps';
 import { getAllCuisinesThunk } from '../../store/boxes/actions';
 import { CuisineOption } from '../BoxesPage/filterBar/filterOptions/Cuisine/OptionsCuisine';
+import { getUserLocationThunk, setUserLocation } from '../../store/user/UserLocation/actions';
 export const SignupForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const userLocation = useSelector((store) => store.auth.location);
+  
   const [userButton, setUser] = useState(true);
   const [businessButton, setBusiness] = useState(false);
   const cuisines = useSelector((store) => (store.boxes?.cuisines));
 
-  const [lon, SetLon] = useState(0);
-  const [lat, SetLat] = useState(0);
+  const [lon, SetLon] = useState(null);
+  const [lat, SetLat] = useState(null);
   const [address, SetAddress] = useState(null);
 
   const changeForm = () => {
@@ -33,7 +36,7 @@ export const SignupForm = () => {
     const confirm_password = event.target.confirm_password.value;
     const cuisine = event.target?.cuisine?.value;
 
-    console.log('info=>>>', name, email, phone, password, cuisine);
+    console.log('info=>>>', name, address, email, password, address, lon, lat, phone, cuisine);
     if (password === confirm_password) {
       dispatch(registerUserThunk({name, address, email, password, address, lon, lat, phone, cuisine, navigate}));
     } else {
@@ -41,13 +44,11 @@ export const SignupForm = () => {
     }
   }
 
-  useEffect(async () => {
-    navigator.geolocation.getCurrentPosition(position => {
-      const { latitude, longitude } = position.coords;
-      SetLon(longitude);
-      SetLat(latitude);
-    });
-  })
+  useEffect(() => {
+    dispatch(getUserLocationThunk());
+
+    return () => dispatch(setUserLocation(null))
+  }, [])
   
   return (
     <>
@@ -118,10 +119,10 @@ export const SignupForm = () => {
                 <div className="mt-4">
                 <label className="block text-sm">Address</label>
                   <YMaps 
-                    query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357', lang: 'en_US'}}
+                    query={{apikey:'4321dfba-081c-44a9-8f75-0b7384c8952d', lang: 'en_US'}}
                   >
                     <Map 
-                      state={{ center: [lat, lon], zoom: 9 }} 
+                      state={{ center: [userLocation?.lat, userLocation?.lon], zoom: 9 }} 
                       width={'100%'} height={'250px'} 
                       options={{autoFitToViewport: 'always'}} 
                       modules={["geolocation", "geocode"]}
@@ -129,13 +130,14 @@ export const SignupForm = () => {
                       <SearchControl 
                         options={{ float: 'right' }} 
                         onResultSelect={async (e) => {
-                          const index = e.get('index');
-                          const res = await e.originalEvent.target.getResult(index);
-                          
+                          const res = await e.originalEvent.target.getResult(0);
+
                           SetAddress(res.getAddressLine());
-                          const coord = res.geometry.getCoordinates();
-                          SetLat(coord[0]);
-                          SetLon(coord[1]);    
+
+                          const [lantitude, longitude] = res.geometry._coordinates;
+                          console.log(lantitude, longitude);
+                          SetLat(lantitude);
+                          SetLon(longitude);    
                         }}
                       />
                     </Map>

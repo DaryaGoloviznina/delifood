@@ -9,6 +9,8 @@ export const RestProfile = () => {
   const dispatch = useDispatch();
   const profileData = useSelector((store) => store.auth.user) ?? {};
   const cuisines = useSelector((store) => (store.boxes?.cuisines));
+
+  console.log(profileData);
   
   const [isEdit, SetEdit] = useState(false);
   const [lon, SetLon] = useState(profileData?.lon);
@@ -143,7 +145,7 @@ export const RestProfile = () => {
               className='w-full'
             >
               <YMaps 
-                query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357', lang: 'en_US'}}
+                query={{apikey: '4321dfba-081c-44a9-8f75-0b7384c8952d', lang: 'en_US'}}
               >
                 <Map 
                   state={{ center: [lat, lon], zoom: 9 }} 
