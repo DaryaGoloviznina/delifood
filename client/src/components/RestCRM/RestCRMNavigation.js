@@ -61,7 +61,7 @@ export const RestCRMNavigation = ({addNewBox, deleteAll}) => {
                   </li>}
                 {/orders/.test(location.pathname) && params.id !== 'active' &&
                   <li 
-                  onClick={deleteAll} className="ml-16 cursor-pointer text-m text-red-600 py-2 px-4 bg-red-300 hover:bg-green-700 rounded font-normal">
+                  onClick={deleteAll} className="ml-16 cursor-pointer text-m text-red-600 py-2 px-4 bg-red-300 hover:bg-red-700 rounded font-normal">
                     Delete All 
                   </li>
                 }
