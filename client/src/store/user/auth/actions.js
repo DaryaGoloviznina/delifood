@@ -49,7 +49,7 @@ export const authUserThunk = (data) => async (dispatch) => {
 
   !profileData.address 
     ? data.navigate('/boxes') 
-    : data.navigate('/');
+    : data.navigate('/profile');
 }
 
 //------------fetching server to signout the user
