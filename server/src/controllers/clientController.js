@@ -1,26 +1,37 @@
-const { Order, Box, Sequelize, Store } = require('../db/models');
+const { Order, Box, Sequelize, Store, Client } = require('../db/models');
 const { Op } = require("sequelize");
 const randStr = require('randomstring');
+const { sendNotice } = require('../lib/nodemailer');
+const { createStrDateFromDB, convertObjTimetoStrTime } = require('../lib/convertTimeFunctions');
 
 exports.addNewOrder = async (req, res) => {
   try {
-    console.log('ID BOX', req.body.box_id)
-    console.log('ID CLIENT', req.body.client_id)
-    console.log('BOX COUNT ORDER', req.body.count_box)
     let box = await Box.findByPk(req.body.box_id);
-    console.log(box.dataValues)
-    console.log(box.dataValues.count === (box.dataValues.count_reserved + box.dataValues.count_bought))
     if ((box.dataValues.count - box.dataValues.count_reserved - box.dataValues.count_bought) < req.body.count_box){
       res.json('out')
     } else {
+      let code = randStr.generate(6);
       await Order.create({
           box_id: req.body.box_id,
           client_id: req.body.client_id,
           order_count: req.body.count_box,
-          order_code: randStr.generate(6)
+          order_code: code
       });
       box.count_reserved += req.body.count_box;
       box.save();
+      let user = await Client.findByPk(req.body.client_id)
+      let store = await Store.findByPk(box.dataValues.store_id)
+      
+      let text = `<p>Hello, ${user.dataValues.name}</p>
+                  <p> The secret box from ${store.dataValues.name} has been booked successfully!</p>
+                  <br>
+                  <p> Details:</p>
+                  <p> Price: ${req.body.count_box*box.dataValues.price}$</p>
+                  <p>Address: ${store.dataValues.address}</p>
+                  <p>Date: ${createStrDateFromDB(box.dataValues.start_date)}</p>
+                  <p>Time: ${convertObjTimetoStrTime(box.dataValues.start_date)}-${convertObjTimetoStrTime(box.dataValues.end_date)}</p>
+                  <p> Order code: ${code}</p>`
+      sendNotice(user.dataValues.email, text)
       res.json('ok')
     } 
 

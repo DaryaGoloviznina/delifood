@@ -7,7 +7,7 @@ export const UserLinks = ({boxData, reserveBox, clientOrderBoxAmount, setOrderPr
   
   function changePrice(e){
     console.log(e.target.value)
-    setOrderPrice(Math.abs(Number(e.target.value)*clientOrderBoxAmount))
+    setOrderPrice(Math.abs(Number(e.target.value)*boxData.price))
   }
 
   return (
