@@ -259,7 +259,7 @@ exports.getFilteredBoxes = async (req, res) => {
       res.json(activeFilteredBoxes).end();
     }
   } catch (error) {
-    console.log(err)
+    console.log(error)
   }
   res.end();
 };

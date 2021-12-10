@@ -121,7 +121,7 @@ export const FilterNav = ({modeHandler, mode}) => {
                       content: 'Low to High',
                     }, 
                     {
-                      valu: "DESC",
+                      value: "DESC",
                       content: 'Hight to Low',
                     }
                   ].map((el) => {
