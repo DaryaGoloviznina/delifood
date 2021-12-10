@@ -17,7 +17,7 @@ export const RestMap = ({setEndOrderModal, boxes}) => {
   const [clientOrderBoxAmount, setclientOrderBoxAmount] = useState() // для изменения количества оставшихся боксов в ресторане после оформления заказа клиента
 
   useEffect(() => {
-    if (clientOrderBoxAmount === 0) dispatch(getAllBoxesThunk());
+    if (clientOrderBoxAmount === 0) dispatch(getAllBoxesThunk(location));
   }, [clientOrderBoxAmount]);
 
   function compareBox (boxes) {
@@ -73,7 +73,7 @@ export const RestMap = ({setEndOrderModal, boxes}) => {
         null
       }
       <YMaps 
-        query={{apikey: 'c38ad5e0-1cb4-4183-8cf7-415924edffc6', lang: 'en_US'}}
+        query={{apikey: 'fd56ec54-348d-47a6-8ba7-17e1dd585174', lang: 'en_US'}}
       >
         <Map 
           state={{ 

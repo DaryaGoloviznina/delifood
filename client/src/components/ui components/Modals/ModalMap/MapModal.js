@@ -53,7 +53,7 @@ export const MapModal = ({ modalState, SetModalState }) => {
               <div className="bg-gray-50 px-4 py-3 sm:px-8 flex flex-col">
               
               <YMaps 
-                query={{apikey: 'c38ad5e0-1cb4-4183-8cf7-415924edffc6', lang: 'en_US'}}
+                query={{apikey: 'fd56ec54-348d-47a6-8ba7-17e1dd585174', lang: 'en_US'}}
               >
                 <Map 
                   state={{ center: [userLocation?.lat, userLocation?.lon], zoom: 9 }} 
@@ -65,14 +65,14 @@ export const MapModal = ({ modalState, SetModalState }) => {
                     geometry={[userLocation?.lat, userLocation?.lon]}
                     options={{draggable: true}}
                   />
-                  <GeolocationControl options={{ float: 'left', noPlacemark: true }} onLocationChange={async (e) => {
+                  {/* <GeolocationControl options={{ float: 'left', noPlacemark: true }} onLocationChange={async (e) => {
                     const [lat, lon] =  e.originalEvent.position;
-                    let req = await fetch(`https://geocode-maps.yandex.ru/1.x/?format=json&apikey=51d9c7fc-7e81-4f44-a747-14323b05f7a6&geocode=${lon}, ${lat}`)
+                    let req = await fetch(`https://geocode-maps.yandex.ru/1.x/?format=json&apikey=fd56ec54-348d-47a6-8ba7-17e1dd585174&geocode=${lon}, ${lat}`)
                     let res = await req.json();
                     const address = res.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.Address.formatted;
 
-                    dispatch(setUserLocation({address, lat, lon}))
-                  }}/>
+                    dispatch(setUserLocation({address, lat, lon, country_code: res.getCountryCode()}))
+                  }}/> */}
                   <SearchControl 
                     options={{ float: 'right' }} 
                     onResultSelect={async (e) => {

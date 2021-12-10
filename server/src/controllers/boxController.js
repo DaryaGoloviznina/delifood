@@ -17,6 +17,7 @@ const attributes = [
   [Sequelize.col('Store.store_img'), 'store_img'],
   [Sequelize.col('Store.lon'), 'store_lon'],
   [Sequelize.col('Store.lat'), 'store_lat'],
+  [Sequelize.col('Store.country_code'), 'country_code'],
 ];
 
 //================== getting all non-expired boxes
@@ -36,6 +37,7 @@ exports.getAllBoxes = async (req, res) => {
     }, {raw: true});
 
     const activeBoxes = filterActiveBoxes(allBoxes);
+
     res.json(activeBoxes);
   } catch (err) {
     console.log(err)
@@ -254,7 +256,6 @@ exports.getFilteredBoxes = async (req, res) => {
         order: [['price', price]]
       });
 
-      console.log(filteredBoxes);
       const activeFilteredBoxes = filterActiveBoxes(filteredBoxes);
       res.json(activeFilteredBoxes).end();
     }

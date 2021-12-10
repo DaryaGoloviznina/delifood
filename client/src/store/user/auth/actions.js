@@ -18,6 +18,7 @@ export const registerUserThunk = (data) => async (dispatch) => {
       cuisine: data?.cuisine,
       lon: data?.lon,
       lat: data?.lat,
+      country_code: data?.countryCode,
     }),
   });
   
@@ -26,9 +27,7 @@ export const registerUserThunk = (data) => async (dispatch) => {
   const profileData = await request.json();
   dispatch(setAuthUser(profileData));
 
-  !profileData.address 
-    ? data.navigate('/boxes') 
-    : data.navigate('/profile');
+  data.navigate('/profile');
 }
 
 //------------fetching server to authenticate the user
@@ -47,9 +46,7 @@ export const authUserThunk = (data) => async (dispatch) => {
   const profileData = await request.json();
   dispatch(setAuthUser(profileData));
 
-  !profileData.address 
-    ? data.navigate('/boxes') 
-    : data.navigate('/profile');
+  data.navigate('/profile');
 }
 
 //------------fetching server to signout the user

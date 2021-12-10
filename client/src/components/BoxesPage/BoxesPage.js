@@ -1,7 +1,7 @@
 import { Box } from "./SingleBox"
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllBoxesThunk } from '../../store/boxes/actions'
+import { getAllBoxesThunk, getFilteredBoxesThunk } from '../../store/boxes/actions'
 import { FilterNav } from "./filterBar/FilterNav";
 
 import { getUserLocationThunk, setUserLocation } from "../../store/user/UserLocation/actions";
@@ -11,7 +11,7 @@ import { RestMap } from "../ui components/Map/Map";
 export const BoxesPage = () => {
   const dispatch = useDispatch();
   const boxes = useSelector((store) => (store.boxes?.boxes));
-  const userLocation = useSelector((store) => store?.auth?.location)
+  const userLocation = useSelector((store) => store?.auth?.location);
   const [endOrderModal, setEndOrderModal] = useState(false) // показ модальное окно завершения заказа клиента
   const [mode, SetMode] = useState('listBox');
 
@@ -29,14 +29,17 @@ export const BoxesPage = () => {
   const [pickedOptions, setOptions] = useState(defaultState);
 
   useEffect(() => {
-    dispatch(getAllBoxesThunk(userLocation));
-  }, [userLocation, mode]);
+    if (!userLocation) dispatch(getUserLocationThunk());
+    // return () => dispatch(setUserLocation(null))
+  }, [])
 
   useEffect(() => {
-    dispatch(getUserLocationThunk());
+    dispatch(getAllBoxesThunk(userLocation));
+  }, [userLocation]);
 
-    return () => dispatch(setUserLocation(null))
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getFilteredBoxesThunk(pickedOptions));
+  // }, [mode]);
 
   return (
     <main className="bg-gray-100">

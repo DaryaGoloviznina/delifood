@@ -16,6 +16,7 @@ export const RestProfile = () => {
   const [lon, SetLon] = useState(profileData?.lon);
   const [lat, SetLat] = useState(profileData?.lat);
   const [address, SetAddress] = useState(profileData?.address);
+  const [countryCode, SetCountryCode] = useState(null)
 
   const formHandler = (e) => {
     e.preventDefault();
@@ -25,6 +26,8 @@ export const RestProfile = () => {
     formData.append('lat', lat);
     formData.append('lon', lon);
     formData.append('address', address);
+    formData.append('country_code', countryCode);
+
     dispatch(updateProfileThunk(formData))
     SetEdit(false);
   }
@@ -143,7 +146,7 @@ export const RestProfile = () => {
             
             <div className='w-full'>
               <YMaps 
-                query={{apikey: 'c38ad5e0-1cb4-4183-8cf7-415924edffc6', lang: 'en_US'}}
+                query={{apikey: 'fd56ec54-348d-47a6-8ba7-17e1dd585174', lang: 'en_US'}}
               >
                 <Map 
                   state={{ center: [lat, lon], zoom: 9 }} 
@@ -159,6 +162,8 @@ export const RestProfile = () => {
                     const res = await e.originalEvent.target.getResult(index);
                     
                     SetAddress(res.getAddressLine());
+                    SetCountryCode(res.getCountryCode())
+
                     const coord = res.geometry.getCoordinates();
                     SetLat(coord[0]);
                     SetLon(coord[1]);    

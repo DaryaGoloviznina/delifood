@@ -9,7 +9,8 @@ export const getAllBoxesThunk = (userLocation) => async (dispatch) => {
   let allBoxes = await (await fetch(`/boxes/allBoxes`)).json();
   
   if (userLocation?.country_code) {
-    allBoxes = await filterBoxByLocation(allBoxes, userLocation)
+    allBoxes = filterBoxByLocation(allBoxes, userLocation);
+    console.log(allBoxes);
   }
   
   if (allBoxes) dispatch(setAllBoxes(allBoxes));
@@ -51,7 +52,10 @@ export const getFilteredBoxesThunk = (data, userLocation) => async (dispatch) =>
       }),
     })
   let filteredBoxes = await request.json();
-  filteredBoxes = await filterBoxByLocation(filteredBoxes, userLocation)
+  
+  if (userLocation?.country_code) {
+    filteredBoxes = filterBoxByLocation(filteredBoxes, userLocation)
+  }
   dispatch(setAllBoxes(filteredBoxes));
   }
 }
@@ -67,23 +71,9 @@ export const getSearchedBoxesThunk = (query) => async (dispatch) => {
   dispatch(setAllBoxes(searchedBoxes));
 }
 
-export const filterBoxByLocation = async (boxes, userLocation) => {
+export const filterBoxByLocation = (boxes, userLocation) => {
 
-  const newBoxes = [];
-
-  for (let box of boxes) {
-    let boxGeoData = await (
-      await fetch(`https://geocode-maps.yandex.ru/1.x/?format=json&lang=en_US&apikey=c38ad5e0-1cb4-4183-8cf7-415924edffc6&geocode=${box.store_lon}, ${box.store_lat}`)
-    ).json();
-
-    const boxCountryCode = boxGeoData.response
-    .GeoObjectCollection.featureMember[0]
-    .GeoObject.metaDataProperty.GeocoderMetaData
-    .Address.country_code;
-    
-    if (boxCountryCode === userLocation?.country_code) newBoxes.push(box);
-  }
-
-  return newBoxes
+  return boxes.filter((el) => el.country_code === userLocation?.country_code);
+ 
 }
 

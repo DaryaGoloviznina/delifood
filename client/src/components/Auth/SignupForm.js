@@ -20,6 +20,7 @@ export const SignupForm = () => {
   const [lon, SetLon] = useState(null);
   const [lat, SetLat] = useState(null);
   const [address, SetAddress] = useState(null);
+  const [countryCode, SetCountryCode] = useState(null)
 
   const changeForm = () => {
     setUser(!userButton);
@@ -35,10 +36,10 @@ export const SignupForm = () => {
     const password = event.target.password.value;
     const confirm_password = event.target.confirm_password.value;
     const cuisine = event.target?.cuisine?.value;
-
-    console.log('info=>>>', name, address, email, password, address, lon, lat, phone, cuisine);
+    console.log(countryCode);
+    console.log('info=>>>', name, address, email, password, address, lon, lat, phone, cuisine, countryCode);
     if (password === confirm_password) {
-      dispatch(registerUserThunk({name, address, email, password, address, lon, lat, phone, cuisine, navigate}));
+      dispatch(registerUserThunk({name, address, email, password, address, lon, lat, phone, cuisine, countryCode, navigate}));
     } else {
       alert('passwords do not match');
     }
@@ -119,7 +120,7 @@ export const SignupForm = () => {
                 <div className="mt-4">
                 <label className="block text-sm">Address</label>
                   <YMaps 
-                    query={{apikey:'c38ad5e0-1cb4-4183-8cf7-415924edffc6', lang: 'en_US'}}
+                    query={{apikey: 'fd56ec54-348d-47a6-8ba7-17e1dd585174', lang: 'en_US'}}
                   >
                     <Map 
                       state={{ center: [userLocation?.lat, userLocation?.lon], zoom: 9 }} 
@@ -133,9 +134,8 @@ export const SignupForm = () => {
                           const res = await e.originalEvent.target.getResult(0);
 
                           SetAddress(res.getAddressLine());
-
+                          SetCountryCode(res.getCountryCode());
                           const [lantitude, longitude] = res.geometry._coordinates;
-                          console.log(lantitude, longitude);
                           SetLat(lantitude);
                           SetLon(longitude);    
                         }}
