@@ -31,7 +31,7 @@ export const Nav = () => {
                     DeliFood
                   </span>
                 </div>
-              { userLocation &&
+              { userLocation && /boxes/.test(location.pathname) &&
               <div className="flex items-center max-w-md space-x-2 mx-8" >
                 <div className='max-w-xs flex items-center justify-center space-x-2'>
                   <img src='/img/icons/location-mark.svg' className='h-7 sm:h-6'/>
