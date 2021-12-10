@@ -124,26 +124,24 @@ export const RestProfile = () => {
                   name="cuisine"
                   className="mb-2 rounded-md pt-4 text-base font-bold w-full">
                     {cuisines.map((el) => {
-                        return (
-                          <CuisineOption 
-                            id={el.id}
-                            cuisine={el.name}
-                            selected={
-                              value === el.name
-                              ? 'selected'
-                              : null
-                            }
-                          />
-                        )
+                      return (
+                        <CuisineOption 
+                          id={el.id}
+                          cuisine={el.name}
+                          selected={
+                            value === el.name
+                            ? 'selected'
+                            : null
+                          }
+                        />
+                      )
                     })}
                 </select>
               )
               })
             }
             
-            <div
-              className='w-full'
-            >
+            <div className='w-full'>
               <YMaps 
                 query={{apikey: 'c38ad5e0-1cb4-4183-8cf7-415924edffc6', lang: 'en_US'}}
               >
@@ -176,8 +174,9 @@ export const RestProfile = () => {
 
             <button 
               type="submit"
-              className="mt-6 bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full"
-            >Save Changes</button> 
+              className="mt-6 bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full">
+                Save Changes
+            </button> 
           </form>
         }
         {!isEdit && 
@@ -186,8 +185,7 @@ export const RestProfile = () => {
             onClick={() => SetEdit(true)}
             className="bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full">
               Edit Profile
-            </button> 
-            
+            </button>            
             <Link to='/crm/boxes/active'>
               <button 
               className="ml-4 bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full">
