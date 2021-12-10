@@ -12,8 +12,6 @@ export const Nav = () => {
   const user = useSelector((store) => (store.auth?.user));
   const userLocation = useSelector((store) => (store.auth?.location));
   const [modalState, SetModalState] = useState(false);
-
-  console.log('userrr=>', user)
   
   return (
     !/home/.test(location.pathname) &&

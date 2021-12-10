@@ -78,7 +78,7 @@ export const RestMap = ({setEndOrderModal, boxes}) => {
         <Map 
           state={{ 
             center: [location?.lat, location?.lon], 
-            zoom: 9 
+            zoom: 11,
           }} 
           width={'100%'} 
           height={'600px'} 

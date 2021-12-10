@@ -1,12 +1,12 @@
-import { useEffect, useState, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link , useNavigate} from "react-router-dom";
 import { ActionButton } from '../ui components/Buttons/ActionButton'
 import { registerUserThunk } from '../../store/user/auth/actions.js'
 import { Map, SearchControl, YMaps } from 'react-yandex-maps';
-import { getAllCuisinesThunk } from '../../store/boxes/actions';
 import { CuisineOption } from '../BoxesPage/filterBar/filterOptions/Cuisine/OptionsCuisine';
 import { getUserLocationThunk, setUserLocation } from '../../store/user/UserLocation/actions';
+
 export const SignupForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,6 +22,8 @@ export const SignupForm = () => {
   const [address, SetAddress] = useState(null);
   const [countryCode, SetCountryCode] = useState(null)
 
+  console.log('signup', userLocation);
+
   const changeForm = () => {
     setUser(!userButton);
     setBusiness(!businessButton);
@@ -36,8 +38,8 @@ export const SignupForm = () => {
     const password = event.target.password.value;
     const confirm_password = event.target.confirm_password.value;
     const cuisine = event.target?.cuisine?.value;
-    console.log(countryCode);
-    console.log('info=>>>', name, address, email, password, address, lon, lat, phone, cuisine, countryCode);
+    // console.log(countryCode);
+    // console.log('info=>>>', name, address, email, password, address, lon, lat, phone, cuisine, countryCode);
     if (password === confirm_password) {
       dispatch(registerUserThunk({name, address, email, password, address, lon, lat, phone, cuisine, countryCode, navigate}));
     } else {
@@ -46,9 +48,7 @@ export const SignupForm = () => {
   }
 
   useEffect(() => {
-    dispatch(getUserLocationThunk());
-
-    return () => dispatch(setUserLocation(null))
+    if (!userLocation) dispatch(getUserLocationThunk());
   }, [])
   
   return (
@@ -146,7 +146,6 @@ export const SignupForm = () => {
                 <div className="mt-4">
                   <label className="block text-sm">Pick Cuisine</label>
                   <select
-                    // onChange={onChangeHandler}
                     name="cuisine"
                     className="px-4 py-3 w-full border-gray-500 text-gray-500 rounded-md bg-white border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
                       {cuisines.map((el) => {

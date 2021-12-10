@@ -27,7 +27,9 @@ export const registerUserThunk = (data) => async (dispatch) => {
   const profileData = await request.json();
   dispatch(setAuthUser(profileData));
 
-  data.navigate('/profile');
+  !profileData.address 
+    ? data.navigate('/boxes') 
+    : data.navigate('/profile');
 }
 
 //------------fetching server to authenticate the user
@@ -46,7 +48,9 @@ export const authUserThunk = (data) => async (dispatch) => {
   const profileData = await request.json();
   dispatch(setAuthUser(profileData));
 
-  data.navigate('/profile');
+  !profileData.address 
+    ? data.navigate('/boxes') 
+    : data.navigate('/profile');
 }
 
 //------------fetching server to signout the user
