@@ -1,15 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CuisineOption } from './filterOptions/Cuisine/OptionsCuisine';
-import { PickUpTimes } from './filterOptions/PickUpTimes';
+import Context from '../../../context';
+import { FilterSelect } from './FilterSelect';
+import { OptionsCuisine } from './filterOptions/OptionsCuisine';
+import { OptionsTime } from './filterOptions/OptionsTime';
 import { 
-  getAllBoxesThunk,
   getFilteredBoxesThunk, 
-  getSearchedBoxesThunk} from '../../../store/boxes/actions';
+  getSearchedBoxesThunk,
+} from '../../../store/boxes/actions';
+import { OptionsPrice } from './filterOptions/OptionsPrice';
 
-export const FilterNav = ({modeHandler, userLocation, pickedOptions, setOptions, defaultState}) => {
+export const FilterNav = () => {
+  const {
+    modeHandler, 
+    userLocation, 
+    pickedOptions, 
+    setOptions, 
+    defaultState
+  } = useContext(Context);
+  
   const dispatch = useDispatch();
-  const cuisines = useSelector((store) => (store.boxes?.cuisines));
   const [query, SetQuery] = useState('');
   
   //-------------dispatching user's choices with every state change
@@ -43,7 +53,8 @@ export const FilterNav = ({modeHandler, userLocation, pickedOptions, setOptions,
           value={query}
           onChange={searchHandler}
           placeholder="Search by restaurant name or location"  
-          className="px-8 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"/>
+          className="px-8 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+        />
       </div>
 
       {!query 
@@ -81,59 +92,26 @@ export const FilterNav = ({modeHandler, userLocation, pickedOptions, setOptions,
 
         <div >
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
-            <select
+            <FilterSelect
+              name={'cuisine'}
               onChange={onChangeHandler}
-              name="cuisine"
-              className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
-                {cuisines.map((el) => {
-                    return (
-                      <CuisineOption 
-                        id={el.id}
-                        cuisine={el.name}
-                        selected={
-                          pickedOptions.cuisine === el.name
-                          ? 'selected'
-                          : null
-                        }
-                      />
-                    )
-                })}
-            </select>
+            >
+              <OptionsCuisine />
+            </FilterSelect>
 
-            <select 
+            <FilterSelect
+              name={'price'}
               onChange={onChangeHandler}
-              name="price"
-              className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
-                {[
-                    {
-                      value: "anyPrice",
-                      content: 'Any Price',
-                    },
-                    {
-                      value: "ASC",
-                      content: 'Low to High',
-                    }, 
-                    {
-                      value: "DESC",
-                      content: 'Hight to Low',
-                    }
-                  ].map((el) => {
-                    if (pickedOptions.price === el.value) el.selected = 'selected';
-                    return (
-                      <option
-                        value={el.value}
-                        selected={el.selected && el.selected}
-                      >{el.content}</option>
-                    ) 
-                    })}
-            </select>
+            >
+              <OptionsPrice />
+            </FilterSelect>
 
-            <select 
-            onChange={onChangeHandler}
-            name="time"
-            className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
-              <PickUpTimes selected={pickedOptions.time}/>
-            </select>
+            <FilterSelect
+              name={'time'}
+              onChange={onChangeHandler}
+            >
+              <OptionsTime />
+            </FilterSelect>
           </div>
         </div>
       </>

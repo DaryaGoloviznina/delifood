@@ -4,7 +4,7 @@ import { Link , useNavigate} from "react-router-dom";
 import { ActionButton } from '../ui components/Buttons/ActionButton'
 import { registerUserThunk } from '../../store/user/auth/actions.js'
 import { Map, SearchControl, YMaps } from 'react-yandex-maps';
-import { CuisineOption } from '../BoxesPage/filterBar/filterOptions/Cuisine/OptionsCuisine';
+import { OptionsCuisine } from '../BoxesPage/filterBar/filterOptions/OptionsCuisine';
 import { getUserLocationThunk, setUserLocation } from '../../store/user/UserLocation/actions';
 
 export const SignupForm = () => {
@@ -150,7 +150,7 @@ export const SignupForm = () => {
                     className="px-4 py-3 w-full border-gray-500 text-gray-500 rounded-md bg-white border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
                       {cuisines.map((el) => {
                           return (
-                            <CuisineOption 
+                            <OptionsCuisine 
                             id={el.id}
                             cuisine={el.name} />
                           )

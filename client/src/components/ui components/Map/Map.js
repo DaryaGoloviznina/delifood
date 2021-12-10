@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { YMaps, Map, SearchControl } from 'react-yandex-maps';
-import  {UserPlacemark } from './PlaceMark'
+import { UserPlacemark } from './PlaceMark'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBoxesThunk } from '../../../store/boxes/actions';
 import BoxModal from '../Modals/CustomerBoxesPage/BoxModal'

@@ -26,8 +26,8 @@ export default function BoxModal({
     }); 
     let response = await request.json();
     console.log(response)
-    if (response === 'ok'){
-      setclientOrderBoxAmount((prev)=> prev - Math.abs(Number(e.target.quantity.value)))
+    if (response === 'ok') {
+      setclientOrderBoxAmount((prev) => prev - Math.abs(Number(e.target.quantity.value)))
     } 
     setShowModal(false)
     setEndOrderModal(true)

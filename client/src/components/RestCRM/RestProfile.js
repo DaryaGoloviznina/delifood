@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { updateProfileThunk } from "../../store/user/profile/actions";
 import { YMaps, Map, SearchControl, GeolocationControl, Placemark } from 'react-yandex-maps';
-import { CuisineOption } from "../BoxesPage/filterBar/filterOptions/Cuisine/OptionsCuisine";
+import { OptionsCuisine } from "../BoxesPage/filterBar/filterOptions/OptionsCuisine";
 
 export const RestProfile = () => {
   const dispatch = useDispatch();
@@ -126,19 +126,7 @@ export const RestProfile = () => {
                 <select
                   name="cuisine"
                   className="mb-2 rounded-md pt-4 text-base font-bold w-full">
-                    {cuisines.map((el) => {
-                      return (
-                        <CuisineOption 
-                          id={el.id}
-                          cuisine={el.name}
-                          selected={
-                            value === el.name
-                            ? 'selected'
-                            : null
-                          }
-                        />
-                      )
-                    })}
+                    <OptionsCuisine />
                 </select>
               )
               })
