@@ -13,6 +13,7 @@ module.exports = {
           address: '181 Bathurst St, Toronto, ON, Canada',
           lat: 43.831514,
           lon: -79.454675,
+          country_code: 'CA',
           phone: '89316541232',
           store_img: 'https://cdn2.tropicalsky.co.uk/images/800x600/george-restaurant-moss-park-toronto.jpg',
           createdAt: new Date()
@@ -23,6 +24,7 @@ module.exports = {
           address: '81 Harbord Street, Toronto, ON, Canada',
           lat: 43.660989,
           lon: -79.412158,
+          country_code: 'CA',
           phone: '89314455599',
           store_img: 'https://cdn3.tropicalsky.co.uk/images/800x600/auberge-du-pommier-toronto.jpg',
           createdAt: new Date()
@@ -33,6 +35,7 @@ module.exports = {
           address: '1454 Dundas Street West, Toronto, ON, Canada',
           lat: 43.652367,
           lon: -79.400732,
+          country_code: 'CA',
           phone: '89317459632',
           store_img: 'https://cdn1.tropicalsky.co.uk/images/800x600/yasu-sushi-restaurant-toronto.jpg',
           createdAt: new Date()
@@ -43,6 +46,7 @@ module.exports = {
           address: '11 Duncan Street, Toronto, ON, Canada',
           lat: 43.648890,
           lon: -79.388928,
+          country_code: 'CA',
           phone: '89316667788',
           store_img: 'https://cdn4.tropicalsky.co.uk/images/800x600/antler-kitchen-bar-toronto.jpg',
           createdAt: new Date()
@@ -54,6 +58,7 @@ module.exports = {
           address: '12 Yonge St, Toronto, ON, Canada',
           lat: 43.653226,
           lon: -79.383184,
+          country_code: 'CA',
           phone: '613-387-4130',
           store_img: 'https://cdn5.tropicalsky.co.uk/images/800x600/byblos-restaurant-toronto.jpg',
           createdAt: new Date()
@@ -64,6 +69,7 @@ module.exports = {
           address: '580 Church St, Toronto, ON, Canada',
           lat: 43.666682,
           lon: -79.381847,
+          country_code: 'CA',
           phone: '403-516-5649',
           store_img: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
           createdAt: new Date()
@@ -74,6 +80,7 @@ module.exports = {
           address: '900 Dufferin St Unit 515, Toronto, ON, Canada',
           lat: 43.654783,
           lon: -79.435779,
+          country_code: 'CA',
           phone: '204-333-5123 ',
           store_img: 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
           createdAt: new Date()
@@ -84,6 +91,7 @@ module.exports = {
           address: '515 Jarvis St, Toronto, ON, Canada',
           lat: 43.666847,
           lon: -79.378002,
+          country_code: 'CA',
           phone: '778-322-6028',
           store_img: 'https://images.unsplash.com/photo-1606066352252-93e4d325787b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
           createdAt: new Date()
@@ -94,6 +102,7 @@ module.exports = {
           address: '10 Baldwin St, Toronto, ON, Canada',
           lat: 43.656431,
           lon: -79.392727,
+          country_code: 'CA',
           phone: '306-868-7659',
           store_img: 'https://images.unsplash.com/photo-1582359324766-9c2e09d83d43?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
           createdAt: new Date()
@@ -104,6 +113,7 @@ module.exports = {
           address: '317 Adelaide St, Toronto, ON, Canada',
           lat: 43.646870,
           lon: -79.392222,
+          country_code: 'CA',
           phone: '514-910-3353',
           store_img: 'https://cdn3.tropicalsky.co.uk/images/800x600/scaramouche-restaurant-toronto.jpg',
           createdAt: new Date()
@@ -115,6 +125,7 @@ module.exports = {
           address: '197 College St, Toronto, ON, Canada',
           lat: 43.658590,
           lon: -79.395090,
+          country_code: 'CA',
           phone: '647-200-0400 ',
           store_img: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
           createdAt: new Date()
@@ -125,6 +136,7 @@ module.exports = {
           address: '100 Queen St, Toronto, ON, Canada',
           lat: 43.653574,
           lon: -79.384464,
+          country_code: 'CA',
           phone: '807-662-3113',
           store_img: 'https://images.unsplash.com/photo-1592335572252-e6d0a63cdb2e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1165&q=80',
           createdAt: new Date()
@@ -135,6 +147,7 @@ module.exports = {
           address: '181 Bay St, Toronto, ON, Canada',
           lat: 43.646985,
           lon: -79.378411,
+          country_code: 'CA',
           phone: '778-322-6028',
           store_img: 'https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80',
           createdAt: new Date()
@@ -143,8 +156,9 @@ module.exports = {
           email: 'maple@gmail.com',
           password: '123123',
           address: '1120 Front St, Toronto, ON, Canada',
-          lat: 43.382579,
-          lon: -79.223299,
+          lat: 43.648192,
+          lon: -79.374222,
+          country_code: 'CA',
           phone: '306-534-1349',
           store_img: 'https://images.unsplash.com/photo-1586999768265-24af89630739?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
           createdAt: new Date()
@@ -155,19 +169,20 @@ module.exports = {
           address: '93 Front St, Toronto, ON, Canada',
           lat: 43.649025,
           lon: -79.371564,
+          country_code: 'CA',
           phone: '514-702-7433',
           store_img: 'https://images.unsplash.com/photo-1471253794676-0f039a6aae9d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
           createdAt: new Date()
         },
       ]);
 
-    const Boxes = await Box.bulkCreate([
+    await Box.bulkCreate([
       { name: 'Gia Box',
         descr: 'Only organic ingridients.',
         count: 5,
         price: 16,
-        start_date: new Date (2021, 11, 10, 15, 30),
-        end_date: new Date (2021, 11, 10, 21, 0),
+        start_date: new Date (2021, 11, new Date().getDate(), 15, 30),
+        end_date: new Date (2021, 11, new Date().getDate(), 21, 0),
         store_id: Stores.find((el) => el.email === 'gia@gmail.com').id,
         createdAt: new Date()
       },
@@ -175,8 +190,8 @@ module.exports = {
         descr: 'Christmas swets and maybe eggnog.',
         count: 5,
         price: 8,
-        start_date: new Date (2021, 11, 10, 17, 00),
-        end_date: new Date (2021, 11, 10, 22, 40),
+        start_date: new Date (2021, 11, new Date().getDate(), 17, 00),
+        end_date: new Date (2021, 11, new Date().getDate(), 22, 40),
         store_id: Stores.find((el) => el.email === '416@gmail.com').id,
         createdAt: new Date()
         },
@@ -184,8 +199,8 @@ module.exports = {
           descr: 'Delicious food for the party.',
           count: 2,
           price: 6,
-          start_date: new Date (2021, 11, 10, 15, 30),
-          end_date: new Date (2021, 11, 10, 19, 30),
+          start_date: new Date (2021, 11, new Date().getDate(), 15, 30),
+          end_date: new Date (2021, 11, new Date().getDate(), 20, 30),
           store_id: Stores.find((el) => el.email === 'swan@gmail.com').id,
           createdAt: new Date()
         },
@@ -193,8 +208,8 @@ module.exports = {
           descr: 'We prepared some snacks and delicious mains.',
           count: 3,
           price: 11,
-          start_date: new Date (2021, 11, 10, 15, 40),
-          end_date: new Date (2021, 11, 10, 21, 00),
+          start_date: new Date (2021, 11, new Date().getDate(), 15, 40),
+          end_date: new Date (2021, 11, new Date().getDate(), 21, 00),
           store_id: Stores.find((el) => el.email === 'canoe@gmail.com').id,
           createdAt: new Date()
         },
@@ -202,8 +217,8 @@ module.exports = {
           descr: 'Surprise box from our restaurant',
           count: 3,
           price: 6,
-          start_date: new Date (2021, 11, 10, 11, 00),
-          end_date: new Date (2021, 11, 10, 19, 00),
+          start_date: new Date (2021, 11, new Date().getDate(), 11, 00),
+          end_date: new Date (2021, 11, new Date().getDate(), 20, 40),
           store_id: Stores.find((el) => el.email === 'alo@gmail.com').id,
           createdAt: new Date()
         },
@@ -211,8 +226,8 @@ module.exports = {
           descr: 'Simple yet DELICIOUS box.',
           count: 5,
           price: 5,
-          start_date: new Date (2021, 11, 10, 14, 00),
-          end_date: new Date (2021, 11, 10, 18, 40),
+          start_date: new Date (2021, 11, new Date().getDate(), 14, 00),
+          end_date: new Date (2021, 11, new Date().getDate(), 22, 40),
           store_id: Stores.find((el) => el.email === 'tutti@gmail.com').id,
           createdAt: new Date()
         },
@@ -220,8 +235,8 @@ module.exports = {
           descr: 'By popular demand. No dairy contained.',
           count: 2,
           price: 11,
-          start_date: new Date (2021, 11, 10, 17, 00),
-          end_date: new Date (2021, 11, 10, 20, 30),
+          start_date: new Date (2021, 11, new Date().getDate(), 17, 00),
+          end_date: new Date (2021, 11, new Date().getDate(), 21, 15),
           store_id: Stores.find((el) => el.email === 'steakhouse@gmail.com').id,
           createdAt: new Date()
         },
@@ -229,8 +244,8 @@ module.exports = {
           descr: 'We gathered our best mains.',
           count: 2,
           price: 10,
-          start_date: new Date (2021, 11, 10, 16, 00),
-          end_date: new Date (2021, 11, 10, 19, 30),
+          start_date: new Date (2021, 11, new Date().getDate(), 16, 00),
+          end_date: new Date (2021, 11, new Date().getDate(), 23, 30),
           store_id: Stores.find((el) => el.email === 'elmtree@gmail.com').id,
           createdAt: new Date()
         },
@@ -238,8 +253,8 @@ module.exports = {
           descr: 'We present the sweetest mystery box.',
           count: 1,
           price: 7,
-          start_date: new Date (2021, 11, 10, 16, 00),
-          end_date: new Date (2021, 11, 10, 18, 30),
+          start_date: new Date (2021, 11, new Date().getDate(), 16, 00),
+          end_date: new Date (2021, 11, new Date().getDate(), 22, 45),
           store_id: Stores.find((el) => el.email === 'elmtree@gmail.com').id,
           createdAt: new Date()
         },
@@ -247,8 +262,8 @@ module.exports = {
           descr: 'We crafted this box with love and care.',
           count: 1,
           price: 7,
-          start_date: new Date (2021, 11, 10, 16, 40),
-          end_date: new Date (2021, 11, 10, 20, 00),
+          start_date: new Date (2021, 11, new Date().getDate(), 16, 40),
+          end_date: new Date (2021, 11, new Date().getDate(), 20, 35),
           store_id: Stores.find((el) => el.email === 'canoe@gmail.com').id,
           createdAt: new Date()
         },
@@ -256,8 +271,8 @@ module.exports = {
           descr: 'We prepared an awesome box for you!',
           count: 2,
           price: 5,
-          start_date: new Date (2021, 11, 10, 17, 30),
-          end_date: new Date (2021, 11, 10, 21, 30),
+          start_date: new Date (2021, 11, new Date().getDate(), 17, 30),
+          end_date: new Date (2021, 11, new Date().getDate(), 21, 15),
           store_id: Stores.find((el) => el.email === 'campechano@gmail.com').id,
           createdAt: new Date()
         },
@@ -265,8 +280,8 @@ module.exports = {
           descr: 'Our box containes only vegan ingridients.',
           count: 1,
           price: 7,
-          start_date: new Date (2021, 11, 10, 17, 0),
-          end_date: new Date (2021, 11, 10, 21, 0),
+          start_date: new Date (2021, 11, new Date().getDate(), 17, 0),
+          end_date: new Date (2021, 11, new Date().getDate(), 21, 45),
           store_id: Stores.find((el) => el.email === 'yasu@gmail.com').id,
           createdAt: new Date()
         },
@@ -274,8 +289,8 @@ module.exports = {
           descr: 'Your favourite food for cheap.',
           count: 7,
           price: 4,
-          start_date: new Date (2021, 11, 10, 19, 0),
-          end_date: new Date (2021, 11, 10, 20, 0),
+          start_date: new Date (2021, 11, new Date().getDate(), 19, 0),
+          end_date: new Date (2021, 11, new Date().getDate(), 23, 45),
           store_id: Stores.find((el) => el.email === 'swan@gmail.com').id,
           createdAt: new Date()
         },
@@ -283,8 +298,8 @@ module.exports = {
         descr: 'This box features some vegan desserts.',
         count: 1,
         price: 15,
-        start_date: new Date (2021, 11, 10, 15, 0),
-        end_date: new Date (2021, 11, 10, 22, 0),
+        start_date: new Date (2021, 11, new Date().getDate(), 15, 0),
+        end_date: new Date (2021, 11, new Date().getDate(), 22, 0),
         store_id: Stores.find((el) => el.email === 'yasu@gmail.com').id,
         createdAt: new Date()
       },
@@ -292,8 +307,8 @@ module.exports = {
           descr: 'Please arrive before pick up time ends.',
           count: 1,
           price: 8,
-          start_date: new Date (2021, 11, 10, 17, 00),
-          end_date: new Date (2021, 11, 10, 19, 30),
+          start_date: new Date (2021, 11, new Date().getDate(), 17, 00),
+          end_date: new Date (2021, 11, new Date().getDate(), 22, 30),
           store_id: Stores.find((el) => el.email === 'george@gmail.com').id,
           createdAt: new Date()
         },
@@ -301,8 +316,8 @@ module.exports = {
         descr: 'For those who always wanted to try our food.',
         count: 6,
         price: 3,
-        start_date: new Date (2021, 11, 10, 14, 30),
-        end_date: new Date (2021, 11, 10, 20, 0),
+        start_date: new Date (2021, 11, new Date().getDate(), 14, 30),
+        end_date: new Date (2021, 11, new Date().getDate(), 20, 30),
         store_id: Stores.find((el) => el.email === 'bar@gmail.com').id,
         createdAt: new Date()
       },
@@ -310,8 +325,8 @@ module.exports = {
         descr: 'Containes nuts and meet.',
         count: 2,
         price: 4,
-        start_date: new Date (2021, 11, 10, 12, 00),
-        end_date: new Date (2021, 11, 10, 23, 30),
+        start_date: new Date (2021, 11, new Date().getDate(), 12, 00),
+        end_date: new Date (2021, 11, new Date().getDate(), 23, 30),
         store_id: Stores.find((el) => el.email === 'scaramouche@gmail.com').id,
         createdAt: new Date()
         },
@@ -319,8 +334,8 @@ module.exports = {
         descr: 'Everything you love, but cheaper',
         count: 8,
         price: 4,
-        start_date: new Date (2021, 11, 10, 12, 00),
-        end_date: new Date (2021, 11, 10, 18, 40),
+        start_date: new Date (2021, 11, new Date().getDate(), 12, 00),
+        end_date: new Date (2021, 11, new Date().getDate(), 23, 40),
         store_id: Stores.find((el) => el.email === '416@gmail.com').id,
         createdAt: new Date()
         },
@@ -328,8 +343,8 @@ module.exports = {
         descr: 'Our vegan goodies are looking for a new home!',
         count: 1,
         price: 2,
-        start_date: new Date (2021, 11, 10, 20, 0),
-        end_date: new Date (2021, 11, 10, 21, 0),
+        start_date: new Date (2021, 11, new Date().getDate(), 20, 0),
+        end_date: new Date (2021, 11, new Date().getDate(), 21, 0),
         store_id: Stores.find((el) => el.email === 'yasu@gmail.com').id,
         createdAt: new Date()
       },
@@ -337,8 +352,8 @@ module.exports = {
         descr: 'We sell fresh, always.',
         count: 2,
         price: 10,
-        start_date: new Date (2021, 11, 10, 17, 30),
-        end_date: new Date (2021, 11, 10, 21, 0),
+        start_date: new Date (2021, 11, new Date().getDate(), 17, 30),
+        end_date: new Date (2021, 11, new Date().getDate(), 21, 0),
         store_id: Stores.find((el) => el.email === 'gia@gmail.com').id,
         createdAt: new Date()
       },
@@ -346,8 +361,8 @@ module.exports = {
         descr: 'Here are the best startes for the whole family.',
         count: 1,
         price: 10,
-        start_date: new Date (2021, 11, 10, 13, 30),
-        end_date: new Date (2021, 11, 10, 23, 30),
+        start_date: new Date (2021, 11, new Date().getDate(), 13, 30),
+        end_date: new Date (2021, 11, new Date().getDate(), 23, 30),
         store_id: Stores.find((el) => el.email === 'campechano@gmail.com').id,
         createdAt: new Date()
       },
@@ -355,8 +370,8 @@ module.exports = {
         descr: 'No movie night goes without us!',
         count: 2,
         price: 5,
-        start_date: new Date (2021, 11, 10, 19, 00),
-        end_date: new Date (2021, 11, 10, 21, 30),
+        start_date: new Date (2021, 11, new Date().getDate(), 19, 00),
+        end_date: new Date (2021, 11, new Date().getDate(), 21, 30),
         store_id: Stores.find((el) => el.email === '416@gmail.com').id,
         createdAt: new Date()
         },
@@ -364,8 +379,8 @@ module.exports = {
         descr: 'Non allergic ingridients in this box.',
         count: 1,
         price: 5,
-        start_date: new Date (2021, 11, 10, 10, 0),
-        end_date: new Date (2021, 11, 10, 21, 0),
+        start_date: new Date (2021, 11, new Date().getDate(), 12, 0),
+        end_date: new Date (2021, 11, new Date().getDate(), 21, 0),
         store_id: Stores.find((el) => el.email === 'barrr@gmail.com').id,
         createdAt: new Date()
       },
@@ -373,8 +388,8 @@ module.exports = {
         descr: 'From yours truly. Contains milk.',
         count: 2,
         price: 15,
-        start_date: new Date (2021, 11, 10, 14, 00),
-        end_date: new Date (2021, 11, 10, 18, 30),
+        start_date: new Date (2021, 11, new Date().getDate(), 14, 00),
+        end_date: new Date (2021, 11, new Date().getDate(), 20, 35),
         store_id: Stores.find((el) => el.email === 'scaramouche@gmail.com').id,
         createdAt: new Date()
         },
@@ -382,8 +397,8 @@ module.exports = {
         descr: 'Please call us before picking up.',
         count: 3,
         price: 5,
-        start_date: new Date (2021, 11, 10, 18, 30),
-        end_date: new Date (2021, 11, 10, 23, 0),
+        start_date: new Date (2021, 11, new Date().getDate(), 18, 30),
+        end_date: new Date (2021, 11, new Date().getDate(), 23, 0),
         store_id: Stores.find((el) => el.email === 'maple@gmail.com').id,
         createdAt: new Date()
       },
@@ -391,8 +406,8 @@ module.exports = {
         descr: 'Please bring your own bag to grab this box.',
         count: 1,
         price: 4,
-        start_date: new Date (2021, 11, 10, 19, 30),
-        end_date: new Date (2021, 11, 10, 20, 30),
+        start_date: new Date (2021, 11, new Date().getDate(), 19, 30),
+        end_date: new Date (2021, 11, new Date().getDate(), 20, 30),
         store_id: Stores.find((el) => el.email === 'barrr@gmail.com').id,
         createdAt: new Date()
       },

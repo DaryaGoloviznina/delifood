@@ -18,6 +18,7 @@ export const registerUserThunk = (data) => async (dispatch) => {
       cuisine: data?.cuisine,
       lon: data?.lon,
       lat: data?.lat,
+      country_code: data?.countryCode,
     }),
   });
   
@@ -49,7 +50,7 @@ export const authUserThunk = (data) => async (dispatch) => {
 
   !profileData.address 
     ? data.navigate('/boxes') 
-    : data.navigate('/');
+    : data.navigate('/profile');
 }
 
 //------------fetching server to signout the user

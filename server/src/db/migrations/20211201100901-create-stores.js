@@ -31,6 +31,9 @@ module.exports = {
         lat: {
           type: Sequelize.FLOAT,
         },
+        country_code: {
+          type: Sequelize.STRING,
+        },
         store_img: {
           type: Sequelize.STRING,
           allowNull: true,

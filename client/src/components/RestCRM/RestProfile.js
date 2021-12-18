@@ -3,17 +3,20 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { updateProfileThunk } from "../../store/user/profile/actions";
 import { YMaps, Map, SearchControl, GeolocationControl, Placemark } from 'react-yandex-maps';
-import { CuisineOption } from "../BoxesPage/filterBar/filterOptions/Cuisine/OptionsCuisine";
+import { OptionsCuisine } from "../BoxesPage/filterBar/filterOptions/OptionsCuisine";
 
 export const RestProfile = () => {
   const dispatch = useDispatch();
   const profileData = useSelector((store) => store.auth.user) ?? {};
   const cuisines = useSelector((store) => (store.boxes?.cuisines));
+
+  console.log(profileData);
   
   const [isEdit, SetEdit] = useState(false);
   const [lon, SetLon] = useState(profileData?.lon);
   const [lat, SetLat] = useState(profileData?.lat);
   const [address, SetAddress] = useState(profileData?.address);
+  const [countryCode, SetCountryCode] = useState(null)
 
   const formHandler = (e) => {
     e.preventDefault();
@@ -23,6 +26,8 @@ export const RestProfile = () => {
     formData.append('lat', lat);
     formData.append('lon', lon);
     formData.append('address', address);
+    formData.append('country_code', countryCode);
+
     dispatch(updateProfileThunk(formData))
     SetEdit(false);
   }
@@ -121,19 +126,7 @@ export const RestProfile = () => {
                 <select
                   name="cuisine"
                   className="mb-2 rounded-md pt-4 text-base font-bold w-full">
-                    {cuisines.map((el) => {
-                      return (
-                        <CuisineOption 
-                          id={el.id}
-                          cuisine={el.name}
-                          selected={
-                            value === el.name
-                            ? 'selected'
-                            : null
-                          }
-                        />
-                      )
-                    })}
+                    <OptionsCuisine />
                 </select>
               )
               })
@@ -141,7 +134,7 @@ export const RestProfile = () => {
             
             <div className='w-full'>
               <YMaps 
-                query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357', lang: 'en_US'}}
+                query={{apikey: 'fd56ec54-348d-47a6-8ba7-17e1dd585174', lang: 'en_US'}}
               >
                 <Map 
                   state={{ center: [lat, lon], zoom: 9 }} 
@@ -157,6 +150,8 @@ export const RestProfile = () => {
                     const res = await e.originalEvent.target.getResult(index);
                     
                     SetAddress(res.getAddressLine());
+                    SetCountryCode(res.getCountryCode())
+
                     const coord = res.geometry.getCoordinates();
                     SetLat(coord[0]);
                     SetLon(coord[1]);    

@@ -1,22 +1,28 @@
-import { useEffect, useState, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link , useNavigate} from "react-router-dom";
 import { ActionButton } from '../ui components/Buttons/ActionButton'
 import { registerUserThunk } from '../../store/user/auth/actions.js'
 import { Map, SearchControl, YMaps } from 'react-yandex-maps';
-import { getAllCuisinesThunk } from '../../store/boxes/actions';
-import { CuisineOption } from '../BoxesPage/filterBar/filterOptions/Cuisine/OptionsCuisine';
+import { OptionsCuisine } from '../BoxesPage/filterBar/filterOptions/OptionsCuisine';
+import { getUserLocationThunk, setUserLocation } from '../../store/user/UserLocation/actions';
+
 export const SignupForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const userLocation = useSelector((store) => store.auth.location);
+  
   const [userButton, setUser] = useState(true);
   const [businessButton, setBusiness] = useState(false);
   const cuisines = useSelector((store) => (store.boxes?.cuisines));
 
-  const [lon, SetLon] = useState(0);
-  const [lat, SetLat] = useState(0);
+  const [lon, SetLon] = useState(null);
+  const [lat, SetLat] = useState(null);
   const [address, SetAddress] = useState(null);
+  const [countryCode, SetCountryCode] = useState(null)
+
+  console.log('signup', userLocation);
 
   const changeForm = () => {
     setUser(!userButton);
@@ -32,22 +38,18 @@ export const SignupForm = () => {
     const password = event.target.password.value;
     const confirm_password = event.target.confirm_password.value;
     const cuisine = event.target?.cuisine?.value;
-
-    console.log('info=>>>', name, email, phone, password, cuisine);
+    // console.log(countryCode);
+    // console.log('info=>>>', name, address, email, password, address, lon, lat, phone, cuisine, countryCode);
     if (password === confirm_password) {
-      dispatch(registerUserThunk({name, address, email, password, address, lon, lat, phone, cuisine, navigate}));
+      dispatch(registerUserThunk({name, address, email, password, address, lon, lat, phone, cuisine, countryCode, navigate}));
     } else {
       alert('passwords do not match');
     }
   }
 
-  useEffect(async () => {
-    navigator.geolocation.getCurrentPosition(position => {
-      const { latitude, longitude } = position.coords;
-      SetLon(longitude);
-      SetLat(latitude);
-    });
-  })
+  useEffect(() => {
+    if (!userLocation) dispatch(getUserLocationThunk());
+  }, [])
   
   return (
     <>
@@ -118,10 +120,10 @@ export const SignupForm = () => {
                 <div className="mt-4">
                 <label className="block text-sm">Address</label>
                   <YMaps 
-                    query={{apikey: 'a9e98eaf-d4c4-45e6-9ee4-5afad392d357', lang: 'en_US'}}
+                    query={{apikey: 'fd56ec54-348d-47a6-8ba7-17e1dd585174', lang: 'en_US'}}
                   >
                     <Map 
-                      state={{ center: [lat, lon], zoom: 9 }} 
+                      state={{ center: [userLocation?.lat, userLocation?.lon], zoom: 9 }} 
                       width={'100%'} height={'250px'} 
                       options={{autoFitToViewport: 'always'}} 
                       modules={["geolocation", "geocode"]}
@@ -129,13 +131,13 @@ export const SignupForm = () => {
                       <SearchControl 
                         options={{ float: 'right' }} 
                         onResultSelect={async (e) => {
-                          const index = e.get('index');
-                          const res = await e.originalEvent.target.getResult(index);
-                          
+                          const res = await e.originalEvent.target.getResult(0);
+
                           SetAddress(res.getAddressLine());
-                          const coord = res.geometry.getCoordinates();
-                          SetLat(coord[0]);
-                          SetLon(coord[1]);    
+                          SetCountryCode(res.getCountryCode());
+                          const [lantitude, longitude] = res.geometry._coordinates;
+                          SetLat(lantitude);
+                          SetLon(longitude);    
                         }}
                       />
                     </Map>
@@ -144,16 +146,9 @@ export const SignupForm = () => {
                 <div className="mt-4">
                   <label className="block text-sm">Pick Cuisine</label>
                   <select
-                    // onChange={onChangeHandler}
                     name="cuisine"
                     className="px-4 py-3 w-full border-gray-500 text-gray-500 rounded-md bg-white border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
-                      {cuisines.map((el) => {
-                          return (
-                            <CuisineOption 
-                            id={el.id}
-                            cuisine={el.name} />
-                          )
-                      })}
+                      <OptionsCuisine />
                   </select>
                 </div>
                 </>

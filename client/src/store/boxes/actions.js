@@ -3,23 +3,29 @@ import { ACTypes } from "../types";
 
 export const setAllBoxes = (boxes) => ({type: ACTypes.SET_ALL_BOXES, payload: {boxes}});
 export const setAllCuisines = (cuisines) => ({type: ACTypes.SET_ALL_CUISINE, payload: {cuisines}});
+export const updateBoxData = (newBoxData) => ({type: ACTypes.UPDATE_BOX_DATA, payload: newBoxData})
 
 //-------------fetching all active boxes
-export const getAllBoxesThunk = (arg) => async (dispatch) => {
+export const getAllBoxesThunk = (userLocation) => async (dispatch) => {
   let allBoxes = await (await fetch(`/boxes/allBoxes`)).json();
+  
+  if (userLocation?.country_code) {
+    allBoxes = filterBoxByLocation(allBoxes, userLocation);
+    console.log(allBoxes);
+  }
   
   if (allBoxes) dispatch(setAllBoxes(allBoxes));
 }
 
 //--------------fetching all cuisines
-export const getAllCuisinesThunk = (arg) => async (dispatch) => {
+export const getAllCuisinesThunk = () => async (dispatch) => {
   let allCuisines = await (await fetch(`/boxes/allCuisines`)).json();
   
   if (allCuisines) dispatch(setAllCuisines(allCuisines));
 }
 
 //---------------fetching filtered boxes based on user's choice
-export const getFilteredBoxesThunk = (data) => async (dispatch) => {
+export const getFilteredBoxesThunk = (data, userLocation) => async (dispatch) => {
   console.log('dataaa time=>', data);
 
   //converting string time back to object for DB filtration
@@ -34,7 +40,7 @@ export const getFilteredBoxesThunk = (data) => async (dispatch) => {
     data.price === 'anyPrice' && 
     data.time === 'anyTime') {
     
-    dispatch(getAllBoxesThunk(42));
+    dispatch(getAllBoxesThunk(userLocation));
   } else {
     //fetching filtered boxes based on user's choices
     let request = await fetch(`/boxes/filter`, {
@@ -47,7 +53,10 @@ export const getFilteredBoxesThunk = (data) => async (dispatch) => {
       }),
     })
   let filteredBoxes = await request.json();
-
+  
+  if (userLocation?.country_code) {
+    filteredBoxes = filterBoxByLocation(filteredBoxes, userLocation)
+  }
   dispatch(setAllBoxes(filteredBoxes));
   }
 }
@@ -63,4 +72,10 @@ export const getSearchedBoxesThunk = (query) => async (dispatch) => {
   dispatch(setAllBoxes(searchedBoxes));
 }
 
+export const filterBoxByLocation = (boxes, userLocation) => {
+
+  return boxes.filter((el) => 
+    el.country_code === userLocation?.country_code);
+ 
+}
 

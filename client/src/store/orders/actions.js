@@ -1,8 +1,24 @@
+import { updateBoxData } from "../boxes/actions";
 import { ACTypes } from "../types";
 
 export const setActiveOrdersAC = (arr) => ({ type: ACTypes.SET_ACTIVE_ORDERS, payload: { activeOrders: arr } });
 export const deleteOrderAC = (id) => ({ type: ACTypes.DELETE_ORDER, payload: { id } });
 export const deleteAllOrdersAC = () => ({ type: ACTypes.DELETE_ALL_ORDERS });
+
+export const addNewOrder = (orderData) => async (dispatch) => {
+  const request = await fetch(`/client/order/new`, { 
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(orderData),
+  });
+  if (request.status === 201) {
+    dispatch(updateBoxData({
+      id: orderData.box_id,
+      count_reserved: orderData.count_box,
+    }))  
+  }
+  
+}
 
 export const getOrders = (params, id) => async (dispatch) => {
   try {
