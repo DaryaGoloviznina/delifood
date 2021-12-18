@@ -66,8 +66,8 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(checkUserThunk());
-    // dispatch(getAllCuisinesThunk());
+    dispatch(checkUserThunk());
+    dispatch(getAllCuisinesThunk());
   }, [])
 
   return (
