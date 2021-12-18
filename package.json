@@ -1,0 +1,24 @@
+{
+  "name": "delifood",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "16.x"
+  },
+  "scripts": {
+    "build": "cd client && npm i && npm run build",
+    "start": "cd server && npm i && npx sequelize-cli db:migrate && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vladmilko/delifood.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vladmilko/delifood/issues"
+  },
+  "homepage": "https://github.com/vladmilko/delifood#readme"
+}
