@@ -32,7 +32,7 @@ function formateDate (str, date = 'now') { // функция которая пр
   }
 }
 
-module.exports = {
+export {
   convertObjTimetoStrTime, 
   addDateAndTimeToBox, 
   formateDate, 

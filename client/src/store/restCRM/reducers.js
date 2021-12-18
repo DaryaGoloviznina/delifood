@@ -1,5 +1,5 @@
 import { ACTypes } from '../types';
-import { addDateAndTimeToBox} from '../../lib/formateTimeFunctions';
+import { addDateAndTimeToBox } from '../../lib/formateTimeFunctions';
 
 const initialState = {
   boxes: []
