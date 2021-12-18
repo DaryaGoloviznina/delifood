@@ -9,6 +9,7 @@ import {
   getSearchedBoxesThunk,
 } from '../../../store/boxes/actions';
 import { OptionsPrice } from './filterOptions/OptionsPrice';
+import { defaultState } from '../../../lib/consts/defFiltState';
 
 export const FilterNav = () => {
   const {
@@ -16,7 +17,6 @@ export const FilterNav = () => {
     userLocation, 
     pickedOptions, 
     setOptions, 
-    defaultState
   } = useContext(Context);
   
   const dispatch = useDispatch();

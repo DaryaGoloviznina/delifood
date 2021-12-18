@@ -15,6 +15,14 @@ export const boxes = (state = initialState, action) => {
       return {...state,  
         cuisines: action.payload.cuisines
       }
+    
+    case ACTypes.UPDATE_BOX_DATA:
+      return {...state,
+        boxes: state.boxes.map((el) => {
+          if (el.id === action.payload.id) el.count_reserved += action.payload.count_reserved;
+          return el
+        })
+      }
 
     default:
       return state;

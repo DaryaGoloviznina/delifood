@@ -1,36 +1,39 @@
 import { Map, Placemark, YMaps } from 'react-yandex-maps';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NoUserLinks } from "./modalLinks/noUserLinks";
 import { UserLinks } from "./modalLinks/UserLinks";
 import { useState } from 'react';
+import { addNewOrder } from '../../../../store/orders/actions';
 
 export default function BoxModal({
   setShowModal, 
   boxData, 
-  clientOrderBoxAmount, 
-  setclientOrderBoxAmount,
-  setEndOrderModal}) {
-
+  setEndOrderModal,
+}) {
+  const dispatch = useDispatch();
   const user = useSelector((store) => (store.auth?.user));
   const [orderPrice, setOrderPrice] = useState(boxData.price) // для изменения цены заказа
 
   async function reserveBox(e) {
     e.preventDefault();
-    console.log(typeof e.target.quantity.value)
-    let request = await fetch(`/client/order/new`, { 
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        box_id: boxData.id, client_id: user.id, count_box: Math.abs(Number(e.target.quantity.value))
-      }),
-    }); 
-    let response = await request.json();
-    console.log(response)
-    if (response === 'ok') {
-      setclientOrderBoxAmount((prev) => prev - Math.abs(Number(e.target.quantity.value)))
-    } 
-    setShowModal(false)
-    setEndOrderModal(true)
+
+    try {
+      dispatch(addNewOrder({
+        box_id: boxData.id, 
+        client_id: user.id, 
+        count_box: Math.abs(Number(e.target.quantity.value)),
+      }))
+      
+      boxData.SetBoxAmount((prev) => prev - Math.abs(Number(e.target.quantity.value)))
+  
+      setShowModal(false)
+      setEndOrderModal(true)
+    }
+    catch(err) {
+      console.log(err);
+    }
+    
+
   }
 
   const modalImg = {
@@ -110,12 +113,18 @@ export default function BoxModal({
               <h1 className="h-full mt-2 px-4 py-3 bg-green-800 text-white font-bold uppercase rounded">
                 ${orderPrice}
               </h1>
-              { !user && 
+              { 
+                !user && 
                 <NoUserLinks />
               }
-              { user && !user?.address &&
+              { 
+                user && !user?.address 
+                &&
                 <UserLinks 
-                boxData={boxData} reserveBox={reserveBox} clientOrderBoxAmount={clientOrderBoxAmount} setOrderPrice={setOrderPrice}/>
+                  boxData={boxData} 
+                  reserveBox={reserveBox} 
+                  setOrderPrice={setOrderPrice}
+                />
               } 
             </div>
           </div>

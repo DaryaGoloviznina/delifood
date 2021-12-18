@@ -8,7 +8,7 @@ exports.addNewOrder = async (req, res) => {
   try {
     let box = await Box.findByPk(req.body.box_id);
     if ((box.dataValues.count - box.dataValues.count_reserved - box.dataValues.count_bought) < req.body.count_box){
-      res.json('out')
+      res.status(403).end()
     } else {
       let code = randStr.generate(6);
       await Order.create({
@@ -32,7 +32,7 @@ exports.addNewOrder = async (req, res) => {
                   <p>Time: ${convertObjTimetoStrTime(box.dataValues.start_date)}-${convertObjTimetoStrTime(box.dataValues.end_date)}</p>
                   <p> Order code: ${code}</p>`
       sendNotice(user.dataValues.email, text)
-      res.json('ok')
+      res.status(201).end();
     } 
 
   } catch (error) {

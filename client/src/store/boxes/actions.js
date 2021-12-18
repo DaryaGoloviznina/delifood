@@ -3,6 +3,7 @@ import { ACTypes } from "../types";
 
 export const setAllBoxes = (boxes) => ({type: ACTypes.SET_ALL_BOXES, payload: {boxes}});
 export const setAllCuisines = (cuisines) => ({type: ACTypes.SET_ALL_CUISINE, payload: {cuisines}});
+export const updateBoxData = (newBoxData) => ({type: ACTypes.UPDATE_BOX_DATA, payload: newBoxData})
 
 //-------------fetching all active boxes
 export const getAllBoxesThunk = (userLocation) => async (dispatch) => {
@@ -73,7 +74,8 @@ export const getSearchedBoxesThunk = (query) => async (dispatch) => {
 
 export const filterBoxByLocation = (boxes, userLocation) => {
 
-  return boxes.filter((el) => el.country_code === userLocation?.country_code);
+  return boxes.filter((el) => 
+    el.country_code === userLocation?.country_code);
  
 }
 

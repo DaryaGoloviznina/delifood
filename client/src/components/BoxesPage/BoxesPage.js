@@ -8,19 +8,21 @@ import { FilterNav } from "./filterBar/FilterNav";
 import { ModalInfo } from "../ui components/Modals/universal/ModalInfo";
 import { RestMap } from "../ui components/Map/Map";
 import { ListBoxes } from "./ListBoxes";
+import BoxModal from '../ui components/Modals/CustomerBoxesPage/BoxModal';
+import { defaultState } from '../../lib/consts/defFiltState';
 
 export const BoxesPage = () => {
   const dispatch = useDispatch();
-  const boxes = useSelector((store) => (store.boxes?.boxes));
-  const userLocation = useSelector((store) => store?.auth?.location);
-  const [endOrderModal, setEndOrderModal] = useState(false) // показ модальное окно завершения заказа клиента
   const [mode, SetMode] = useState('listBox');
-
-  const defaultState = {
-    cuisine: 'Any Cuisine',
-    price: 'anyPrice',
-    time: 'anyTime',
-  }
+  
+  const boxes = useSelector((store) => (store.boxes?.boxes));
+  const userLocation = useSelector((store) => store?.auth?.location); // локация юзера
+  
+  const [boxData, setBoxdata] = useState({}); // для передачи данных бокса в modalBox
+  const [showModal, setShowModal] = useState(false); // состояние modalBox
+  const [endOrderModal, setEndOrderModal] = useState(false) // показ модальное окно завершения заказа клиента
+  const [clientOrderBoxAmount, setclientOrderBoxAmount] = useState() // для изменения количества оставшихся боксов в ресторане после оформления заказа клиента
+  const [changeBoxAmountFunc, SetChangeBoxAmountFunc] = useState();
 
   const [pickedOptions, setOptions] = useState(defaultState);
   
@@ -29,29 +31,33 @@ export const BoxesPage = () => {
     SetMode(newState);
   }
 
+  //---------------activates modal and gathers data for it
+  const modalBoxHandler = (boxData, boxAmount) => {
+    setclientOrderBoxAmount(boxAmount);
+    setBoxdata(boxData);
+    
+    setShowModal(true);
+  }
+
   useEffect(() => {
     if (!userLocation) dispatch(getUserLocationThunk());
-    // return () => dispatch(setUserLocation(null))
   }, [])
 
   useEffect(() => {
     dispatch(getAllBoxesThunk(userLocation));
   }, [userLocation]);
 
-  // useEffect(() => {
-  //   dispatch(getFilteredBoxesThunk(pickedOptions));
-  // }, [mode]);
-
   return (
     <Context.Provider 
       value={{
+        boxes,
+        modalBoxHandler,
         modeHandler,
-        userLocation,
         pickedOptions,
         setOptions,
-        defaultState,
         endOrderModal,
         setEndOrderModal,
+        setclientOrderBoxAmount,
       }}
     >
       <main className="bg-gray-100">
@@ -62,10 +68,7 @@ export const BoxesPage = () => {
               {
                 mode === 'listBox' 
                 && boxes.length !== 0 
-                &&
-                <ListBoxes 
-                  boxes={boxes}
-                />
+                && <ListBoxes />
               }
               
             { 
@@ -75,36 +78,48 @@ export const BoxesPage = () => {
               <div
                 className='w-screen shadow my-5 rounded-xl'
               >
-                <RestMap 
-                  boxes={boxes}
-                />
+                <RestMap />
               </div>
             }
-              {
-              !boxes.length && 
-                <div className="container h-80 text-center mt-36">
-                  <p className="uppercase text-gray-400 font-bold">
-                    No boxes were found
-                  </p>
-                  <p className="uppercase text-gray-400 font-bold">
-                    Or no Delifood's partners in your country
-                  </p>
-                </div>
-              }
+            {
+            boxes.length === 0 && 
+              <div className="container h-80 text-center mt-36">
+                <p className="uppercase text-gray-400 font-bold">
+                  No boxes were found
+                </p>
+                <p className="uppercase text-gray-400 font-bold">
+                  Or no Delifood's partners in your country
+                </p>
+              </div>
+            }
               
             </div>
           </div>
         </div>
+        {showModal 
+          ? 
+            <BoxModal
+              changeBoxAmountFunc={changeBoxAmountFunc}
+              showModal={showModal}
+              setShowModal={setShowModal}
+              boxData={boxData} 
+              clientOrderBoxAmount={clientOrderBoxAmount}
+              setclientOrderBoxAmount={setclientOrderBoxAmount}
+              setEndOrderModal={setEndOrderModal}
+            />
+          : 
+            null
+          }
         {endOrderModal 
-        ? 
-          <ModalInfo
-            modalInfoState={endOrderModal}
-            setModalInfoState={setEndOrderModal}
-            info={'Success! Check your orders in your profile!'}
-            img={<img src="https://img.icons8.com/doodle/48/000000/firework-explosion.png"/>}
-          />
-        : 
-          null
+          ? 
+            <ModalInfo
+              modalInfoState={endOrderModal}
+              setModalInfoState={setEndOrderModal}
+              info={'Success! Check your orders in your profile!'}
+              img={<img src="https://img.icons8.com/doodle/48/000000/firework-explosion.png"/>}
+            />
+          : 
+            null
         }
       </main>
     </Context.Provider>

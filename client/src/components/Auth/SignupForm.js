@@ -148,13 +148,7 @@ export const SignupForm = () => {
                   <select
                     name="cuisine"
                     className="px-4 py-3 w-full border-gray-500 text-gray-500 rounded-md bg-white border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
-                      {cuisines.map((el) => {
-                          return (
-                            <OptionsCuisine 
-                            id={el.id}
-                            cuisine={el.name} />
-                          )
-                      })}
+                      <OptionsCuisine />
                   </select>
                 </div>
                 </>
