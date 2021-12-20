@@ -14,7 +14,7 @@ export const getUserLocationThunk = () => (dispatch) => {
     const country_code = res.response.GeoObjectCollection.featureMember[0]
       .GeoObject.metaDataProperty.GeocoderMetaData
       .Address.country_code;
-    console.log(country_code);
+
     dispatch(setUserLocation({address, lat, lon, country_code}));
   });
 }

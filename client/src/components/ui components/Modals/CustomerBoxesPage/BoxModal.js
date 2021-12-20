@@ -12,8 +12,9 @@ export default function BoxModal({
 }) {
   const dispatch = useDispatch();
   const user = useSelector((store) => (store.auth?.user));
-  const [orderPrice, setOrderPrice] = useState(boxData.price) // для изменения цены заказа
+  const [orderPrice, setOrderPrice] = useState(boxData.price) // state for order price
 
+  //----------function for reserving the box
   async function reserveBox(e) {
     e.preventDefault();
 
@@ -32,8 +33,6 @@ export default function BoxModal({
     catch(err) {
       console.log(err);
     }
-    
-
   }
 
   const modalImg = {

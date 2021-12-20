@@ -10,7 +10,7 @@ export const updateProfileThunk = (profileData) => async (dispatch) => {
 
   if (request.status === 200) {
     const newProfileData = await request.json();
-    console.log(newProfileData);
+
     dispatch(updateProfile(newProfileData));
   }
   else alert('Some troubles with Server!')

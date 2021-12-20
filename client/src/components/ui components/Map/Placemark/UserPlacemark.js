@@ -9,12 +9,15 @@ import { getBoxAmount } from "../../../../lib/getBoxAmount";
 export const UserPlacemark = (props) => {
   const { boxData } = props;
   const { modalBoxHandler } = useContext(Context);
-  const [boxAmountMap, SetBoxAmount] = useState(0) // для изменения количества оставшихся боксов в ресторане после оформления заказа клиента
+
+  const [boxAmountMap, SetBoxAmount] = useState(0)
   const [curBoxId, SetCurBoxId] = useState(0);
 
   const balloonHandler = (box) => {
+    //-------converting time data into string
     const startTime = convertObjTimetoStrTime(box.start_date);
     const endTime = convertObjTimetoStrTime(box.end_date);
+
     const box_amount = getBoxAmount(box);
     
     SetCurBoxId(box.id)
@@ -99,14 +102,12 @@ export const UserPlacemark = (props) => {
         boxData.reduce((acc, cur) => acc + getBoxAmount(cur), 0)
           ?
             <UserPlacemark/>
-          : 
-            null
+          : null
       :
         getBoxAmount(boxData)
           ?
             <UserPlacemark/>
-          : 
-            null 
+          : null 
   )
 
 }

@@ -17,7 +17,6 @@ export const addNewOrder = (orderData) => async (dispatch) => {
       count_reserved: orderData.count_box,
     }))  
   }
-  
 }
 
 export const getOrders = (params, id) => async (dispatch) => {
@@ -125,4 +124,3 @@ export const deleteAllOrders = (arr) => async (dispatch) => {
     console.error("Err", err);
   } 
 };
- 

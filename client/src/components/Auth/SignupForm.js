@@ -15,14 +15,11 @@ export const SignupForm = () => {
   
   const [userButton, setUser] = useState(true);
   const [businessButton, setBusiness] = useState(false);
-  const cuisines = useSelector((store) => (store.boxes?.cuisines));
 
   const [lon, SetLon] = useState(null);
   const [lat, SetLat] = useState(null);
   const [address, SetAddress] = useState(null);
-  const [countryCode, SetCountryCode] = useState(null)
-
-  console.log('signup', userLocation);
+  const [countryCode, SetCountryCode] = useState(null);
 
   const changeForm = () => {
     setUser(!userButton);
@@ -38,8 +35,8 @@ export const SignupForm = () => {
     const password = event.target.password.value;
     const confirm_password = event.target.confirm_password.value;
     const cuisine = event.target?.cuisine?.value;
-    // console.log(countryCode);
-    // console.log('info=>>>', name, address, email, password, address, lon, lat, phone, cuisine, countryCode);
+    
+    //---------if password matches, we dispatch user's info into thunk 
     if (password === confirm_password) {
       dispatch(registerUserThunk({name, address, email, password, address, lon, lat, phone, cuisine, countryCode, navigate}));
     } else {
@@ -47,6 +44,7 @@ export const SignupForm = () => {
     }
   }
 
+  //---------getting user's location when mounting
   useEffect(() => {
     if (!userLocation) dispatch(getUserLocationThunk());
   }, [])

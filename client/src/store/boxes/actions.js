@@ -11,7 +11,6 @@ export const getAllBoxesThunk = (userLocation) => async (dispatch) => {
   
   if (userLocation?.country_code) {
     allBoxes = filterBoxByLocation(allBoxes, userLocation);
-    console.log(allBoxes);
   }
   
   if (allBoxes) dispatch(setAllBoxes(allBoxes));
@@ -26,7 +25,6 @@ export const getAllCuisinesThunk = () => async (dispatch) => {
 
 //---------------fetching filtered boxes based on user's choice
 export const getFilteredBoxesThunk = (data, userLocation) => async (dispatch) => {
-  console.log('dataaa time=>', data);
 
   //converting string time back to object for DB filtration
   let DBDate = null;
@@ -76,6 +74,5 @@ export const filterBoxByLocation = (boxes, userLocation) => {
 
   return boxes.filter((el) => 
     el.country_code === userLocation?.country_code);
- 
 }
 

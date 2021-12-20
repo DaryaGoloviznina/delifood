@@ -8,15 +8,15 @@ import { RestCRMNavigation } from "../RestCRMNavigation";
 export const OrderList = () => {
   const dispatch = useDispatch();
   const params = useParams();
+  
   const user = useSelector((store) => (store.auth?.user));
+  const arr = useSelector((store) => store.orders.orders);
 
   useEffect(() => {
     (async () => {
       dispatch(getOrders(params.id, user?.id));
     })();
   }, [dispatch, params.id, user]);
-
-  const arr = useSelector((store) => store.orders.orders);
 
   function deleteAll(){
     let arrId = []
@@ -30,7 +30,6 @@ export const OrderList = () => {
     <div className="mt-10">
       <RestCRMNavigation 
       deleteAll={deleteAll}/>
-      {/* {params.id !== 'active' && <button onClick={deleteAll}>DELETE ALL</button> } */}
       <div className="flex container flex-wrap mx-auto items-center justify-center py-8 dark:bg-gray-900">
         {arr.map((el) => <Order key={el.id} order={el} />)}
         { !arr.length && 

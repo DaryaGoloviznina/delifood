@@ -39,11 +39,6 @@ export const DeleteModal = ({box, deleteBox, setShowModal, deleteAll}) => {
                 className="focus:outline-none bg-red-400 transition duration-150 ease-in-out hover:bg-red-500 rounded text-white px-3 py-2 text-xs">
                   Delete Box
                 </button>}
-                {/* <button 
-                onClick={deleteBox}
-                className="focus:outline-none bg-red-400 transition duration-150 ease-in-out hover:bg-red-500 rounded text-white px-3 py-2 text-xs">
-                  Delete Box
-                </button> */}
               </div>
             </div>
           </div>

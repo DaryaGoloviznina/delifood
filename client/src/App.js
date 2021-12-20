@@ -16,6 +16,7 @@ import { BoxesPage } from './components/BoxesPage/BoxesPage';
 import { ClientOrdersList } from './components/Client/OrdersList/ClientOrdersList'
 import { getAllCuisinesThunk } from '../src/store/boxes/actions';
 
+//---------creating array of all routes 
 const routes = [
   {
     path: '/',

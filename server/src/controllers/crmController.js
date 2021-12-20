@@ -21,8 +21,7 @@ exports.addNewBox = async (req, res) => {
 exports.getActiveBoxes = async (req, res) => { 
 
   try {
-    console.log(req.params.id)
-    if (req.params.id === 'active') { // активные боксы, это боксы, у которых не вышло время(до end_time)
+    if (req.params.id === 'active') { // active boxes or non-expired boxes
       const activeBoxes = await Box.findAll({
       where: {
         end_date: {
@@ -35,8 +34,9 @@ exports.getActiveBoxes = async (req, res) => {
     ],
       raw: true
     });
+
     res.json(activeBoxes)
-    } else if (req.params.id === 'picked') { // picked боксы, это боксы, у которых вышло время и которые были все раскуплены
+    } else if (req.params.id === 'picked') { // picked up boxes and expired
       const pickedBoxes = await Box.findAll({
         where: {
           end_date: {

@@ -19,7 +19,7 @@ function UserPlacemarkBalloon(boxData) {
       </div>
     `;
     if (getBoxAmount(box)) return baloonTemplate;
-    // else if (box.id === curBoxId && !getBoxAmount(box)) return;
+
     else return;
   }
 

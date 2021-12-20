@@ -8,9 +8,6 @@ import { OptionsCuisine } from "../BoxesPage/filterBar/filterOptions/OptionsCuis
 export const RestProfile = () => {
   const dispatch = useDispatch();
   const profileData = useSelector((store) => store.auth.user) ?? {};
-  const cuisines = useSelector((store) => (store.boxes?.cuisines));
-
-  console.log(profileData);
   
   const [isEdit, SetEdit] = useState(false);
   const [lon, SetLon] = useState(profileData?.lon);

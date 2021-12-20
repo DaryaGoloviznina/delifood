@@ -1,3 +1,5 @@
+//------------------calculating distance from user to the box
+
 exports.calculateDistance = (data1, data2) => {
 
   const degreesToRadians = degrees => degrees * (Math.PI / 180);
@@ -15,7 +17,7 @@ exports.calculateDistance = (data1, data2) => {
               degreesToRadians(
                 Math.abs(locationX.longitude - locationY.longitude)
               )
-         )
+          )
       )
     );
   }

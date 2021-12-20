@@ -6,6 +6,7 @@ const initialState = {
 }
 export const boxes = (state = initialState, action) => {
   switch (action.type) {
+    
     case ACTypes.SET_ALL_BOXES:
       return {...state,  
         boxes: action.payload.boxes

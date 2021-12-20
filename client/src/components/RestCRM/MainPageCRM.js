@@ -1,19 +1,19 @@
 import {useState, useEffect} from "react";
 import { BoxesList } from "./BoxesList/BoxesList";
-import { ActionButton } from "../ui components/Buttons/ActionButton";
 import Context from '../../context';
 import { useDispatch, useSelector } from "react-redux";
 import {formateDate} from '../../lib/formateTimeFunctions';
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getBoxes, createNewBox } from '../../store/restCRM/actions'
 import { RestCRMNavigation } from "./RestCRMNavigation";
 
 export const MainPageCRM = () => {
   const params = useParams();
+  const dispatch = useDispatch();
+
   const [modalState, SetModalState] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
   const [inputValues, setInputValues] = useState(null);
-  const dispatch = useDispatch();
 
   const user = useSelector((store) => (store.auth?.user));
   
@@ -23,18 +23,18 @@ export const MainPageCRM = () => {
     })();
   }, [dispatch, params.id, user]);
   
-  // это информация для модального окна при создании нового бокса
+  //------- data for modal once new box is created 
   function addNewBox(){
     SetModalState(true);
     setInputValues(null);
     setModalInfo({title: 'Create new box', textButton: 'Create', func: sendBoxtoDB})
   }
 
-
-  // функция отправляющая в бд новый бокс
+  // --------- function that adds new box to db
   function sendBoxtoDB (e) {
     e.preventDefault();
-    SetModalState(false)
+    SetModalState(false);
+
     dispatch(createNewBox({
       name: e.target.name.value,
       count: e.target.count.value,
@@ -43,7 +43,7 @@ export const MainPageCRM = () => {
       end_date: formateDate(e.target.timeTo.value, 'now'),
       descr: e.target.description.value,
       store_id: user?.id
-    }, params.id))
+    }, params.id));
   }
   
   return (

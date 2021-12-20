@@ -6,7 +6,7 @@ export const ClientProfileData = ({edit}) => {
   const dispatch = useDispatch();
   const profileData = useSelector((store) => store.auth.user) ?? {};
   
-  const [isEdit, SetEdit] = useState(false);
+  const [isEdit, SetEdit] = useState(false); // setting state for the client to edit info
 
   const formHandler = (e) => {
     e.preventDefault();
