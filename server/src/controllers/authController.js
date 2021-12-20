@@ -18,7 +18,6 @@ exports.isUser = (req, res) => {
 };
 
 exports.createUserAndSession = async (req, res) => {
-  console.log('body=>>>', req.body);
   const { email, password, address, cuisine } = req.body;
 
   let cuisineId;
@@ -60,7 +59,7 @@ exports.createUserAndSession = async (req, res) => {
     const text = `<p>Hello, ${req.body.name}!</p>
                   <p>You have successfully registered on the Delifood website!</p>`
 
-    sendNotice(email, text).catch(console.error); // отправка сообщений
+    sendNotice(email, text).catch(console.error); // sending email to registered user
 
     res.json(formatedUser);
 
@@ -91,14 +90,9 @@ exports.checkUserAndCreateSession = async (req, res, next) => {
         }],
       }, {raw: true});
 
-      
       user.cuisine = cuisine.name;
-      console.log('user=>', user);
       const formatedUser = formatSendData(user.toJSON());
-
       formatedUser.cuisine = cuisine.name;
-
-      console.log('formatted=>', formatedUser);
 
       req.session.user = formatedUser; 
       res.json(formatedUser);

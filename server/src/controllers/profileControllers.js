@@ -44,7 +44,7 @@ exports.updateProfile = async (req, res) => {
       );
 
     } catch (error) {
-      console.log('Не удалось добавить запись в базу данных.', error);
+      console.log('The data was not added to the data base', error);
     }
   }
 
@@ -53,11 +53,9 @@ exports.updateProfile = async (req, res) => {
       newItem.set(req.body);
       await newItem.save();
     } catch (error) {
-      console.log('Не удалось добавить запись в базу данных.', error);
+      console.log('The data was not added to the data base', error);
     }
   }
-
-  console.log('data', newItem);
 
   const sendData = formatSendData({...newItem.toJSON()});
 

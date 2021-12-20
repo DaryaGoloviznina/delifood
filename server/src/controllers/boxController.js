@@ -135,8 +135,6 @@ exports.getFilteredBoxes = async (req, res) => {
         }
       });
 
-      console.log(filteredByTime);
-
       const activeFilteredBoxes = filterActiveBoxes(filteredByTime);
       res.json(activeFilteredBoxes).end();
     }

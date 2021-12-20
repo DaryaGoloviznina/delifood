@@ -9,10 +9,11 @@ export const ClientOrdersList = () => {
   const user = useSelector((store) => (store.auth?.user));
   const dispatch = useDispatch();
 
+  //-------getting client's orders
   useEffect(() => {
     dispatch(getClientOrders(params.id, user));
 
-  return () => dispatch(setActiveOrdersAC([]));
+    return () => dispatch(setActiveOrdersAC([]));
   }, [dispatch, user, params.id]); 
   
   const orders = useSelector((store) => (store.orders.orders));
@@ -28,10 +29,5 @@ export const ClientOrdersList = () => {
         </div>
       }
     </div>
-  // );
-  // <div className="flex items-center justify-center py-8 dark:bg-gray-900">
-
-  //   {arr.map((el) => <ClientOrder key={el.id} order={el}/>)}
-  // </div>
 );
 };

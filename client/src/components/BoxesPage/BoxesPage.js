@@ -16,12 +16,12 @@ export const BoxesPage = () => {
   const [mode, SetMode] = useState('listBox');
   
   const boxes = useSelector((store) => (store.boxes?.boxes));
-  const userLocation = useSelector((store) => store?.auth?.location); // локация юзера
+  const userLocation = useSelector((store) => store?.auth?.location); // user's location
   
-  const [boxData, setBoxdata] = useState({}); // для передачи данных бокса в modalBox
-  const [showModal, setShowModal] = useState(false); // состояние modalBox
-  const [endOrderModal, setEndOrderModal] = useState(false) // показ модальное окно завершения заказа клиента
-  const [clientOrderBoxAmount, setclientOrderBoxAmount] = useState() // для изменения количества оставшихся боксов в ресторане после оформления заказа клиента
+  const [boxData, setBoxdata] = useState({}); // setting up data for modal
+  const [showModal, setShowModal] = useState(false); // modalBox state
+  const [endOrderModal, setEndOrderModal] = useState(false) // modal state when the order is finished
+  const [clientOrderBoxAmount, setclientOrderBoxAmount] = useState() // setting up boxes count so it can be changed after a box is ordered
   const [changeBoxAmountFunc, SetChangeBoxAmountFunc] = useState();
 
   const [pickedOptions, setOptions] = useState(defaultState);
@@ -123,6 +123,5 @@ export const BoxesPage = () => {
         }
       </main>
     </Context.Provider>
-
   )
 }

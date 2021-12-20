@@ -9,11 +9,11 @@ export const Order = ({order}) => {
   const dispatch = useDispatch();
 
   async function giveOrder(){
-    dispatch(issueOrder(order.id))
+    dispatch(issueOrder(order.id));
   }
   
   async function deleteOrder(){
-    dispatch(delOrder(params.id, order.id))
+    dispatch(delOrder(params.id, order.id));
   }
   
   return (

@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux"
-import { Outlet, Link } from "react-router-dom";
 import { ClientProfile } from "../../Client/ClientProfile";
 import { RestProfile } from "../../RestCRM/RestProfile";
 
@@ -9,8 +8,5 @@ export const Profile = () => {
 
   return profileData?.address 
     ? <RestProfile /> 
-    : 
-    <> 
-      <ClientProfile /> 
-    </>
+    : <ClientProfile /> 
 }

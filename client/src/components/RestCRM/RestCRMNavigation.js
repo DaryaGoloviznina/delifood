@@ -3,9 +3,10 @@ import { Link, useLocation, useParams } from "react-router-dom";
 
 export const RestCRMNavigation = ({addNewBox, deleteAll}) => {
 
-  const [activeStatus, setActiveStatus] = useState(1);
   const location = useLocation();
   const params = useParams();
+  
+  const [activeStatus, setActiveStatus] = useState(1);
   
   return (
     <div className="flex justify-center">
