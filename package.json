@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "cd client && npm i && npm run build",
-    "start": "cd server && npm i && npx sequelize-cli db:migrate && npm start"
+    "start": "cd server && npm i && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && npm start"
   },
   "repository": {
     "type": "git",
