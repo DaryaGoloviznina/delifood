@@ -1,25 +1,18 @@
-import { useEffect, useState, useContext } from 'react';
-import Context from '../../../context';
-
+import { useEffect, useState } from 'react';
 import { YMaps, Map, SearchControl } from 'react-yandex-maps';
-import { UserPlacemark } from './Placemark/UserPlacemark'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBoxesThunk } from '../../../store/boxes/actions';
-import BoxModal from '../Modals/CustomerBoxesPage/BoxModal'
-import { convertObjTimetoStrTime } from '../../../lib/formateTimeFunctions';
 import { setUserLocation } from '../../../store/user/UserLocation/actions';
-import compareBoxes from '../../../lib/compareBoxes';
 import { ListPlacemarks } from './Placemark/ListPlacemarks';
 
 export const RestMap = () => {
   
   const dispatch = useDispatch();
   const location = useSelector((store) => (store.auth?.location));
-  const [clientOrderBoxAmount, setclientOrderBoxAmount] = useState() // для изменения количества оставшихся боксов в ресторане после оформления заказа клиента
-
+  const [clientOrderBoxAmount] = useState() 
   useEffect(() => {
     if (clientOrderBoxAmount === 0) dispatch(getAllBoxesThunk(location));
-  }, [clientOrderBoxAmount]);
+  }, [clientOrderBoxAmount, dispatch, location]);
   
   return (
     <div className="rounded-xl">

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Context from '../../../context';
 import { FilterSelect } from './FilterSelect';
 import { OptionsCuisine } from './filterOptions/OptionsCuisine';
@@ -22,12 +22,10 @@ export const FilterNav = () => {
   const dispatch = useDispatch();
   const [query, SetQuery] = useState('');
   
-  //-------------dispatching user's choices with every state change
   useEffect(() => {
     dispatch(getFilteredBoxesThunk(pickedOptions, userLocation));
-  }, [pickedOptions, userLocation]);
+  }, [dispatch, pickedOptions, userLocation]);
   
-  //-------------setting state to match user's choises dynamically
   const onChangeHandler = (event) => {    
     const option = event.target.name;
     const value = event.target.value;

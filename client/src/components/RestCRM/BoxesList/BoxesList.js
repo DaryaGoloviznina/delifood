@@ -49,7 +49,7 @@ export const BoxesList = () => {
       {  modalState && <ModalBox /> }
       { modalsInfoState && <ModalInfo info={'You cannot delete this box as it was already ordered and pending pick up!'} 
       setModalInfoState={setModalsInfoState}
-      img={<img src="https://img.icons8.com/office/30/000000/cancel-2.png"/>} /> }
+      img={<img src="https://img.icons8.com/office/30/000000/cancel-2.png" alt="img"/>} /> }
     </div>
     </>
   );

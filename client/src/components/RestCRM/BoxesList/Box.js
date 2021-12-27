@@ -12,7 +12,7 @@ export const Box = ({box, setModalInfoState}) => {
   const [showModal, setShowModal] = useState(false);
   
   const { SetModalState, setModalInfo, setInputValues } = useContext(Context);
-  // функция для редактирования бокса - fetch + dispatch
+ 
   async function sendEditBoxToDB(e){
     e.preventDefault();
     dispatch(editBoxes({

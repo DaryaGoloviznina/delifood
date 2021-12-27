@@ -12,9 +12,8 @@ export default function BoxModal({
 }) {
   const dispatch = useDispatch();
   const user = useSelector((store) => (store.auth?.user));
-  const [orderPrice, setOrderPrice] = useState(boxData.price) // state for order price
+  const [orderPrice, setOrderPrice] = useState(boxData.price);
 
-  //----------function for reserving the box
   async function reserveBox(e) {
     e.preventDefault();
 
@@ -50,13 +49,14 @@ export default function BoxModal({
             <img 
             style={modalImg}
             className="object-cover rounded-lg"
-            src={boxData.store_img}/>
+            src={boxData.store_img}
+            alt="img"/>
           </div> 
 
           <div className="overflow-y-auto h-full w-2/3 p-4">
             <div className="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-black text-sm z-50">
               <img src="https://img.icons8.com/ios/30/000000/delete-sign--v1.png"
-              onClick={() => setShowModal(false)}/>
+              onClick={() => setShowModal(false)} alt="img"/>
             </div>
 
             <div>
@@ -69,7 +69,7 @@ export default function BoxModal({
               </p>
 
               <div className="flex mt-1">
-                <img src="https://img.icons8.com/fluency-systems-regular/15/000000/clock--v3.png"/>
+                <img src="https://img.icons8.com/fluency-systems-regular/15/000000/clock--v3.png" alt="img"/>
                 <p className="text-xs ml-1">
                   Today {boxData.startTime} - {boxData.endTime}
                 </p>
@@ -86,7 +86,7 @@ export default function BoxModal({
               </h1>
 
               <div className="mt-3 mb-3 flex">
-                <img src="https://img.icons8.com/external-icongeek26-linear-colour-icongeek26/64/000000/external-lunch-bag-food-and-delivery-icongeek26-linear-colour-icongeek26.png"/>
+                <img src="https://img.icons8.com/external-icongeek26-linear-colour-icongeek26/64/000000/external-lunch-bag-food-and-delivery-icongeek26-linear-colour-icongeek26.png" alt="img"/>
                 <p className="ml-1 mt-1 text-sm text-gray-600">
                   Mystery Box is, well, a mystery! {boxData.store_name} will make sure to pack it up with delicious goodies that have been left at the end of the day.
                 </p>

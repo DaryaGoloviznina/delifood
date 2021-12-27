@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useRef } from 'react'
-import { GeolocationControl, Map, Placemark, SearchControl, YMaps } from "react-yandex-maps";
+import { Map, Placemark, SearchControl, YMaps } from "react-yandex-maps";
 import { setUserLocation } from "../../../../store/user/UserLocation/actions";
 import { ActionButton } from "../../Buttons/ActionButton";
 
@@ -65,14 +65,7 @@ export const MapModal = ({ modalState, SetModalState }) => {
                     geometry={[userLocation?.lat, userLocation?.lon]}
                     options={{draggable: true}}
                   />
-                  {/* <GeolocationControl options={{ float: 'left', noPlacemark: true }} onLocationChange={async (e) => {
-                    const [lat, lon] =  e.originalEvent.position;
-                    let req = await fetch(`https://geocode-maps.yandex.ru/1.x/?format=json&apikey=fd56ec54-348d-47a6-8ba7-17e1dd585174&geocode=${lon}, ${lat}`)
-                    let res = await req.json();
-                    const address = res.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.Address.formatted;
-
-                    dispatch(setUserLocation({address, lat, lon, country_code: res.getCountryCode()}))
-                  }}/> */}
+          
                   <SearchControl 
                     options={{ float: 'right' }} 
                     onResultSelect={async (e) => {

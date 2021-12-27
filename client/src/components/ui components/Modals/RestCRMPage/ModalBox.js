@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import Context from '../../../../context'
 
 export const ModalBox = () => {
-    const { modalState, SetModalState, modalInfo, inputValues } = useContext(Context);
+    const { SetModalState, modalInfo, inputValues } = useContext(Context);
 
   return (
     <>
@@ -19,7 +19,7 @@ export const ModalBox = () => {
         className="bg-white justify-items-end top-0 right-0 cursor-pointer mt-4 ml-4 text-black text-sm z-50">
           <img 
           src="https://img.icons8.com/ios/25/000000/delete-sign--v1.png"
-          />
+          alt="img"/>
         </div>
         <div className="mr-3 bg-white flex items-center justify-center p-6 sm:p-12 md:w-1/2">
           <form 
@@ -83,7 +83,7 @@ export const ModalBox = () => {
               <label className="block text-sm">
                 Pick Up Time
               </label>
-              {/* <span>From</span> */}
+    
               <input 
               type="time" 
               id="appt"
@@ -132,7 +132,7 @@ export const ModalBox = () => {
           <img 
           className="w-full h-full object-cover rounded-lg"
           src="https://images.unsplash.com/photo-1601314002592-b8734bca6604?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=872&q=80"
-          />
+          alt="img"/>
         </div>
       </div>
       </div>

@@ -22,15 +22,13 @@ export const MainPageCRM = () => {
       dispatch(getBoxes(params.id, user?.id))
     })();
   }, [dispatch, params.id, user]);
-  
-  //------- data for modal once new box is created 
+ 
   function addNewBox(){
     SetModalState(true);
     setInputValues(null);
     setModalInfo({title: 'Create new box', textButton: 'Create', func: sendBoxtoDB})
   }
 
-  // --------- function that adds new box to db
   function sendBoxtoDB (e) {
     e.preventDefault();
     SetModalState(false);

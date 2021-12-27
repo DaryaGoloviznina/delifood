@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import $ from 'jquery';
 import Context from '../../../../context';
 import { Placemark, withYMaps } from "react-yandex-maps";
@@ -14,10 +14,9 @@ export const UserPlacemark = (props) => {
   const [curBoxId, SetCurBoxId] = useState(0);
 
   const balloonHandler = (box) => {
-    //-------converting time data into string
+ 
     const startTime = convertObjTimetoStrTime(box.start_date);
     const endTime = convertObjTimetoStrTime(box.end_date);
-
     const box_amount = getBoxAmount(box);
     
     SetCurBoxId(box.id)

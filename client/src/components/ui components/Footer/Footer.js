@@ -8,19 +8,19 @@ export const Footer = () => {
                   <div className="flex flex-col">
                       <span className="font-small text-white text-3xl font-bold">DeliFood</span>
                       <span className=" text-gray-400 mb-2">Striving towards zero-waste step by step</span>
-                      <span className="my-2"><a href="#" className="text-gray-200 text-md hover:text-gray-500">Contact Us</a></span>
+                      <span className="my-2"><button className="text-gray-200 text-md hover:text-gray-500">Contact Us</button></span>
                   </div>
                   <div className="flex flex-col">
                       <span className="font-bold text-white uppercase mt-4 md:mt-0 mb-2">Company</span>
-                      <span className="my-2"><a href="#" className="text-gray-300 text-md hover:text-gray-500">About</a></span>
-                      <span className="my-2"><a href="#" className="text-gray-300  text-md hover:text-gray-500">Careers</a></span>
-                      <span className="my-2"><a href="#" className="text-gray-300 text-md hover:text-gray-500">Press</a></span>
+                      <span className="my-2"><button className="text-gray-300 text-md hover:text-gray-500">About</button></span>
+                      <span className="my-2"><button className="text-gray-300  text-md hover:text-gray-500">Careers</button></span>
+                      <span className="my-2"><button className="text-gray-300 text-md hover:text-gray-500">Press</button></span>
                   </div>
                   <div className="flex flex-col">
                       <span className="font-bold text-white uppercase mt-4 md:mt-0 mb-2">Legal</span>
-                      <span className="my-2"><a href="#" className="text-gray-300  text-md hover:text-gray-500">Terms & Conditions</a></span>
-                      <span className="my-2"><a href="#" className="text-gray-300  text-md hover:text-gray-500">Privacy Policy</a></span>
-                      <span className="my-2"><a href="#" className="text-gray-300  text-md hover:text-gray-500">Cookie Policy</a></span>
+                      <span className="my-2"><button className="text-gray-300  text-md hover:text-gray-500">Terms & Conditions</button></span>
+                      <span className="my-2"><button className="text-gray-300  text-md hover:text-gray-500">Privacy Policy</button></span>
+                      <span className="my-2"><button className="text-gray-300  text-md hover:text-gray-500">Cookie Policy</button></span>
                   </div>
               </div>
           </div>

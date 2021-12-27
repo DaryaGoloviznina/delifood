@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfileThunk } from "../../../store/user/profile/actions";
 
-export const ClientProfileData = ({edit}) => {
+export const ClientProfileData = () => {
   const dispatch = useDispatch();
   const profileData = useSelector((store) => store.auth.user) ?? {};
   
-  const [isEdit, SetEdit] = useState(false); // setting state for the client to edit info
+  const [isEdit, SetEdit] = useState(false); 
 
   const formHandler = (e) => {
     e.preventDefault();

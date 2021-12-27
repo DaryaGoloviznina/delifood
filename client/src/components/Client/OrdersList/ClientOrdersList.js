@@ -9,7 +9,6 @@ export const ClientOrdersList = () => {
   const user = useSelector((store) => (store.auth?.user));
   const dispatch = useDispatch();
 
-  //-------getting client's orders
   useEffect(() => {
     dispatch(getClientOrders(params.id, user));
 
@@ -20,7 +19,7 @@ export const ClientOrdersList = () => {
 
   return (
     <div className="flex container flex-wrap mx-auto items-center justify-center py-8 dark:bg-gray-900">
-      {orders.map((el) => <ClientOrder order={el}/>)}
+      {orders.map((el) => <ClientOrder key={el.id} order={el}/>)}
       { !orders.length && 
         <div className="container h-80 text-center mt-36">
           <p className="uppercase text-gray-400 font-bold">

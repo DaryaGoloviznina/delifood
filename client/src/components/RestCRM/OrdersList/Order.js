@@ -22,7 +22,7 @@ export const Order = ({order}) => {
       <div className="py-5 h-1/2 rounded-md relative pb-36 overflow-hidden">
         <img 
         className="absolute inset-0 rounded-l h-full w-full object-cover"
-        src="https://images.unsplash.com/photo-1529003600303-bd51f39627fb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"/>
+        src="https://images.unsplash.com/photo-1529003600303-bd51f39627fb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" alt="img"/>
       </div>
       <div className="py-5">
         <div className="flex items-center w-full">

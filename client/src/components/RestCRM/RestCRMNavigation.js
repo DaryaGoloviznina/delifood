@@ -35,7 +35,7 @@ export const RestCRMNavigation = ({addNewBox, deleteAll}) => {
                 /boxes/.test(location.pathname) 
                 ? "/crm/boxes/active"
                 : "/crm/orders/active"}>
-                  <li onClick={() => setActiveStatus(1)} className={activeStatus == 1 ? "text-m text-green-700 py-2 px-4 bg-white rounded mr-8 font-normal" : "text-m text-gray-600 py-3 mr-10 font-normal hover:text-green-700 cursor-pointer"}>
+                  <li onClick={() => setActiveStatus(1)} className={activeStatus === 1 ? "text-m text-green-700 py-2 px-4 bg-white rounded mr-8 font-normal" : "text-m text-gray-600 py-3 mr-10 font-normal hover:text-green-700 cursor-pointer"}>
                     Active
                   </li>
                 </Link>
@@ -43,7 +43,7 @@ export const RestCRMNavigation = ({addNewBox, deleteAll}) => {
                 /boxes/.test(location.pathname)
                 ? "/crm/boxes/picked"
                 : "/crm/orders/picked"}>
-                  <li onClick={() => setActiveStatus(2)} className={activeStatus == 2 ? "text-m text-green-700 py-2 px-4 bg-white mr-8 rounded font-normal" : "text-m text-gray-600 py-3 mr-10 font-normal hover:text-green-700 cursor-pointer"}>
+                  <li onClick={() => setActiveStatus(2)} className={activeStatus === 2 ? "text-m text-green-700 py-2 px-4 bg-white mr-8 rounded font-normal" : "text-m text-gray-600 py-3 mr-10 font-normal hover:text-green-700 cursor-pointer"}>
                     Picked Up
                   </li>
                 </Link>
@@ -51,7 +51,7 @@ export const RestCRMNavigation = ({addNewBox, deleteAll}) => {
                 /boxes/.test(location.pathname)
                 ? "/crm/boxes/expired"
                 : "/crm/orders/expired"}>
-                  <li onClick={() => setActiveStatus(3)} className={activeStatus == 3 ? "mr-14 text-m text-green-700 py-2 px-4 bg-white rounded font-normal" : "mr-14 text-m text-gray-600 py-3  font-normal hover:text-green-700 cursor-pointer"}>
+                  <li onClick={() => setActiveStatus(3)} className={activeStatus === 3 ? "mr-14 text-m text-green-700 py-2 px-4 bg-white rounded font-normal" : "mr-14 text-m text-gray-600 py-3  font-normal hover:text-green-700 cursor-pointer"}>
                     Expired
                   </li>
                 </Link>

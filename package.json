@@ -12,13 +12,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vladmilko/delifood.git"
+    "url": "git+https://github.com/DaryaGoloviznina/delifood.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/vladmilko/delifood/issues"
+    "url": "https://github.com/DaryaGoloviznina/delifood/issues"
   },
-  "homepage": "https://github.com/vladmilko/delifood#readme"
+  "homepage": "https://github.com/DaryaGoloviznina/delifood#readme"
 }

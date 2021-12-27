@@ -2,7 +2,6 @@ import { UserPlacemark } from "./UserPlacemark"
 import compareBoxes from '../../../../lib/compareBoxes';
 import { useSelector } from "react-redux";
 
-//------positiongin a list of placemarks on the map
 export const ListPlacemarks = () => {
   const boxes = useSelector((store) => (store.boxes?.boxes));
 

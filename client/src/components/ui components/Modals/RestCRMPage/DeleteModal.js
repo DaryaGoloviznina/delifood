@@ -10,7 +10,7 @@ export const DeleteModal = ({box, deleteBox, setShowModal, deleteAll}) => {
 
                 <div className="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-black text-sm z-50">
                   <img src="https://img.icons8.com/ios/20/000000/delete-sign--v1.png"
-                  onClick={() => setShowModal(false)}/>
+                  onClick={() => setShowModal(false)} alt="img"/>
                 </div>
 
                 <div className="-ml-1 text-gray-600 dark:text-gray-400">

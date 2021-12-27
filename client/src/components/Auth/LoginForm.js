@@ -29,7 +29,7 @@ export const LoginForm = () => {
             className="w-full"
             onSubmit={authUser}>
               <div className="flex justify-center">
-                <img src="https://img.icons8.com/office/40/000000/broccoli.png"/>
+                <img src="https://img.icons8.com/office/40/000000/broccoli.png"  alt="img"/>
               </div>
               <h1 className="mb-4 text-2xl font-bold text-center text-gray-700">
                 Log In
@@ -64,9 +64,9 @@ export const LoginForm = () => {
               <div className="mt-4 text-center">
                 <p className="text-sm">Don't have an account yet?
                   <Link to="/auth/signup">
-                    <a className="ml-1 text-green-600 hover:underline"> 
+                    <button className="ml-1 text-green-600 hover:underline"> 
                       Sign up.
-                    </a>
+                    </button>
                   </Link>
                 </p>
               </div>

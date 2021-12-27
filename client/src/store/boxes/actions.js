@@ -5,7 +5,6 @@ export const setAllBoxes = (boxes) => ({type: ACTypes.SET_ALL_BOXES, payload: {b
 export const setAllCuisines = (cuisines) => ({type: ACTypes.SET_ALL_CUISINE, payload: {cuisines}});
 export const updateBoxData = (newBoxData) => ({type: ACTypes.UPDATE_BOX_DATA, payload: newBoxData})
 
-//-------------fetching all active boxes
 export const getAllBoxesThunk = (userLocation) => async (dispatch) => {
   let allBoxes = await (await fetch(`/boxes/allBoxes`)).json();
   
@@ -16,23 +15,19 @@ export const getAllBoxesThunk = (userLocation) => async (dispatch) => {
   if (allBoxes) dispatch(setAllBoxes(allBoxes));
 }
 
-//--------------fetching all cuisines
 export const getAllCuisinesThunk = () => async (dispatch) => {
   let allCuisines = await (await fetch(`/boxes/allCuisines`)).json();
   
   if (allCuisines) dispatch(setAllCuisines(allCuisines));
 }
 
-//---------------fetching filtered boxes based on user's choice
 export const getFilteredBoxesThunk = (data, userLocation) => async (dispatch) => {
 
-  //converting string time back to object for DB filtration
   let DBDate = null;
   if ( data.time !== 'anyTime') {
     DBDate = formateDate(data.time);
   }
 
-  //fetching all boxes if no filter set
   if (
     data.cuisine === 'Any Cuisine' && 
     data.price === 'anyPrice' && 
@@ -40,7 +35,6 @@ export const getFilteredBoxesThunk = (data, userLocation) => async (dispatch) =>
     
     dispatch(getAllBoxesThunk(userLocation));
   } else {
-    //fetching filtered boxes based on user's choices
     let request = await fetch(`/boxes/filter`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

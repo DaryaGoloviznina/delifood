@@ -15,7 +15,7 @@ export const ClientOrder = ({order}) => {
       <div className="py-5 h-1/2 rounded-md relative pb-36 overflow-hidden">
         <img 
         className="absolute inset-0 rounded-l h-full w-full object-cover"
-        src={order["Box.Store.store_img"]}/>
+        src={order["Box.Store.store_img"]} alt="img"/>
       </div>
       <div className="py-5">
           <div className="flex px-6 w-2/5 mb-3">

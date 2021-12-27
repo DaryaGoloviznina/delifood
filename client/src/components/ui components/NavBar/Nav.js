@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
-import { LinkButton } from '../Buttons/LinkButton';
 import { NavBusiness } from './business/NavBusiness';
 import { NavNoUSer } from './no user/NavNoUser';
 import { NavClient } from './user/NavClient';
@@ -22,7 +21,7 @@ export const Nav = () => {
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             </div>
             <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-              {/* logo */}
+            
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center">
                   <span className="font-medium text-white hover:text-gray-900 text-3xl font-extrabold">
@@ -32,10 +31,10 @@ export const Nav = () => {
               { userLocation && /boxes/.test(location.pathname) &&
               <div className="flex items-center max-w-md space-x-2 mx-8" >
                 <div className='max-w-xs flex items-center justify-center space-x-2'>
-                  <img src='/img/icons/location-mark.svg' className='h-7 sm:h-6'/>
+                  <img src='/img/icons/location-mark.svg' className='h-7 sm:h-6'alt="img"/>
                   <span className='text-white text-sm'>{userLocation?.address}</span>
                   </div>
-                  {/* <input value='Change location' type='button' onClick={()=> SetModalState(true)}/> */}
+                  
                   <button className='flex-2 px-3 py-2 rounded-md text-sm font-medium ml-2 bg-white text-dark hover:bg-gray-400' onClick={()=> SetModalState(true)}>Change location</button>
                   <MapModal 
                     modalState={modalState} 

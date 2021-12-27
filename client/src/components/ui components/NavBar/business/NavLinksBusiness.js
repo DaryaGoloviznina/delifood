@@ -1,9 +1,8 @@
-import { useDispatch, useSelector} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
 import { signOutThunk } from "../../../../store/user/auth/actions";
 
 export const NavLinksBusiness = () => {
-  const user = useSelector((store) => (store.auth?.user));
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

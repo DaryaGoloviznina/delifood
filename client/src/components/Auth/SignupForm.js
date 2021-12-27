@@ -1,11 +1,11 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link , useNavigate} from "react-router-dom";
 import { ActionButton } from '../ui components/Buttons/ActionButton'
 import { registerUserThunk } from '../../store/user/auth/actions.js'
 import { Map, SearchControl, YMaps } from 'react-yandex-maps';
 import { OptionsCuisine } from '../BoxesPage/filterBar/filterOptions/OptionsCuisine';
-import { getUserLocationThunk, setUserLocation } from '../../store/user/UserLocation/actions';
+import { getUserLocationThunk } from '../../store/user/UserLocation/actions';
 
 export const SignupForm = () => {
   const dispatch = useDispatch();
@@ -36,18 +36,16 @@ export const SignupForm = () => {
     const confirm_password = event.target.confirm_password.value;
     const cuisine = event.target?.cuisine?.value;
     
-    //---------if password matches, we dispatch user's info into thunk 
     if (password === confirm_password) {
-      dispatch(registerUserThunk({name, address, email, password, address, lon, lat, phone, cuisine, countryCode, navigate}));
+      dispatch(registerUserThunk({name, email, password, address, lon, lat, phone, cuisine, countryCode, navigate}));
     } else {
       alert('passwords do not match');
     }
   }
 
-  //---------getting user's location when mounting
   useEffect(() => {
     if (!userLocation) dispatch(getUserLocationThunk());
-  }, [])
+  }, [dispatch, userLocation])
   
   return (
     <>
@@ -200,9 +198,9 @@ export const SignupForm = () => {
                 <p className="text-sm">
                   Already have an account?
                   <Link to="/auth/login">
-                    <a className="ml-1 text-green-600 hover:underline"> 
+                    <button className="ml-1 text-green-600 hover:underline"> 
                       Log In.
-                    </a>
+                    </button>
                   </Link>
                 </p>
               </div>

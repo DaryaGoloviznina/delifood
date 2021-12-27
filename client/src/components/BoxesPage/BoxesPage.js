@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Context from '../../context';
-import { getAllBoxesThunk, getFilteredBoxesThunk } from '../../store/boxes/actions'
-import { getUserLocationThunk, setUserLocation } from "../../store/user/UserLocation/actions";
-
+import { getAllBoxesThunk } from '../../store/boxes/actions'
+import { getUserLocationThunk } from "../../store/user/UserLocation/actions";
 import { FilterNav } from "./filterBar/FilterNav";
 import { ModalInfo } from "../ui components/Modals/universal/ModalInfo";
 import { RestMap } from "../ui components/Map/Map";
@@ -16,13 +15,13 @@ export const BoxesPage = () => {
   const [mode, SetMode] = useState('listBox');
   
   const boxes = useSelector((store) => (store.boxes?.boxes));
-  const userLocation = useSelector((store) => store?.auth?.location); // user's location
+  const userLocation = useSelector((store) => store?.auth?.location); 
   
-  const [boxData, setBoxdata] = useState({}); // setting up data for modal
-  const [showModal, setShowModal] = useState(false); // modalBox state
-  const [endOrderModal, setEndOrderModal] = useState(false) // modal state when the order is finished
-  const [clientOrderBoxAmount, setclientOrderBoxAmount] = useState() // setting up boxes count so it can be changed after a box is ordered
-  const [changeBoxAmountFunc, SetChangeBoxAmountFunc] = useState();
+  const [boxData, setBoxdata] = useState({}); 
+  const [showModal, setShowModal] = useState(false); 
+  const [endOrderModal, setEndOrderModal] = useState(false);
+  const [clientOrderBoxAmount, setclientOrderBoxAmount] = useState();
+  const [changeBoxAmountFunc ] = useState();
 
   const [pickedOptions, setOptions] = useState(defaultState);
   
@@ -31,21 +30,19 @@ export const BoxesPage = () => {
     SetMode(newState);
   }
 
-  //---------------activates modal and gathers data for it
   const modalBoxHandler = (boxData, boxAmount) => {
     setclientOrderBoxAmount(boxAmount);
     setBoxdata(boxData);
-    
     setShowModal(true);
   }
 
   useEffect(() => {
     if (!userLocation) dispatch(getUserLocationThunk());
-  }, [])
+  }, [dispatch, userLocation])
 
   useEffect(() => {
     dispatch(getAllBoxesThunk(userLocation));
-  }, [userLocation]);
+  }, [dispatch, userLocation]);
 
   return (
     <Context.Provider 
@@ -116,7 +113,7 @@ export const BoxesPage = () => {
               modalInfoState={endOrderModal}
               setModalInfoState={setEndOrderModal}
               info={'Success! Check your orders in your profile!'}
-              img={<img src="https://img.icons8.com/doodle/48/000000/firework-explosion.png"/>}
+              img={<img src="https://img.icons8.com/doodle/48/000000/firework-explosion.png" alt="img"/>}
             />
           : 
             null

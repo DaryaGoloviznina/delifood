@@ -26,7 +26,6 @@ export const Box = ({boxData}) => {
   
   const location = useSelector((store) => (store.auth?.location));
 
-  //-------calculating distacne from current location to the restaurant 
   useEffect(() => {
     if (location !== null) setDistance(
       calculateDistance(
@@ -34,13 +33,12 @@ export const Box = ({boxData}) => {
         {latitude: store_lat, longitude: store_lon}
       ).toFixed(1)
     )
-  }, [location]);
+  }, [location, store_lat, store_lon]);
 
-  //--------------formats time data from DB to readable string
   const startTime = convertObjTimetoStrTime(start_date);
   const endTime = convertObjTimetoStrTime(end_date);
 
-  if (boxAmount === 0) return null // deleteing the box from the page
+  if (boxAmount === 0) return null 
 
   return (
     <div
@@ -57,7 +55,7 @@ export const Box = ({boxData}) => {
               <img 
                 className="absolute inset-0 h-full w-full object-cover" 
                 src={store_img} 
-                alt="restaurant image"
+                alt="restaurant_image"
               />
             </div>
             <div className="p-4">

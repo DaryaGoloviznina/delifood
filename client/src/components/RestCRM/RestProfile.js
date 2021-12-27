@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { updateProfileThunk } from "../../store/user/profile/actions";
-import { YMaps, Map, SearchControl, GeolocationControl, Placemark } from 'react-yandex-maps';
+import { YMaps, Map, SearchControl, Placemark } from 'react-yandex-maps';
 import { OptionsCuisine } from "../BoxesPage/filterBar/filterOptions/OptionsCuisine";
 
 export const RestProfile = () => {
@@ -39,11 +39,11 @@ export const RestProfile = () => {
             ? 
             <img src={profileData.store_img} 
               className="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center"
-            />
+            alt="img" />
             : 
             <img src="https://as1.ftcdn.net/v2/jpg/02/68/55/60/1000_F_268556012_c1WBaKFN5rjRxR2eyV33znK4qnYeKZjm.jpg"
               className="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center"
-            />
+              alt="img" />
           }
         </div> 
         { !isEdit &&
@@ -59,7 +59,7 @@ export const RestProfile = () => {
                 <p className="pt-4 text-base font-bold flex items-center justify-center lg:justify-start">
                   <img 
                   className="pr-4 mr-1 ml-1 mb-1"
-                  src="https://img.icons8.com/external-becris-lineal-becris/25/000000/external-work-finance-taxation-becris-lineal-becris.png"/>
+                  src="https://img.icons8.com/external-becris-lineal-becris/25/000000/external-work-finance-taxation-becris-lineal-becris.png" alt="img"/>
                   {value}
                 </p>
               )
@@ -67,7 +67,7 @@ export const RestProfile = () => {
                 <p className=" text-gray-600 text-sm  flex items-center justify-center lg:justify-start">
                   <img 
                   className="pr-4 mr-1  mb-1"
-                  src="https://img.icons8.com/windows/30/000000/phone.png"/>
+                  src="https://img.icons8.com/windows/30/000000/phone.png" alt="img"/>
                   {profileData.phone}
                 </p>
               )
@@ -75,7 +75,7 @@ export const RestProfile = () => {
                 <p className="mr-9 text-gray-600 text-xs text-base flex items-center justify-center lg:justify-start">
                   <img 
                   className="pr-4"
-                  src="https://img.icons8.com/windows/30/000000/cook-male.png"/>
+                  src="https://img.icons8.com/windows/30/000000/cook-male.png" alt="img"/>
                   {profileData.cuisine}
                 </p>
               )
@@ -83,7 +83,7 @@ export const RestProfile = () => {
                 <p className="pt-2 text-gray-600 text-xs lg:text-sm flex items-center justify-center lg:justify-start">
                   <img 
                   className="pr-4 mr-1 ml-1 mb-1"
-                  src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/24/000000/external-world-web-and-social-media-flatart-icons-outline-flatarticons.png"/>
+                  src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/24/000000/external-world-web-and-social-media-flatart-icons-outline-flatarticons.png" alt="img"/>
                   {profileData.address}
                 </p>
               )
@@ -198,11 +198,11 @@ export const RestProfile = () => {
         ? 
         <img src={profileData.store_img} 
           className="object-cover h-full rounded-none lg:rounded-lg shadow-2xl hidden lg:block"
-        />
+          alt="img"/>
         : 
         <img src="https://as1.ftcdn.net/v2/jpg/02/68/55/60/1000_F_268556012_c1WBaKFN5rjRxR2eyV33znK4qnYeKZjm.jpg"
           className="object-cover h-full rounded-none lg:rounded-lg shadow-2xl hidden lg:block"
-        />}
+          alt="img"/>}
       </div>
   </div>
   </>
